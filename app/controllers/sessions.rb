@@ -16,3 +16,8 @@ post '/sessions/new' do
     erb :'/sessions/new'
   end
 end
+
+delete '/sessions/destroy' do
+  session["user_id"] = nil
+  redirect '/'
+end

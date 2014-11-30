@@ -6,6 +6,11 @@ get '/users/:user_id' do
 
 end
 
+get '/users/:user_id/edit' do
+  @user = User.find(params[:user_id])
+  erb :'/users/edit'
+end
+
 post '/users/new' do
   user = User.new(params[:user])
   if user.save
@@ -24,5 +29,16 @@ post '/users/new' do
   else
     @notice = "Something went wrong. Please try again."
     erb :index
+  end
+end
+
+put '/users/:user_id' do
+  user = User.find(params[:user_id])
+  if user.authenticate(params[:user][:password])
+    user.update_attributes(params[:user])
+    redirect "/families/#{user.family.id}/show"
+  else
+    @notice = "Password Incorrect"
+    erb :"/users/#{user.id}/edit"
   end
 end
