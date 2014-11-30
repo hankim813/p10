@@ -9,7 +9,7 @@ end
 post '/users/new' do
   user = User.new(params[:user])
   if user.save
-    session[:user_id] = user.id
+    set_session_id(user.id)
     if user.family.nil?
       user.update_attribute(:admin, true)
       redirect "/families/new"

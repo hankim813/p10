@@ -15,5 +15,4 @@ post '/sessions/new' do
     @notice = "User with this email does not exist"
     erb :'/sessions/new'
   end
-
 end

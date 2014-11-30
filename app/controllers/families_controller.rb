@@ -1,6 +1,5 @@
 
 get '/families/new' do
-  # associate the current user and this newly instantiated family using current user helper method
   erb :'/families/new'
 end
 
@@ -11,8 +10,12 @@ end
 
 post '/families/new' do
   family = Family.new(params[:family])
+  user = current_user
   if family.save
-    redirect "/families/#{family.id}/show"
+    user.family = family
+    user.save
+    family.password = user.family.id
+    redirect "/families/#{user.family.id}/show"
   else
     @notice = "Something went wrong, please try again"
     erb :'/families/new'

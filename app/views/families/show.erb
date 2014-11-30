@@ -1,1 +1,5 @@
-<h1>welcome to your family</h1>
+<% if @family.authenticate(current_user.family.id) %>
+  <h1>welcome to your family</h1>
+<% else %>
+  <h1>you can't be here!</h1>
+<% end %>
