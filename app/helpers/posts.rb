@@ -1,10 +1,9 @@
 helpers do
   def auto_embed_youtube(html)
-    if youtube_link = html.match(/https:\/\/www.youtube.com\/watch\?v=(\w+)/)
+    if youtube_link = html.match(/https:\/\/www.youtube.com\/watch\?v=(\w+\W+\w+)/)
       src = youtube_link.captures[0]
-      html.gsub!(/https:\/\/www.youtube.com\/watch\?v=(\w+)/, "<iframe width='560' height='315' src='//www.youtube.com/embed/#{src}' frameborder='0' allowfullscreen></iframe>")
+      html.gsub!(/https:\/\/www.youtube.com\/watch\?v=(\w+\W+\w+)/, "<iframe width='560' height='315' src='//www.youtube.com/embed/#{src}' frameborder='0' allowfullscreen></iframe>")
     end
-    # look at this again because it didn't work
     return html
   end
 
