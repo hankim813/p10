@@ -21,9 +21,16 @@ post '/posts/new' do
   post = Post.new(description: params[:description], parsed_html: html)
   if post.save
     current_user.posts << post
-    redirect "/families/#{current_user.family.id}/show?notice=post%20successfully%20created"
+    tag = Tag.new(word: params[:tag_word].downcase)
+    if tag.save
+      current_user.tags << tag
+      post.tags << tag
+      redirect "/families/#{current_user.family.id}/show?notice=post%20successfully%20created"
+    else
+      redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong%20with%20the%20tag"
+    end
   else
-    redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong"
+    redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong%20with%20the%20post"
   end
 end
 

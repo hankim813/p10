@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   belongs_to :family
   has_many :posts
   has_many :comments
+  has_many :tags
 
   include BCrypt
 
