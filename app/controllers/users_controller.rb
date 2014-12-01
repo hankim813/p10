@@ -7,8 +7,8 @@ get '/users/:user_id' do
 end
 
 get '/users/:user_id/edit' do
-  @user = User.find(params[:user_id])
-  erb :'/users/edit'
+  user = User.find(params[:user_id])
+  erb :'/users/edit', locals: { user: user}
 end
 
 post '/users/new' do
@@ -39,6 +39,6 @@ put '/users/:user_id' do
     redirect "/families/#{user.family.id}/show"
   else
     @notice = "Password Incorrect"
-    erb :"/users/#{user.id}/edit"
+    erb :"/users/edit", locals: { user: user }
   end
 end
