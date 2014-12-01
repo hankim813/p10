@@ -1,9 +1,41 @@
 helpers do
-  def auto_embed_youtube(description)
-    if youtube_link = description.match(/\Ahttps:\/\/www.youtube.com\/watch\?v=(\w+)/)
+  def auto_embed_youtube(html)
+    if youtube_link = html.match(/https:\/\/www.youtube.com\/watch\?v=(\w+)/)
+      p "SHOULD BE SAME AS:"
+      p html
       src = youtube_link.captures[0]
-      auto_embedded_html = "<iframe width='560' height='315' src='//www.youtube.com/embed/#{src}' frameborder='0' allowfullscreen></iframe>"
-      return auto_embedded_html
+      html.gsub!(/https:\/\/www.youtube.com\/watch\?v=(\w+)/, "<iframe width='560' height='315' src='//www.youtube.com/embed/#{src}' frameborder='0' allowfullscreen></iframe>")
+    end
+    p "AFTER EMBED"
+    p html
+    return html
+  end
+
+  def auto_embed_links(description)
+    html = description.dup
+    html.gsub!(/\r\n/, "\n")
+    if links = html.scan(/(\n)?(http:\/\/)?(https:\/\/)?([\da-z\.-]+\.[a-z\.]{2,6}\/?\S*)/)
+      links.each do |captures|
+        if captures.last.match(/\Awww.youtube.com\/watch\?v=\w+/)
+          next
+        elsif !captures[1].nil?
+          link = captures[1] + captures.last
+          html.gsub!(link, "<a href='#{link}' target='_blank'>#{link}</a>")
+        elsif !captures[2].nil?
+          link = captures[2] + captures.last
+          html.gsub!(link, "<a href='#{link}' target='_blank'>#{link}</a>")
+        else
+          if captures.last.match(/\Awww.youtube.com/)
+            next
+          else
+            html.gsub!(captures.last, "<a href='#{captures.last}' target='_blank'>#{captures.last}</a>")
+          end
+        end
+      end
+      p "BEFORE YOUTUBE EMBED"
+      p html
+
+      return html
     else
       return description
     end

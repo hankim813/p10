@@ -1,7 +1,7 @@
 <% @posts.each do |post| %>
   <ul>
     <li>
-      <p><pre><%= post.description %></pre> by <%= post.user.nickname %></p>
+      <p><pre><%= post.parsed_html %></pre> by <%= post.user.nickname %></p>
       <% post.comments.each do |comment| %>
         <% if comment.parent_comment.nil? %>
           <p>

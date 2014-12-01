@@ -17,8 +17,8 @@ end
 
 post '/posts/new' do
   require_user
-  parsed_html = auto_embed_youtube(params[:description])
-  post = Post.new(description: parsed_html)
+  html = auto_embed_youtube(auto_embed_links(params[:description]))
+  post = Post.new(description: params[:description], parsed_html: html)
   if post.save
     current_user.posts << post
     redirect "/families/#{current_user.family.id}/show?notice=post%20successfully%20created"
@@ -41,11 +41,10 @@ end
 put '/posts/:post_id/edit' do
   require_user
   post = Post.find(params[:post_id])
-  user = post.user
-  parsed_html = auto_embed_youtube(params[:description])
-  if post.update_attribute(:description, parsed_html)
-    redirect "/families/#{user.family.id}/show?notice=post%20edited"
+  html = auto_embed_youtube(auto_embed_links(params[:description]))
+  if post.update_attributes(description: params[:description], parsed_html: html)
+    redirect "/families/#{post.user.family.id}/show?notice=post%20edited"
   else
-    redirect "/families/#{user.family.id}/show?notice=something%20went%20wrong"
+    redirect "/families/#{post.user.family.id}/show?notice=something%20went%20wrong"
   end
 end
