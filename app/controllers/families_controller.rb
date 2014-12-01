@@ -1,9 +1,10 @@
-
 get '/families/new' do
+  require_user
   erb :'/families/new'
 end
 
 get '/families/:family_id/show' do
+  require_user
   @family = Family.find(params[:family_id])
   @posts = @family.posts.reverse
   @notice = params[:notice]
@@ -11,18 +12,18 @@ get '/families/:family_id/show' do
 end
 
 get '/families/:family_id/edit' do
+  require_user
   @family = Family.find(params[:family_id])
   erb :'/families/edit'
 end
 
 post '/families/new' do
+  require_user
   family = Family.new(params[:family])
   user = current_user
   if family.save
     user.family = family
-    user.save
     family.password = user.family.id
-    family.save
     redirect "/families/#{user.family.id}/show"
   else
     @notice = "Something went wrong, please try again"
@@ -31,6 +32,7 @@ post '/families/new' do
 end
 
 put '/families/:family_id' do
+  require_user
   @family = Family.find(params[:family_id])
   if current_user.authenticate(params[:user][:password])
     @family.update_attributes(params[:family])

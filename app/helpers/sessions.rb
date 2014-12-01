@@ -6,4 +6,8 @@ helpers do
   def set_session_id(user_id)
     session["user_id"] = user_id
   end
+
+  def require_user
+    redirect "/sessions/new?notice=you%20must%20sign%20in" if !current_user
+  end
 end

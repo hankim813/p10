@@ -2,10 +2,34 @@
   <ul>
     <li>
       <p><pre><%= post.description %></pre> by <%= post.user.nickname %></p>
+      <% post.comments.each do |comment| %>
+        <% if comment.parent_comment.nil? %>
+          <p>
+            <%= comment.description %> by <%= comment.user.nickname %> <a href="/comments/<%= comment.id %>/edit">edit</a>
+            <form action="/comments/<%= comment.id %>/delete" method="post">
+              <input type="hidden" name="_method" value="delete">
+              <input type="submit" value="delete comment">
+            </form>
+            <form action="/comments/<%= comment.id %>/reply" method="post">
+              <input type="text" name="description">
+              <input type="submit" value="reply">
+            </form>
+          </p>
+        <% end %>
+          <% comment.replies.each do |reply| %>
+            <p><%= reply.description %> by <%= reply.user.nickname %></p>
+          <% end %>
+      <% end %>
+      <a href="/posts/<%= post.id %>/show">view</a>
       <a href="/posts/<%= post.id %>/edit">edit</a>
       <form action="/posts/<%= post.id %>/delete" method="post">
         <input type="hidden" name="_method" value="delete">
         <input type="submit" value="delete">
+      </form>
+      <form action="/comments/new" method="post">
+        <input type="text" name="description">
+        <input type="hidden" name="post_id" value="<%= post.id %>">
+        <input type="submit" value="comment">
       </form>
     </li>
   </ul>

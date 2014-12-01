@@ -1,5 +1,6 @@
 class Comment < ActiveRecord::Base
   belongs_to :post
   belongs_to :user
-  belongs_to :comment, foreign_key: :reply_id
+  has_many :replies, class_name: "Comment", foreign_key: :parent_id
+  belongs_to :parent_comment, class_name: "Comment", foreign_key: :parent_id
 end

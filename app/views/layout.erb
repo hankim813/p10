@@ -16,8 +16,9 @@
         <input name="_method" type="hidden" value="delete" />
         <input type="submit" value="Sign Out">
       </form>
-      <a href="/users/<%= current_user.id %>/edit">Account Settings</a>
+      <a href="/families/<%= current_user.family.id %>/show">home</a>
       <a href="/posts/new">new post</a>
+      <a href="/users/<%= current_user.id %>/edit">Account Settings</a>
       <% unless current_user.family.nil? %>
         <% if current_user.admin %>
           <a href="/families/<%= current_user.family.id %>/edit">Family Settings</a>
