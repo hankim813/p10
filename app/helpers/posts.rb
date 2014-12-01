@@ -1,13 +1,9 @@
 helpers do
   def auto_embed_youtube(html)
     if youtube_link = html.match(/https:\/\/www.youtube.com\/watch\?v=(\w+)/)
-      p "SHOULD BE SAME AS:"
-      p html
       src = youtube_link.captures[0]
       html.gsub!(/https:\/\/www.youtube.com\/watch\?v=(\w+)/, "<iframe width='560' height='315' src='//www.youtube.com/embed/#{src}' frameborder='0' allowfullscreen></iframe>")
     end
-    p "AFTER EMBED"
-    p html
     return html
   end
 
@@ -16,6 +12,7 @@ helpers do
     html.gsub!(/\r\n/, "\n")
     if links = html.scan(/(\n)?(http:\/\/)?(https:\/\/)?([\da-z\.-]+\.[a-z\.]{2,6}\/?\S*)/)
       links.each do |captures|
+        p captures
         if captures.last.match(/\Awww.youtube.com\/watch\?v=\w+/)
           next
         elsif !captures[1].nil?
@@ -28,13 +25,10 @@ helpers do
           if captures.last.match(/\Awww.youtube.com/)
             next
           else
-            html.gsub!(captures.last, "<a href='#{captures.last}' target='_blank'>#{captures.last}</a>")
+            html.gsub!(captures.last, "<a href='http://#{captures.last}' target='_blank'>#{captures.last}</a>")
           end
         end
       end
-      p "BEFORE YOUTUBE EMBED"
-      p html
-
       return html
     else
       return description
