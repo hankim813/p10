@@ -17,8 +17,11 @@
         <input type="submit" value="Sign Out">
       </form>
       <a href="/users/<%= current_user.id %>/edit">Account Settings</a>
-      <% if current_user.admin %>
-        <a href="/families/<%= current_user.family.id %>/edit">Family Settings</a>
+      <a href="/posts/new">new post</a>
+      <% unless current_user.family.nil? %>
+        <% if current_user.admin %>
+          <a href="/families/<%= current_user.family.id %>/edit">Family Settings</a>
+        <% end %>
       <% end %>
     <% end %>
   </nav>

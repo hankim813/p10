@@ -1,0 +1,12 @@
+<% @posts.each do |post| %>
+  <ul>
+    <li>
+      <p><pre><%= post.description %></pre> by <%= post.user.nickname %></p>
+      <a href="/posts/<%= post.id %>/edit">edit</a>
+      <form action="/posts/<%= post.id %>/delete" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="delete">
+      </form>
+    </li>
+  </ul>
+<% end %>

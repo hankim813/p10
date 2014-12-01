@@ -2,6 +2,7 @@ class Family < ActiveRecord::Base
   validates :name, :slogan, :hometown, :homestate, :homecountry, presence: true
 
   has_many :users
+  has_many :posts, through: :users
 
   include BCrypt
 

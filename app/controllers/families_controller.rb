@@ -5,6 +5,8 @@ end
 
 get '/families/:family_id/show' do
   @family = Family.find(params[:family_id])
+  @posts = @family.posts.reverse
+  @notice = params[:notice]
   erb :"/families/show"
 end
 
@@ -20,6 +22,7 @@ post '/families/new' do
     user.family = family
     user.save
     family.password = user.family.id
+    family.save
     redirect "/families/#{user.family.id}/show"
   else
     @notice = "Something went wrong, please try again"

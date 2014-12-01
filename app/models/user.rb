@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, :nickname, :email, :password_hash, :birthday, presence: true
 
   belongs_to :family
+  has_many :posts
+  has_many :comments
 
   include BCrypt
 
