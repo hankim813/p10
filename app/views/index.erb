@@ -1,5 +1,59 @@
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : <%= @app_id %>,
+      xfbml      : true,
+      version    : 'v2.1'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+  function checkLoginState() {
+	  FB.getLoginStatus(function(response) {
+		  if (response.status === 'connected') {
+		  	redirectToSignUp();
+		      // Logged into your app and Facebook.
+	    } else if (response.status === 'not_authorized') {
+		    	console.log("not_authorized")
+		    //   // The person is logged into Facebook, but not your app.
+		    } else {
+		    	console.log("else")
+		    //   // The person is not logged into Facebook, so we're not sure if
+		    //   // they are logged into this app or not.
+		    }
+  });
+  function redirectToSignUp() {
+  	console.log("redirecting to sign up");
+  	FB.api('/me', function(response) {
+  		$.ajax({
+  			url: "/api/fb/user",
+  			dataType: 'JSON',
+  			data: response
+  		}).done(function(response){
+  			console.log("success");
+  			console.log(response);
+  		}).fail(function(response){
+  			console.log("fail");
+  		})
+  	});
+  };
+}
+
+// {"id":"10203180389299053","email":"hankim813@gmail.com","first_name":"Han","gender":"male","last_name":"Kim","link":"https://www.facebook.com/app_scoped_user_id/10203180389299053/","locale":"en_US","name":"Han Kim","timezone":-8,"updated_time":"2014-11-16T22:58:25+0000","verified":true}
+</script>
+
 <h1>circle.</h1>
 <% if !current_user %>
   <div><a href="/sessions/new">see your family</a></div>
   <div><a href="/users/new">create a circle for your family</a></div>
 <% end %>
+<div id="fb-root">
+	<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false" data-scope="email" onlogin="checkLoginState();"></div>
+</div>
