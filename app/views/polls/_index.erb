@@ -1,5 +1,5 @@
 <% @polls.each do |poll| %>
-<div>
+<div class="poll-container">
   <p><%= poll.question %> by <%= poll.user.nickname %></p>
   <p><%= poll.description %></p>
   <ul>
@@ -7,7 +7,8 @@
       <li><%= option.description %></li>
     <% end %>
   </ul>
-  <a href="/polls/<%= poll.id %>/edit">edit</a>
+  <a href="/families/<%= current_user.family.id %>/polls/<%= poll.id %>/show">view poll</a>
+  <a href="/families/<%= current_user.family.id %>/polls/<%= poll.id %>/edit">edit poll</a>
   <form action="/polls/<%= poll.id %>/delete" method="post">
     <input type="hidden" name="_method" value="delete">
     <input type="submit" value="delete">

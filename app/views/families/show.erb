@@ -1,3 +1,4 @@
-<h1>welcome to your family</h1>
-  <%= @notice %>
-  <%= erb :"posts/_index", layout: false %>
+<h1><%= current_user.family.name %></h1>
+
+<%= erb :"/polls/_index", layout: false %>
+<%= erb :"posts/_index", layout: false %>

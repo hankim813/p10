@@ -10,7 +10,7 @@
   <% end %>
 </ul>
 
-<form action="/polls/<%= @poll.id %>/options/new" method="post">
+<form action="/families/<%= current_user.family.id %>/polls/<%= @poll.id %>/options/new" method="post">
   <label for="description">Description</label>
   <input type="text" name="description" autofocus>
   <input type="submit" value="add">

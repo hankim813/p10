@@ -11,11 +11,16 @@ helpers do
     redirect "/sessions/new?notice=you%20must%20sign%20in" unless current_user
   end
 
-  def authenticate_family_access
-    family = Family.find_by(id: current_user.family.id)
-    unless family.authenticate(current_user.family.id)
+  def authenticate_family_access(family_id)
+    if family = Family.find_by(id: family_id)
+      family.authenticate(current_user.family.id)
+    else
       redirect "/families/#{current_user.family.id}/show?notice=you%20have%20no%20access%20to%20that%20family"
       return
     end
+  end
+
+  def authenticate_user_access(user_id)
+    redirect "/families/#{current_user.family.id}/show?notice=you%20have%20no%20access" unless current_user.id == user_id.to_i
   end
 end

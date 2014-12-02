@@ -1,11 +1,17 @@
 <h1>create a new poll</h1>
-<p><%= @notice %></p>
+
 <form action="/polls/new" method="post">
-  <label for="question">Question</label>
-  <input type="text" name="question">
-  <label for="description">Poll Description</label>
-  <textarea rows="10" name="description"></textarea>
-  <label for="tag_word">Tags</label>
-  <input type="text" name="tag_word">
+  <div class="form-field">
+    <label for="poll[question]">Question</label>
+    <input type="text" name="poll[question]">
+  </div>
+  <div class="form-field">
+    <label for="poll[description]">Poll Description</label>
+    <textarea rows="10" name="poll[description]"></textarea>
+  </div>
+  <div class="form-field">
+    <label for="tag_word">Tags</label>
+    <input type="text" name="tag_word">
+  </div>
   <input type="submit" value="new poll">
 </form>

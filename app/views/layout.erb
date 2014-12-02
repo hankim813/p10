@@ -6,27 +6,30 @@
   <link rel="stylesheet" href="/css/application.css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="/js/application.js"></script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Circle | A Digital Living Room for your Family</title>
 </head>
 <body>
   <nav>
     <% if current_user %>
-      <form id="sign-out" action="/sessions/destroy" method="post">
-        <input name="_method" type="hidden" value="delete" />
-        <input type="submit" value="Sign Out">
-      </form>
-      <a href="/families/<%= current_user.family.id %>/show">home</a>
-      <a href="/posts/new">new post</a>
-      <a href="/polls/new">new poll</a>
+      <a href="/families/<%= current_user.family.id %>/show">home</a> |
+      <a href="/families/<%= current_user.family.id %>/posts/new">new post</a> |
+      <a href="/families/<%= current_user.family.id %>/polls/new">new poll</a> |
       <a href="/users/<%= current_user.id %>/edit">Account Settings</a>
       <% unless current_user.family.nil? %>
         <% if current_user.admin %>
-          <a href="/families/<%= current_user.family.id %>/edit">Family Settings</a>
+          | <a href="/families/<%= current_user.family.id %>/edit">Family Settings</a>
         <% end %>
       <% end %>
+      | <form action="/sessions/destroy" method="post">
+        <input name="_method" type="hidden" value="delete" />
+        <input type="submit" value="Sign Out">
+      </form>
     <% end %>
   </nav>
-  <%= yield %>
+  <div class="container">
+    <div class="notice"><p><%= @notice %></p></div>
+    <%= yield %>
+  </div>
 </body>
 </html>

@@ -1,18 +1,28 @@
-get '/posts/new' do
+get '/families/:family_id/posts/new' do
   require_user
   erb :'/posts/new'
 end
 
-get '/posts/:post_id/show' do
+get '/families/:family_id/posts/:post_id/show' do
   require_user
-  @post = Post.find_by(id: params[:post_id])
-  erb :'/posts/show'
+  authenticate_family_access(params[:family_id])
+  if @post = Post.find_by(id: params[:post_id])
+    erb :'/posts/show'
+  else
+    redirect "/families/#{current_user.family.id}/show?notice=post%20not%20found"
+    return
+  end
 end
 
-get '/posts/:post_id/edit' do
+get '/families/:family_id/posts/:post_id/edit' do
   require_user
-  @post = Post.find_by(id: params[:post_id])
-  erb :'/posts/edit'
+  authenticate_family_access(params[:family_id])
+  if @post = Post.find_by(id: params[:post_id])
+    erb :'/posts/edit'
+  else
+    redirect "/families/#{current_user.family.id}/show?notice=post%20not%20found"
+    return
+  end
 end
 
 post '/posts/new' do
@@ -41,24 +51,25 @@ post '/posts/new' do
   end
 end
 
-delete '/posts/:post_id/delete' do
+delete '/families/:family_id/posts/:post_id/delete' do
   require_user
-  post = Post.find_by(id: params[:post_id])
-  user = post.user
-  if post.destroy
-    redirect "/families/#{user.family.id}/show?notice=post%20destroyed"
+  authenticate_family_access(params[:family_id])
+  if Post.find_by(id: params[:post_id]).destroy
+    redirect "/families/#{current_user.family.id}/show?notice=post%20destroyed"
   else
-    redirect "/families/#{user.family.id}/show?notice=something%20went%20wrong"
+    redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong"
   end
 end
 
-put '/posts/:post_id/edit' do
+put '/families/:family_id/posts/:post_id/edit' do
   require_user
-  post = Post.find_by(id: params[:post_id])
-  html = auto_embed_youtube(auto_embed_links(params[:description]))
-  if post.update_attributes(description: params[:description], parsed_html: html)
-    redirect "/families/#{post.user.family.id}/show?notice=post%20edited"
-  else
-    redirect "/families/#{post.user.family.id}/show?notice=something%20went%20wrong"
+  authenticate_family_access(params[:family_id])
+  if post = Post.find_by(id: params[:post_id])
+    html = auto_embed_youtube(auto_embed_links(params[:description]))
+    if post.update_attributes(description: params[:description], parsed_html: html)
+      redirect "/families/#{current_user.family.id}/show?notice=post%20edited"
+    else
+      redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong"
+    end
   end
 end

@@ -2,6 +2,7 @@
 
 get '/families/:family_id/users/:user_id/polls/:poll_id/options/new' do
   require_user
+  authenticate_family_access(params[:family_id])
   if @poll = Poll.find_by(id: params[:poll_id])
     erb :"/options/new"
   else
@@ -10,8 +11,9 @@ get '/families/:family_id/users/:user_id/polls/:poll_id/options/new' do
   end
 end
 
-get '/polls/:poll_id/options/:option_id/edit' do
+get '/families/:family_id/polls/:poll_id/options/:option_id/edit' do
   require_user
+  authenticate_family_access(params[:family_id])
   if @option = Option.find_by(id: params[:option_id])
     erb :"/options/edit"
   else
@@ -20,40 +22,45 @@ get '/polls/:poll_id/options/:option_id/edit' do
   end
 end
 
-post '/polls/:poll_id/options/new' do
+post '/families/:family_id/polls/:poll_id/options/new' do
   require_user
+  authenticate_family_access(params[:family_id])
   option = Option.new(description: params[:description])
-  if poll = Poll.find_by(id: params[:poll_id]) && option.save
-    poll.options << option
-    redirect "/families/#{current_user.family.id}/users/#{current_user.id}/polls/#{poll.id}/options/new"
-    return
+  if poll = Poll.find_by(id: params[:poll_id]) 
+    if option.save
+      poll.options << option
+      redirect "/families/#{current_user.family.id}/users/#{current_user.id}/polls/#{poll.id}/options/new"
+      return
+    end
   else
     redirect "/families/#{current_user.family.id}/users/#{current_user.id}/polls/#{poll.id}/options/new?notice=something%20went%20wrong"
     return
   end
 end
 
-put '/polls/:poll_id/options/:option_id/edit' do
+put '/families/:family_id/polls/:poll_id/options/:option_id/edit' do
   require_user
+  authenticate_family_access(params[:family_id])
   if option = Option.find_by(id: params[:option_id])
     if option.update_attribute(:description, params[:description])
-      redirect "/polls/#{option.poll.id}/edit"
+      redirect "/families/#{current_user.family.id}/polls/#{option.poll.id}/edit"
       return
     end
   else
-    redirect "/polls/#{option.poll.id}/options/#{option.id}/edit?notice=option%20could%20not%20update"
+    redirect "/families/#{current_user.family.id}/polls/#{option.poll.id}/options/#{option.id}/edit?notice=option%20could%20not%20update"
     return
   end
 end
 
-delete '/polls/:poll_id/options/:option_id/delete' do
+delete '/families/:family_id/polls/:poll_id/options/:option_id/delete' do
   require_user
+  authenticate_family_access(params[:family_id])
   poll = Poll.find_by(id: params[:poll_id])
   if Option.find_by(id: params[:option_id]).destroy
-    redirect "polls/#{poll.id}/edit?notice=option%20successfully%20deleted"
+    redirect "/families/#{current_user.family.id}/polls/#{poll.id}/edit?notice=option%20successfully%20deleted"
     return
   else
-    redirect "polls/#{poll.id}/edit?notice=option%20not%20found"
+    redirect "/families/#{current_user.family.id}/polls/#{poll.id}/edit?notice=option%20not%20found"
     return
   end
 end

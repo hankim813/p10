@@ -1,1 +1,3 @@
-<h1><%= @post.description %></h1>
+<h1><%= @post.parsed_html %></h1>
+
+<a href="/families/<%= current_user.family.id %>/show">back</a>

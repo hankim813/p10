@@ -3,12 +3,16 @@ get '/users/new' do
 end
 
 get '/users/:user_id' do
-
+  require_user
+  authenticate_user_access(params[:user_id])
+  erb :"/users/show"
 end
 
 get '/users/:user_id/edit' do
-  user = User.find_by(id: params[:user_id])
-  erb :'/users/edit', locals: { user: user}
+  require_user
+  authenticate_user_access(params[:user_id])
+  @user = User.find_by(id: current_user.id)
+  erb :'/users/edit'
 end
 
 post '/users/new' do
@@ -33,12 +37,14 @@ post '/users/new' do
 end
 
 put '/users/:user_id' do
+  require_user
+  authenticate_user_access(params[:user_id])
   user = User.find_by(id: params[:user_id])
   if user.authenticate(params[:user][:password])
     user.update_attributes(params[:user])
     redirect "/families/#{user.family.id}/show"
   else
     @notice = "Password Incorrect"
-    erb :"/users/edit", locals: { user: user }
+    erb :"/users/edit"
   end
 end
