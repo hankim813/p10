@@ -1,3 +1,16 @@
 <% @polls.each do |poll| %>
-<p><%= poll.question %> by <%= poll.user.nickname %></p>
+<div>
+  <p><%= poll.question %> by <%= poll.user.nickname %></p>
+  <p><%= poll.description %></p>
+  <ul>
+    <% poll.options.each do |option| %>
+      <li><%= option.description %></li>
+    <% end %>
+  </ul>
+  <a href="/polls/<%= poll.id %>/edit">edit</a>
+  <form action="/polls/<%= poll.id %>/delete" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="delete">
+  </form>
+</div>
 <% end %>

@@ -1,5 +1,6 @@
 <h1>add some options</h1>
 <p><%= @poll.question %></p>
+<p><%= @poll.description %></p>
 <% @poll.tags.each do |tag|%>
   <p>#<%= tag.word %></p>
 <% end %>

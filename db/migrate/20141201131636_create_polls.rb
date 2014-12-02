@@ -2,7 +2,8 @@ class CreatePolls < ActiveRecord::Migration
   def change
     create_table :polls do |t|
       t.belongs_to :user
-      t.text :question
+      t.string :question
+      t.text :description
       t.references :winner
 
       t.timestamps

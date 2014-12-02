@@ -5,6 +5,7 @@ end
 
 get '/families/:family_id/show' do
   require_user
+  authenticate_family_access
   @family = Family.find_by(id: params[:family_id])
   @posts = @family.posts.reverse
   @polls = @family.polls
@@ -14,12 +15,14 @@ end
 
 get '/families/:family_id/edit' do
   require_user
+  authenticate_family_access
   @family = Family.find_by(id: params[:family_id])
   erb :'/families/edit'
 end
 
 post '/families/new' do
   require_user
+  authenticate_family_access
   family = Family.new(params[:family])
   user = current_user
   if family.save
@@ -34,6 +37,7 @@ end
 
 put '/families/:family_id' do
   require_user
+  authenticate_family_access
   @family = Family.find_by(id: params[:family_id])
   if current_user.authenticate(params[:user][:password])
     @family.update_attributes(params[:family])
