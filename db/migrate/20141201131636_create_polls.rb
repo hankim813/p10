@@ -4,8 +4,6 @@ class CreatePolls < ActiveRecord::Migration
       t.belongs_to :user
       t.string :question
       t.text :description
-      t.boolean :expired, default: false
-      t.references :winner
 
       t.timestamps
     end

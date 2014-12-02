@@ -23,4 +23,8 @@ helpers do
   def authenticate_user_access(user_id)
     redirect "/families/#{current_user.family.id}/show?notice=you%20have%20no%20access" unless current_user.id == user_id.to_i
   end
+
+  def authenticate_current_user_access_to(object)
+    object.user.id == current_user.id
+  end
 end

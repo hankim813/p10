@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :tags
   has_many :polls
+  has_many :votes, foreign_key: :voter_id
 
   include BCrypt
 
