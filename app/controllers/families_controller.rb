@@ -5,15 +5,16 @@ end
 
 get '/families/:family_id/show' do
   require_user
-  @family = Family.find(params[:family_id])
+  @family = Family.find_by(id: params[:family_id])
   @posts = @family.posts.reverse
+  @polls = @family.polls
   @notice = params[:notice]
   erb :"/families/show"
 end
 
 get '/families/:family_id/edit' do
   require_user
-  @family = Family.find(params[:family_id])
+  @family = Family.find_by(id: params[:family_id])
   erb :'/families/edit'
 end
 
@@ -33,7 +34,7 @@ end
 
 put '/families/:family_id' do
   require_user
-  @family = Family.find(params[:family_id])
+  @family = Family.find_by(id: params[:family_id])
   if current_user.authenticate(params[:user][:password])
     @family.update_attributes(params[:family])
     redirect "/families/#{family.family.id}/show"

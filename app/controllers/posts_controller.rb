@@ -5,13 +5,13 @@ end
 
 get '/posts/:post_id/show' do
   require_user
-  @post = Post.find(params[:post_id])
+  @post = Post.find_by(id: params[:post_id])
   erb :'/posts/show'
 end
 
 get '/posts/:post_id/edit' do
   require_user
-  @post = Post.find(params[:post_id])
+  @post = Post.find_by(id: params[:post_id])
   erb :'/posts/edit'
 end
 
@@ -43,7 +43,7 @@ end
 
 delete '/posts/:post_id/delete' do
   require_user
-  post = Post.find(params[:post_id])
+  post = Post.find_by(id: params[:post_id])
   user = post.user
   if post.destroy
     redirect "/families/#{user.family.id}/show?notice=post%20destroyed"
@@ -54,7 +54,7 @@ end
 
 put '/posts/:post_id/edit' do
   require_user
-  post = Post.find(params[:post_id])
+  post = Post.find_by(id: params[:post_id])
   html = auto_embed_youtube(auto_embed_links(params[:description]))
   if post.update_attributes(description: params[:description], parsed_html: html)
     redirect "/families/#{post.user.family.id}/show?notice=post%20edited"

@@ -1,0 +1,15 @@
+<h1>add some options</h1>
+<p><%= @poll.question %></p>
+<ul>
+  <% @poll.options.each do |option| %>
+  <li><%= option.description %></li>
+  <% end %>
+</ul>
+
+<form action="/polls/<%= @poll.id %>/options/new" method="post">
+  <label for="description">Description</label>
+  <input type="text" name="description" autofocus>
+  <input type="submit" value="add">
+</form>
+
+<a href="/families/<%= current_user.family.id %>/show">done</a>

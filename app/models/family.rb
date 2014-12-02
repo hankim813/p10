@@ -3,6 +3,7 @@ class Family < ActiveRecord::Base
 
   has_many :users
   has_many :posts, through: :users
+  has_many :polls, through: :users
 
   include BCrypt
 

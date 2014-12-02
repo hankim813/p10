@@ -1,0 +1,7 @@
+<h1>create a new poll</h1>
+<p><%= @notice %></p>
+<form action="/polls/new" method="post">
+  <label for="question">Question</label>
+  <input type="text" name="question">
+  <input type="submit" value="new poll">
+</form>

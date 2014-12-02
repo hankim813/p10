@@ -18,6 +18,7 @@
       </form>
       <a href="/families/<%= current_user.family.id %>/show">home</a>
       <a href="/posts/new">new post</a>
+      <a href="/polls/new">new poll</a>
       <a href="/users/<%= current_user.id %>/edit">Account Settings</a>
       <% unless current_user.family.nil? %>
         <% if current_user.admin %>

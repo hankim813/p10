@@ -7,7 +7,7 @@ get '/users/:user_id' do
 end
 
 get '/users/:user_id/edit' do
-  user = User.find(params[:user_id])
+  user = User.find_by(id: params[:user_id])
   erb :'/users/edit', locals: { user: user}
 end
 
@@ -33,7 +33,7 @@ post '/users/new' do
 end
 
 put '/users/:user_id' do
-  user = User.find(params[:user_id])
+  user = User.find_by(id: params[:user_id])
   if user.authenticate(params[:user][:password])
     user.update_attributes(params[:user])
     redirect "/families/#{user.family.id}/show"

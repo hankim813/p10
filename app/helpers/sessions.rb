@@ -8,6 +8,6 @@ helpers do
   end
 
   def require_user
-    redirect "/sessions/new?notice=you%20must%20sign%20in" if !current_user
+    redirect "/sessions/new?notice=you%20must%20sign%20in" unless current_user
   end
 end
