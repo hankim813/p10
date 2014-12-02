@@ -1,0 +1,7 @@
+<h1>edit your post</h1>
+
+<form action="/posts/<%= @post.id %>/edit" method="post">
+  <textarea name="description" rows="15"><%= @post.description %></textarea>
+  <input type="hidden" name="_method" value="put">
+  <input type="submit" value="edit">
+</form>

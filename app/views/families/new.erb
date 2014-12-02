@@ -1,0 +1,22 @@
+<% if current_user %>
+  <h1>create a new circle for your family</h1>
+
+  <p><%= @notice %></p>
+
+  <form action="/families/new" method="post">
+    <label class="label" for="name">Family Name</label>
+    <input type="text" name="family[name]">
+    <label class="label" for="slogan">Family Slogan</label>
+    <input type="text" name="family[slogan]">
+    <label class="label" for="hometown">Hometown</label>
+    <input type="text" name="family[hometown]">
+    <label class="label" for="homestate">Homestate</label>
+    <input type="text" name="family[homestate]">
+    <label class="label" for="homecountry">Home Country</label>
+    <input type="text" name="family[homecountry]">
+
+    <input type="submit" value="Create the Family Circle">
+  </form>
+  <% else %>
+    <h1>you gotta log in!</h1>
+<% end %>

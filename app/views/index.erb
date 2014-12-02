@@ -1,0 +1,6 @@
+<h1>homepage</h1>
+<%= @notice %>
+<% if !current_user %>
+<a href="/sessions/new">Sign In</a>
+<a href="/users/new">Create</a>
+<% end %>
