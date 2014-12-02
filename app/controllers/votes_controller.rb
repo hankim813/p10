@@ -2,6 +2,7 @@ post '/families/:family_id/users/:user_id/polls/:poll_id/options/:option_id/vote
   require_user
   authenticate_family_access(params[:family_id])
   if (poll = Poll.find_by(id: params[:poll_id])) && (option = Option.find_by(id: params[:option_id]))
+    p option.id
     vote = Vote.new(option_id: option.id, voter_id: current_user.id)
     if vote.save
       option.vote_count += 1

@@ -38,6 +38,22 @@ post '/families/:family_id/polls/:poll_id/options/new' do
   end
 end
 
+post '/families/:family_id/polls/:poll_id/options/add' do
+  require_user
+  authenticate_family_access(params[:family_id])
+  option = Option.new(description: params[:description])
+  if poll = Poll.find_by(id: params[:poll_id]) 
+    if option.save
+      poll.options << option
+      redirect "/families/#{current_user.family.id}/polls/#{poll.id}/edit"
+      return
+    end
+  else
+    redirect "/families/#{current_user.family.id}/polls/#{poll.id}/edit?notice=something%20went%20wrong"
+    return
+  end
+end
+
 put '/families/:family_id/polls/:poll_id/options/:option_id/edit' do
   require_user
   authenticate_family_access(params[:family_id])

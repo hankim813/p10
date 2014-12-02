@@ -5,7 +5,7 @@
     <ul>
       <% poll.options.reverse.each do |option| %>
         <li>
-          <%= option.description %> : <%= option.vote_count %> votes: <% option.backers.each do |vote| %>
+          <%= option.description %> : <%= option.vote_count %> votes: <% option.votes.each do |vote| %>
             <%= vote.backer.nickname %>
           <% end %>
           <% unless current_user_voted_in(poll) %>
