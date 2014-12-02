@@ -1,5 +1,8 @@
 <h1>add some options</h1>
 <p><%= @poll.question %></p>
+<% @poll.tags.each do |tag|%>
+  <p>#<%= tag.word %></p>
+<% end %>
 <ul>
   <% @poll.options.each do |option| %>
   <li><%= option.description %></li>
@@ -13,3 +16,4 @@
 </form>
 
 <a href="/families/<%= current_user.family.id %>/show">done</a>
+
