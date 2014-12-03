@@ -11,7 +11,7 @@
 </head>
 <body>
   <nav>
-    <% if current_user %>
+    <% if current_user && !current_user.family.nil? %>
       <a href="/families/<%= current_user.family.id %>/show">home</a> |
       <a href="/families/<%= current_user.family.id %>/posts/new">new post</a> |
       <a href="/families/<%= current_user.family.id %>/polls/new">new poll</a> |

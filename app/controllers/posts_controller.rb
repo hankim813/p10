@@ -6,7 +6,7 @@ end
 get '/families/:family_id/posts/:post_id/show' do
   require_user
   authenticate_family_access(params[:family_id])
-  if @post = Post.find_by(id: params[:post_id])
+  if @post = current_family.posts.find_by(id: params[:post_id])
     erb :'/posts/show'
   else
     redirect "/families/#{current_user.family.id}/show?notice=post%20not%20found"
@@ -17,7 +17,7 @@ end
 get '/families/:family_id/posts/:post_id/edit' do
   require_user
   authenticate_family_access(params[:family_id])
-  if @post = Post.find_by(id: params[:post_id])
+  if @post = current_family.posts.find_by(id: params[:post_id])
     erb :'/posts/edit'
   else
     redirect "/families/#{current_user.family.id}/show?notice=post%20not%20found"
@@ -31,7 +31,7 @@ post '/posts/new' do
   post = Post.new(description: params[:description], parsed_html: html)
   if post.save
     current_user.posts << post
-    if tag = Tag.find_by(word: params[:tag_word].downcase)
+    if tag = current_family.tags.find_by(word: params[:tag_word].downcase)
       post.tags << tag
       redirect "/families/#{current_user.family.id}/show?notice=post%20successfully%20created"
     elsif params[:tag_word].empty?
@@ -43,7 +43,7 @@ post '/posts/new' do
         post.tags << tag
         redirect "/families/#{current_user.family.id}/show?notice=post%20successfully%20created"
       else
-      redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong%20with%20the%20tag"
+        redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong%20with%20the%20tag"
       end
     end
   else
@@ -54,7 +54,7 @@ end
 delete '/families/:family_id/posts/:post_id/delete' do
   require_user
   authenticate_family_access(params[:family_id])
-  if Post.find_by(id: params[:post_id]).destroy
+  if current_family.posts.find_by(id: params[:post_id]).destroy
     redirect "/families/#{current_user.family.id}/show?notice=post%20destroyed"
   else
     redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong"
@@ -64,7 +64,7 @@ end
 put '/families/:family_id/posts/:post_id/edit' do
   require_user
   authenticate_family_access(params[:family_id])
-  if post = Post.find_by(id: params[:post_id])
+  if post = current_family.posts.find_by(id: params[:post_id])
     html = auto_embed_youtube(auto_embed_links(params[:description]))
     if post.update_attributes(description: params[:description], parsed_html: html)
       redirect "/families/#{current_user.family.id}/show?notice=post%20edited"

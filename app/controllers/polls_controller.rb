@@ -8,7 +8,7 @@ end
 get '/families/:family_id/polls/:poll_id/show' do
   require_user
   authenticate_family_access(params[:family_id])
-  if @poll = Poll.find_by(id: params[:poll_id])
+  if @poll = current_family.polls.find_by(id: params[:poll_id])
     erb :"/polls/show"
   else
     redirect "/families/#{current_user.family.id}/show?notice=poll%20not%20found"
@@ -19,7 +19,7 @@ end
 get '/families/:family_id/polls/:poll_id/edit' do
   require_user
   authenticate_family_access(params[:family_id])
-  if @poll = Poll.find_by(id: params[:poll_id])
+  if @poll = current_family.polls.find_by(id: params[:poll_id])
     erb :'polls/edit'
   else
     redirect "/families/#{current_user.family.id}/show?notice=poll%20not%20found"
@@ -31,7 +31,7 @@ post '/polls/new' do
   poll = Poll.new(params[:poll])
   if poll.save
     current_user.polls << poll
-    if tag = Tag.find_by(word: params[:tag_word].downcase)
+    if tag = current_family.tags.find_by(word: params[:tag_word].downcase)
       if tag.save
         current_user.tags << tag
         poll.tags << tag
@@ -57,7 +57,7 @@ end
 delete '/families/:family_id/polls/:poll_id/delete' do
   require_user
   authenticate_family_access(params[:family_id])
-  if Poll.find_by(id: params[:poll_id]).destroy
+  if current_family.polls.find_by(id: params[:poll_id]).destroy
     redirect "/families/#{current_user.family.id}/show?notice=poll%20sucessfully%20deleted"
     return
   else
@@ -69,7 +69,7 @@ end
 put '/families/:family_id/polls/:poll_id/edit' do
   require_user
   authenticate_family_access(params[:family_id])
-  if Poll.find_by(id: params[:poll_id]).update_attributes(params[:poll])
+  if current_family.polls.find_by(id: params[:poll_id]).update_attributes(params[:poll])
     redirect "/families/#{current_user.family.id}/show?notice=poll%20sucessfully%20edited"
   else
     redirect "/families/#{current_user.family.id}/show?notice=poll%20not%20found"

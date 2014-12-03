@@ -2,33 +2,37 @@
 
 <form action="/users/new" method="post">
   <div class="form-field">
-    <label class="label" for="first_name">First Name</label>
+    <label class="label" for="user[first_name]">First Name</label>
     <input type="text" name="user[first_name]" value="<%= params[:first_name] %>">
   </div>
   <div class="form-field">
-    <label class="label" for="last_name">Last Name</label>
+    <label class="label" for="user[last_name]">Last Name</label>
     <input type="text" name="user[last_name]" value="<%= params[:last_name] %>">
   </div>
   <div class="form-field">
-    <label class="label" for="nickname">Nickname</label>
+    <label class="label" for="user[nickname]">Nickname</label>
     <input type="text" name="user[nickname]">
   </div>
-  <div class="form-field">
-    <p>Does your family have an existing Circle account? If so, enter the secret key:</p>
-    <a href="#">yes</a>
-    <!-- This will be bcrypt key that encrypts family id, and field will be shown via ajax if you say yes-->
-    <p>If not, you will become the admin of your family circle.</p>
+  <div class="form-field" id="family-token-form-field">
+    <% if @key %>
+      <label for='family[password]'>Secret Family Token</label>
+      <input type='text' name='family[password]' value="<%= @key %>">
+    <% else %>
+      <p>Does your family have an existing Circle account? If so, enter the secret key:</p>
+      <p>If not, you will become the admin of your family circle.</p>
+    <a href="#" id="token-link">yes</a>
+    <% end %>
   </div>
   <div class="form-field">
-    <label class="label" for="email">Email</label>
-    <input type="text" name="user[email]" value="<%= params[:email] %>">
+    <label class="label" for="user[email]">Email</label>
+    <input type="email" name="user[email]" value="<%= params[:email] %>">
   </div>
   <div class="form-field">
-    <label class="label" for="email">Birthday</label>
+    <label class="label" for="user[birthday]">Birthday</label>
     <input type="date" name="user[birthday]">
   </div>
   <div class="form-field">
-    <label class="label" for="password">Password</label>
+    <label class="label" for="user[password]">Password</label>
     <input type="password" name="user[password]">
   </div>
   <input type="submit" value="Join the Circle">

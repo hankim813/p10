@@ -13,6 +13,11 @@ get '/families/:family_id/show' do
   erb :"/families/show"
 end
 
+get '/families/:family_id/create' do
+  @key = params[:key]
+  erb :"/families/create"
+end
+
 get '/families/:family_id/edit' do
   require_user
   authenticate_family_access(params[:family_id])
@@ -26,13 +31,12 @@ end
 
 post '/families/new' do
   require_user
-  authenticate_family_access(params[:family_id])
   family = Family.new(params[:family])
-  user = current_user
   if family.save
-    user.family = family
-    family.password = user.family.id
-    redirect "/families/#{current_user.family.id}/show?notice=new%20family%20created"
+    family.users << current_user
+    family.password = current_user.family.id
+    family.save
+    redirect "/families/#{current_user.family.id}/create?key=#{family.password}"
     return
   else
     @notice = "Something went wrong, please try again"

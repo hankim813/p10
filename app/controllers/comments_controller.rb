@@ -1,7 +1,7 @@
 get '/families/:family_id/comments/:comment_id/edit' do
   require_user
   authenticate_family_access(params[:family_id])
-  if @comment = Comment.find_by(id: params[:comment_id])
+  if @comment = current_family.comments.find_by(id: params[:comment_id])
     erb :'/comments/edit'
   else
     redirect "/families/#{current_user.family.id}/show?notice=comment%20not%20found"
@@ -23,7 +23,7 @@ end
 post '/families/:family_id/posts/:post_id/comments/:comment_id/reply' do
   require_user
   authenticate_family_access(params[:family_id])
-  if comment = Comment.find_by(id: params[:comment_id])
+  if comment = current_family.comments.find_by(id: params[:comment_id])
     if comment.parent_id.nil? # prevents nested replies
       reply = Comment.new(description: params[:description])
       if reply.save
@@ -42,7 +42,7 @@ end
 put '/families/:family_id/posts/:post_id/comments/:comment_id/edit' do
   require_user
   authenticate_family_access(params[:family_id])
-  if Comment.find_by(id: params[:comment_id]).update_attribute(:description, params[:description])
+  if current_family.comments.find_by(id: params[:comment_id]).update_attribute(:description, params[:description])
     redirect "/families/#{current_user.family.id}/show?notice=comment%20successfully%20updated"
   else
     redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong"
@@ -52,7 +52,7 @@ end
 delete '/families/:family_id/posts/:post_id/comments/:comment_id/delete' do
   require_user
   authenticate_family_access(params[:family_id])
-  if Comment.find_by(id: params[:comment_id]).destroy
+  if current_family.comments.find_by(id: params[:comment_id]).destroy
     redirect "/families/#{current_user.family.id}/show?notice=comment%20successfully%20deleted"
   else
     redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong"

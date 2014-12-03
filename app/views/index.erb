@@ -17,10 +17,18 @@
 
   function checkLoginState() {
 	  FB.getLoginStatus(function(response) {
-		  if (response.status === 'connected') {
-		  	redirectToSignUp();
-	    } 
-  });
+      if (response.status === 'connected') {
+        redirectToSignUp();
+      } else {
+        FB.login(function(response) {
+          if (response.status === 'connected') {
+            redirectToSignUp();
+          }
+        });
+      }
+    });
+  };
+
   function redirectToSignUp() {
   	console.log("redirecting to sign up");
   	FB.api('/me', function(response) {
@@ -36,9 +44,6 @@
       });
   	});
   };
-}
-
-// {"id":"10203180389299053","email":"hankim813@gmail.com","first_name":"Han","gender":"male","last_name":"Kim","link":"https://www.facebook.com/app_scoped_user_id/10203180389299053/","locale":"en_US","name":"Han Kim","timezone":-8,"updated_time":"2014-11-16T22:58:25+0000","verified":true}
 </script>
 
 <h1>circle.</h1>
@@ -47,4 +52,4 @@
   <div><a href="/users/new">create a circle for your family</a></div>
 <% end %>
 <a href="#" onclick="checkLoginState();">login through facebook</a>
-
+<div id="fb-root"></div>

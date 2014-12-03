@@ -3,8 +3,16 @@ helpers do
     session["user_id"].nil? ? false : (User.find(session["user_id"]))
   end
 
+  def current_family
+    current_user.family
+  end
+
   def set_session_id(user_id)
     session["user_id"] = user_id
+  end
+
+  def clear_session_id
+    session["user_id"] = nil
   end
 
   def require_user

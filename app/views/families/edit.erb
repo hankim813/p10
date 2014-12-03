@@ -26,6 +26,10 @@
     <input type="text" name="family[cover_photo_link]" value="<%= @family.cover_photo_link %>">
   </div>
   <div class="form-field">
+    Family Invite Link: 
+    <a href="/users/new?key=<%= @family.token %>">Family Secret Token</a>
+  </div>
+  <div class="form-field">
     <label class="label" for="user[password]">Password</label>
     <input type="password" name="user[password]">
   </div>
