@@ -115,3 +115,12 @@ nav {
   padding: 1%;
   margin: 1% 0;
 }
+
+/* Albums */
+
+.album-container {
+  border: 1px solid #04B45F;
+  box-shadow: 1px 1px 1px #0B610B;
+  padding: 1%;
+  margin: 1% 0;
+}

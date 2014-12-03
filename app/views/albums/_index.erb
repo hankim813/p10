@@ -1,0 +1,34 @@
+<% @albums.each do |album| %>
+	<div class="album-container">
+		<p>Title: <%= album.title %></p>
+		<p>Description: <%= album.description %></p>
+		<p>Taken: <%= album.location %></p>
+		<p>By: <%= album.user %></p>
+		<p>Tags:</p>
+		<% album.tags.each do |tag| %>
+			<p>#<%= tag.word %></p>
+		<% end %>
+		<a href="/families/<%= current_family.id %>/albums/<%= album.id %>/show">view album</a>
+		<% if authenticate_current_user_access_to(album) %>
+			<a href="/families/<%= current_family.id %>/users/<%= album.user.id %>/albums/<%= album.id %>/edit">Edit album</a>
+			<form action="/families/<%= current_family.id %>/users/<%= album.user.id %>/albums/<%= album.id %>/delete" method="post">
+				<input type="hidden" name="_method" value="delete">
+				<input type="submit" value="delete album">
+			</form>
+		<% end %>
+		<% album.photos.each do |photo| %>
+			<div class="photo-container">
+				<img src="<%= photo.src %>" alt="<%= photo.caption %>" width="250px;">
+				<p><%= photo.caption %></p>
+				<p>Taken: <%= photo.location %></p>
+				<p>By: <%= photo.user.nickname %></p>
+				<p>Album: <%= photo.album %></p>
+				<p>Tags:</p> 
+					<% photo.tags.each do |tag| %>
+						<%= tag.word %>
+					<% end %>
+				<a href="/families/<%= current_family.id %>/photos/<%= photo.id %>/show">view photo</a>
+			</div>
+		<% end %>
+	</div>
+<% end %>

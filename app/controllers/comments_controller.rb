@@ -6,7 +6,6 @@ get '/families/:family_id/users/:user_id/posts/:post_id/comments/:comment_id/edi
     erb :'/comments/edit'
   else
     redirect "/families/#{current_user.family.id}/show?notice=comment%20not%20found"
-    return
   end
 end
 
@@ -16,10 +15,8 @@ post '/families/:family_id/posts/:post_id/comments/new' do
   comment = Comment.new(description: params[:description], user_id: current_user.id, post_id: params[:post_id])
   if comment.save
     redirect "/families/#{current_user.family.id}/show?notice=comment%20successfully%20created"
-    return
   else
     redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong"
-    return
   end
 end
 
@@ -33,15 +30,12 @@ post '/families/:family_id/posts/:post_id/comments/:comment_id/reply' do
         comment.replies << reply
         reply.update_attributes(user_id: current_user.id, post_id: comment.post.id)
         redirect "/families/#{current_user.family.id}/show?notice=reply%20successfully%20created"
-        return
       else
         redirect "/families/#{current_user.family.id}/show?notice=reply%20no%20save"
-        return
       end
     end
   else
     redirect "/families/#{current_user.family.id}/show?notice=comment%20not%20found"
-    return
   end
 end
 

@@ -4,4 +4,5 @@ class Tag < ActiveRecord::Base
   has_and_belongs_to_many :posts
   has_and_belongs_to_many :polls
   has_and_belongs_to_many :photos
+  has_and_belongs_to_many :albums
 end

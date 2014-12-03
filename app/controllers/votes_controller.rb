@@ -6,14 +6,12 @@ post '/families/:family_id/polls/:poll_id/options/:option_id/votes/new' do
     if vote.save
       option.vote_count += 1
       option.save
-      redirect "/families/#{current_user.family.id}/show?notice=vote%20sucess"
-      return
+      redirect "/families/#{current_family.id}/show?notice=vote%20sucess"
     else
-      redirect "/families/#{current_user.family.id}/show?notice=vote%20no%20save"
+      redirect "/families/#{current_family.id}/show?notice=vote%20no%20save"
     end
   else
-    redirect "/families/#{current_user.family.id}/show?notice=option%20not%20found"
-    return
+    redirect "/families/#{current_family.id}/show?notice=option%20not%20found"
   end
 end
 
@@ -25,8 +23,8 @@ delete "/families/:family_id/users/:user_id/polls/:poll_id/options/:option_id/vo
     option = current_family.options.find_by(id: params[:option_id])
     option.vote_count -= 1
     option.save
-    redirect "/families/#{current_user.family.id}/show?notice=vote%20cancelled"
+    redirect "/families/#{current_family.id}/show?notice=vote%20cancelled"
   else
-    redirect "/families/#{current_user.family.id}/show?notice=vote%20not%20found"
+    redirect "/families/#{current_family.id}/show?notice=vote%20not%20found"
   end
 end
