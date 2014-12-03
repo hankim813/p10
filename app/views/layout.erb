@@ -15,11 +15,11 @@
       <a href="/families/<%= current_family.id %>/show">home</a> |
       <a href="/families/<%= current_family.id %>/posts/new">new post</a> |
       <a href="/families/<%= current_family.id %>/polls/new">new poll</a> |
-      <a href="/families/<%= current_family.id %>/polls/new">new poll</a> |
-      <a href="/families/<%= current_family.id %>/photos/new">new photo</a>
+      <a href="/families/<%= current_family.id %>/photos/new">new photo</a> |
+      <a href="/users/<%= current_user.id %>/edit">account settings</a>
       <% unless current_user.family.nil? %>
         <% if current_user.admin %>
-          | <a href="/families/<%= current_user.family.id %>/edit">Family Settings</a>
+          | <a href="/families/<%= current_family.id %>/edit">Family Settings</a>
         <% end %>
       <% end %>
       | <form action="/sessions/destroy" method="post">

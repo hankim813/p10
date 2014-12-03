@@ -2,22 +2,22 @@
   <div class="post-container">
     <p><%= post.parsed_html %></p>
     <p>by <%= post.user.nickname %></p>
-    <a href="/families/<%= current_user.family.id %>/posts/<%= post.id %>/show">view post</a> |
+    <a href="/families/<%= current_family.id %>/posts/<%= post.id %>/show">view post</a> |
     <% if authenticate_current_user_access_to(post) %>
-      <a href="/families/<%= current_user.family.id %>/posts/<%= post.id %>/edit">edit post</a>
+      <a href="/families/<%= current_family.id %>/users/<%= post.user.id %>/posts/<%= post.id %>/edit">edit post</a>
     <% end %>
     <% post.comments.each do |comment| %>
       <% if comment.parent_comment.nil? %>
         <div class="comment-container">
           <%= comment.description %> by <%= comment.user.nickname %>
           <% if authenticate_current_user_access_to(comment) %> 
-            <a href="/families/<%= current_user.family.id %>/comments/<%= comment.id %>/edit">edit comment</a>
-            <form action="/families/<%= current_user.family.id %>/posts/<%= post.id %>/comments/<%= comment.id %>/delete" method="post">
+            <a href="/families/<%= current_family.id %>/users/<%= comment.user.id %>/posts/<%= post.id %>/comments/<%= comment.id %>/edit">edit comment</a>
+            <form action="/families/<%= current_family.id %>/users/<%= comment.user.id %>/posts/<%= post.id %>/comments/<%= comment.id %>/delete" method="post">
               <input type="hidden" name="_method" value="delete">
               <input type="submit" value="delete comment">
             </form>
           <% end %>
-          <form action="/families/<%= current_user.family.id %>/posts/<%= post.id %>/comments/<%= comment.id %>/reply" method="post">
+          <form action="/families/<%= current_family.id %>/posts/<%= post.id %>/comments/<%= comment.id %>/reply" method="post">
             <input type="text" name="description">
             <input type="submit" value="reply">
           </form>
@@ -27,8 +27,8 @@
           <div class="reply-container">
             <%= reply.description %> by <%= reply.user.nickname %>
             <% if authenticate_current_user_access_to(reply) %>
-              <a href="/families/<%= current_user.family.id %>/comments/<%= reply.id %>/edit">edit comment</a>
-              <form action="/families/<%= current_user.family.id %>/posts/<%= post.id %>/comments/<%= reply.id %>/delete" method="post">
+              <a href="/families/<%= current_family.id %>/users/<%= reply.user.id %>/posts/<%= post.id %>/comments/<%= reply.id %>/edit">edit comment</a>
+              <form action="/families/<%= current_family.id %>/users/<%= reply.user.id %>/posts/<%= post.id %>/comments/<%= reply.id %>/delete" method="post">
                 <input type="hidden" name="_method" value="delete">
                 <input type="submit" value="delete reply">
               </form>
@@ -37,12 +37,12 @@
         <% end %>
     <% end %>
     <% if authenticate_current_user_access_to(post) %>
-      <form action="/families/<%= current_user.family.id %>/posts/<%= post.id %>/delete" method="post">
-      <input type="hidden" name="_method" value="delete">
-      <input type="submit" value="delete">
-    </form>
+      <form action="/families/<%= current_family.id %>/users/<%= post.user.id %>/posts/<%= post.id %>/delete" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="delete">
+      </form>
     <% end %>
-    <form action="/families/<%= current_user.family.id %>/posts/<%= post.id %>/comments/new" method="post">
+    <form action="/families/<%= current_family.id %>/posts/<%= post.id %>/comments/new" method="post">
       <input type="text" name="description">
       <input type="submit" value="comment">
     </form>

@@ -1,6 +1,6 @@
 <h1>edit your poll</h1>
 
-<form action="/families/<%= current_user.family.id %>/polls/<%= @poll.id %>/edit" method="post">
+<form action="/families/<%= current_family.id %>/users/<%= @poll.user.id %>/polls/<%= @poll.id %>/edit" method="post">
   <div class="form-field">
     <label for="poll[question]">Question</label>
     <input type="text" name="poll[question]" value="<%= @poll.question %>">
@@ -16,15 +16,15 @@
   <% @poll.options.each do |option| %>
     <li>
       <%= option.description %>
-      <a href="/families/<%= current_user.family.id %>/polls/<%= @poll.id %>/options/<%= option.id %>/edit">edit option</a>
-      <form action="/families/<%= current_user.family.id %>/polls/<%= @poll.id %>/options/<%= option.id %>/delete" method="post">
+      <a href="/families/<%= current_family.id %>/users/<%= @poll.user.id %>/polls/<%= @poll.id %>/options/<%= option.id %>/edit">edit option</a>
+      <form action="/families/<%= current_family.id %>/users/<%= @poll.user.id %>/polls/<%= @poll.id %>/options/<%= option.id %>/delete" method="post">
         <input type="hidden" name="_method" value="delete">
         <input type="submit" value="delete option">
       </form>
     </li>
   <% end %>
 </ul>
-<form action="/families/<%= current_user.family.id %>/polls/<%= @poll.id %>/options/add" method="post">
+<form action="/families/<%= current_family.id %>/users/<%= @poll.user.id %>/polls/<%= @poll.id %>/options/add" method="post">
   <label for="description">Description</label>
   <input type="text" name="description" autofocus>
   <input type="submit" value="add">

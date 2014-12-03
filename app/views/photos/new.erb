@@ -1,6 +1,6 @@
 <h1>upload a new photo</h1>
 
-<form action='/families/<%= current_family.id %>/users/<%= current_user.id %>/photos/upload' method='post' accept-charset="utf-8" enctype="multipart/form-data">
+<form action='/families/<%= current_family.id %>/photos/upload' method='post' accept-charset="utf-8" enctype="multipart/form-data">
 	<div class="form-field">
 	  <label for='content_file'>Image</label>
 	  <input type="file" name="content[file]" id="content_file" />
@@ -12,6 +12,10 @@
 	<div class="form-field">
 	  <label for='location'>Location</label>
 	  <input type="text" name="location" id="location" />
+	</div>
+	<div class="form-field">
+		<label for='photo-tag'>Tags</label>
+		<input type="text" name="tags" id="photo-tag" placeholder="separate tags by comma">
 	</div>
   <button type='submit'>Save</button>
 </form>

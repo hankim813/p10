@@ -16,9 +16,10 @@ get '/families/:family_id/polls/:poll_id/show' do
   end
 end
 
-get '/families/:family_id/polls/:poll_id/edit' do
+get '/families/:family_id/users/:user_id/polls/:poll_id/edit' do
   require_user
   authenticate_family_access(params[:family_id])
+  authenticate_user_access(params[:user_id])
   if @poll = current_family.polls.find_by(id: params[:poll_id])
     erb :'polls/edit'
   else
@@ -56,9 +57,10 @@ end
 
 
 
-delete '/families/:family_id/polls/:poll_id/delete' do
+delete '/families/:family_id/users/:user_id/polls/:poll_id/delete' do
   require_user
   authenticate_family_access(params[:family_id])
+  authenticate_user_access(params[:user_id])
   if current_family.polls.find_by(id: params[:poll_id]).destroy
     redirect "/families/#{current_user.family.id}/show?notice=poll%20sucessfully%20deleted"
     return
@@ -68,9 +70,10 @@ delete '/families/:family_id/polls/:poll_id/delete' do
   end
 end
 
-put '/families/:family_id/polls/:poll_id/edit' do
+put '/families/:family_id/users/:user_id/polls/:poll_id/edit' do
   require_user
   authenticate_family_access(params[:family_id])
+  authenticate_user_access(params[:user_id])
   if current_family.polls.find_by(id: params[:poll_id]).update_attributes(params[:poll])
     redirect "/families/#{current_user.family.id}/show?notice=poll%20sucessfully%20edited"
   else

@@ -6,7 +6,7 @@
       <li>
         <%= option.description %>
         <% unless current_user_voted_in(@poll) %>
-          <form action="/families/<%= current_user.family.id %>/users/<%= current_user.id %>/polls/<%= @poll.id %>/options/<%= option.id %>/votes/new" method="post">
+          <form action="/families/<%= current_user.family.id %>/polls/<%= @poll.id %>/options/<%= option.id %>/votes/new" method="post">
             <input type="submit" value="vote!">
           </form>
         <% end %>
@@ -17,8 +17,8 @@
     <% end %>
   </ul>
   <% if authenticate_current_user_access_to(@poll) %>
-    <a href="/families/<%= current_user.family.id %>/polls/<%= @poll.id %>/edit">edit poll</a>
-    <form action="/families/<%= current_user.family.id %>/polls/<%= @poll.id %>/delete" method="post">
+    <a href="/families/<%= current_user.family.id %>/users/<%= @poll.user.id %>/polls/<%= @poll.id %>/edit">edit poll</a>
+    <form action="/families/<%= current_user.family.id %>/users/<%= @poll.user.id %>/polls/<%= @poll.id %>/delete" method="post">
       <input type="hidden" name="_method" value="delete">
       <input type="submit" value="delete">
     </form>

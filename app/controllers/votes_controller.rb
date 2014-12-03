@@ -1,4 +1,4 @@
-post '/families/:family_id/users/:user_id/polls/:poll_id/options/:option_id/votes/new' do
+post '/families/:family_id/polls/:poll_id/options/:option_id/votes/new' do
   require_user
   authenticate_family_access(params[:family_id])
   if (poll = current_family.polls.find_by(id: params[:poll_id])) && (option = current_family.options.find_by(id: params[:option_id]))
@@ -20,6 +20,7 @@ end
 delete "/families/:family_id/users/:user_id/polls/:poll_id/options/:option_id/votes/:vote_id/delete" do
   require_user
   authenticate_family_access(params[:family_id])
+  authenticate_user_access(params[:user_id])
   if current_family.votes.find_by(id: params[:vote_id]).destroy
     option = current_family.options.find_by(id: params[:option_id])
     option.vote_count -= 1
