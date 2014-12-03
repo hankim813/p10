@@ -1,7 +1,7 @@
 <script>
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : <%= @app_id %>,
+      appId      : 1585228831711791,
       xfbml      : true,
       version    : 'v2.1'
     });
@@ -19,29 +19,21 @@
 	  FB.getLoginStatus(function(response) {
 		  if (response.status === 'connected') {
 		  	redirectToSignUp();
-		      // Logged into your app and Facebook.
-	    } else if (response.status === 'not_authorized') {
-		    	console.log("not_authorized")
-		    //   // The person is logged into Facebook, but not your app.
-		    } else {
-		    	console.log("else")
-		    //   // The person is not logged into Facebook, so we're not sure if
-		    //   // they are logged into this app or not.
-		    }
+	    } 
   });
   function redirectToSignUp() {
   	console.log("redirecting to sign up");
   	FB.api('/me', function(response) {
-  		$.ajax({
-  			url: "/api/fb/user",
-  			dataType: 'JSON',
-  			data: response
-  		}).done(function(response){
-  			console.log("success");
-  			console.log(response);
-  		}).fail(function(response){
-  			console.log("fail");
-  		})
+      $.ajax({
+        url: "/fb/api/users",
+        dataType: "JSON",
+        type: "post",
+        data: response
+      }).done(function(response){
+        window.location.replace(response)
+      }).fail(function(response){
+        console.log("fail")
+      });
   	});
   };
 }

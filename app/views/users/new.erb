@@ -3,11 +3,11 @@
 <form action="/users/new" method="post">
   <div class="form-field">
     <label class="label" for="first_name">First Name</label>
-    <input type="text" name="user[first_name]">
+    <input type="text" name="user[first_name]" value="<%= params[:first_name] %>">
   </div>
   <div class="form-field">
     <label class="label" for="last_name">Last Name</label>
-    <input type="text" name="user[last_name]">
+    <input type="text" name="user[last_name]" value="<%= params[:last_name] %>">
   </div>
   <div class="form-field">
     <label class="label" for="nickname">Nickname</label>
@@ -21,7 +21,7 @@
   </div>
   <div class="form-field">
     <label class="label" for="email">Email</label>
-    <input type="text" name="user[email]">
+    <input type="text" name="user[email]" value="<%= params[:email] %>">
   </div>
   <div class="form-field">
     <label class="label" for="email">Birthday</label>
