@@ -5,9 +5,13 @@ get '/' do
 end
 
 post '/fb/api/users' do
-	redirectLink = "/users/new?first_name=" + params["first_name"] + "&last_name=" + params["last_name"] + "&email="
-	email = params["email"]
-	email.gsub!('.', '%2E')
-	email.gsub!('@', '%40')
-	(redirectLink + email).to_json
+	status 500
+	if User.find_by(email: params["email"])
+		{ email: params["email"], notice: "You already have an account" }.to_json
+	else
+		redirectLink = "/users/new?first_name=" + params["first_name"] + "&last_name=" + params["last_name"] + "&email="
+		email.gsub!('.', '%2E')
+		email.gsub!('@', '%40')
+		(redirectLink + email).to_json
+	end
 end

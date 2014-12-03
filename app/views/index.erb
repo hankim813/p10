@@ -30,7 +30,6 @@
   };
 
   function redirectToSignUp() {
-  	console.log("redirecting to sign up");
   	FB.api('/me', function(response) {
       $.ajax({
         url: "/fb/api/users",
@@ -38,15 +37,21 @@
         type: "post",
         data: response
       }).done(function(response){
-        window.location.replace(response)
+        if (response.email === undefined) {
+          window.location.replace(response);
+        } else {
+          window.location.replace("/sessions/new?notice=" + response.notice + "&email=" + response.email);
+        };
       }).fail(function(response){
-        console.log("fail")
+        window.location.replace("/?notice=Something%20went%20wrong%20with%20facebook");
       });
   	});
   };
 </script>
 
 <h1>circle.</h1>
+
+<div class="notice"><p><%= params[:notice] %></p></div>
 <% if !current_user %>
   <div><a href="/sessions/new">see your family</a></div>
   <div><a href="/users/new">create a circle for your family</a></div>
