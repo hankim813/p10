@@ -1,0 +1,16 @@
+<h1>edit your photo</h1>
+
+<img src="<%= @photo.src %>" alt="<%= @photo.caption %>" width="500px">
+
+<form action='/families/<%= current_family.id %>/photos/<%= @photo.id %>/edit' method='post' accept-charset="utf-8" enctype="multipart/form-data">
+	<div class="form-field">
+	  <label for='caption'>Caption</label>
+	  <input type="text" name="photo[caption]" id="caption" value="<%= @photo.caption %>" />
+	</div>
+	<div class="form-field">
+	  <label for='location'>Location</label>
+	  <input type="text" name="photo[location]" id="location" value="<%= @photo.location %>"/>
+	</div>
+	<input type="hidden" name="_method" value="put">
+  <input type='submit' value="save">
+</form>

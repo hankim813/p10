@@ -8,6 +8,8 @@ class Family < ActiveRecord::Base
   has_many :comments, through: :users
   has_many :options, through: :polls
   has_many :votes, through: :options
+  has_many :photos, through: :users
+  has_many :albums, through: :users
 
   include BCrypt
 

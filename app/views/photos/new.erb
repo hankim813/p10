@@ -1,0 +1,17 @@
+<h1>upload a new photo</h1>
+
+<form action='/families/<%= current_family.id %>/users/<%= current_user.id %>/photos/upload' method='post' accept-charset="utf-8" enctype="multipart/form-data">
+	<div class="form-field">
+	  <label for='content_file'>Image</label>
+	  <input type="file" name="content[file]" id="content_file" />
+	</div>
+	<div class="form-field">
+	  <label for='caption'>Caption</label>
+	  <input type="text" name="caption" id="caption" />
+	</div>
+	<div class="form-field">
+	  <label for='location'>Location</label>
+	  <input type="text" name="location" id="location" />
+	</div>
+  <button type='submit'>Save</button>
+</form>

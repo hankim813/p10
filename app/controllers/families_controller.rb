@@ -8,6 +8,7 @@ get '/families/:family_id/show' do
   authenticate_family_access(params[:family_id])
   @posts = current_family.posts.reverse
   @polls = current_family.polls
+  @photos = current_family.photos.reverse
   @notice = params[:notice]
   erb :"/families/show"
 end

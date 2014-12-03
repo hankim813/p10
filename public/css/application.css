@@ -106,3 +106,12 @@ nav {
   padding: 1%;
   margin: 1% 0;
 }
+
+/* Photos */
+
+.photo-container {
+  border: 1px solid #FE9A2E;
+  box-shadow: 1px 1px 1px #F7BE81;
+  padding: 1%;
+  margin: 1% 0;
+}
