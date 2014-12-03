@@ -31,27 +31,29 @@ post '/polls/new' do
   poll = Poll.new(params[:poll])
   if poll.save
     current_user.polls << poll
-    if tag = current_family.tags.find_by(word: params[:tag_word].downcase)
-      if tag.save
-        current_user.tags << tag
+    params[:tags] ? (tags = params[:tags].split(",").map(&:strip)) : (redirect "/families/#{current_user.family.id}/users/#{current_user.id}/polls/#{poll.id}/options/new")
+    tags.each do |tag_word|
+      if tag = current_family.tags.find_by(word: tag_word.downcase)
         poll.tags << tag
-        redirect "/families/#{current_user.family.id}/users/#{current_user.id}/polls/#{poll.id}/options/new"
-        return
-      end
-    else
-      tag = Tag.new(word: params[:tag_word].downcase)
-      if tag.save
-        current_user.tags << tag
-        poll.tags << tag
-        redirect "/families/#{current_user.family.id}/users/#{current_user.id}/polls/#{poll.id}/options/new"
-        return
+      else
+        tag = Tag.new(word: tag_word.downcase)
+        if tag.save
+          current_user.tags << tag
+          poll.tags << tag
+        else
+          redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong%20with%20the%20tag"
+          return
+        end
       end
     end
+    redirect "/families/#{current_user.family.id}/users/#{current_user.id}/polls/#{poll.id}/options/new"
+    return
   else
-    redirect "/families/#{current_user.family.id}/polls/new?notice=something%20went%20wrong"
+    redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong%20with%20the%20post"
     return
   end
 end
+
 
 
 delete '/families/:family_id/polls/:poll_id/delete' do

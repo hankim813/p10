@@ -1,5 +1,3 @@
-# CLEAN THE ROUTE LINKS!! USE WILDCARD
-
 get '/families/:family_id/users/:user_id/polls/:poll_id/options/new' do
   require_user
   authenticate_family_access(params[:family_id])

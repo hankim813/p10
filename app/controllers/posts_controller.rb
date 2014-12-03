@@ -31,23 +31,26 @@ post '/posts/new' do
   post = Post.new(description: params[:description], parsed_html: html)
   if post.save
     current_user.posts << post
-    if tag = current_family.tags.find_by(word: params[:tag_word].downcase)
-      post.tags << tag
-      redirect "/families/#{current_user.family.id}/show?notice=post%20successfully%20created"
-    elsif params[:tag_word].empty?
-      redirect "/families/#{current_user.family.id}/show?notice=post%20successfully%20created"
-    else
-      tag = Tag.new(word: params[:tag_word].downcase)
-      if tag.save
-        current_user.tags << tag
+    params[:tags] ? (tags = params[:tags].split(",").map(&:strip)) : (redirect "/families/#{current_user.family.id}/show?notice=post%20successfully%20created")
+    tags.each do |tag_word|
+      if tag = current_family.tags.find_by(word: tag_word.downcase)
         post.tags << tag
-        redirect "/families/#{current_user.family.id}/show?notice=post%20successfully%20created"
       else
-        redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong%20with%20the%20tag"
+        tag = Tag.new(word: tag_word.downcase)
+        if tag.save
+          current_user.tags << tag
+          post.tags << tag
+        else
+          redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong%20with%20the%20tag"
+          return
+        end
       end
     end
+    redirect "/families/#{current_user.family.id}/show?notice=post%20successfully%20created"
+    return
   else
     redirect "/families/#{current_user.family.id}/show?notice=something%20went%20wrong%20with%20the%20post"
+    return
   end
 end
 

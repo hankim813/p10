@@ -5,7 +5,6 @@ get '/' do
 end
 
 post '/fb/api/users' do
-	status 500
 	if User.find_by(email: params["email"])
 		{ email: params["email"], notice: "You already have an account" }.to_json
 	else
