@@ -13,7 +13,6 @@ end
 get '/users/:user_id/edit' do
   require_user
   authenticate_user_access(params[:user_id])
-  @user = current_family.users.find_by(id: current_user.id)
   erb :'/users/edit'
 end
 
@@ -27,25 +26,24 @@ post '/users/new' do
     else
       if family = Family.find_by(token: params[:family][:password])
         family.users << user
-        redirect "/families/#{family.id}/show"
+        redirect "/families/#{family.id}/show?notice=welcome%20to%20your%20family%20circle"
       else
         @notice = "Your family token must be invalid! Can't find your family!"
         erb :index
       end
     end
   else
-    @notice = "Something went wrong. Please try again."
+    @notice = "User info was invalid. Please try again."
     erb :index
   end
 end
 
-put '/users/:user_id' do
+put '/users/:user_id/edit' do
   require_user
   authenticate_user_access(params[:user_id])
-  user = current_family.users.find_by(id: params[:user_id])
-  if user.authenticate(params[:user][:password])
-    user.update_attributes(params[:user])
-    redirect "/families/#{user.family.id}/show"
+  if current_user.authenticate(params[:user][:password])
+    current_user.update_attributes(params[:user])
+    redirect "/families/#{current_user.family.id}/show?notice=profile%20successfully%20updated"
   else
     @notice = "Password Incorrect"
     erb :"/users/edit"

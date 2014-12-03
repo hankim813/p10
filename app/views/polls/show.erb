@@ -1,7 +1,6 @@
 <div class="poll-container">
   <p><%= @poll.question %> by <%= @poll.user.nickname %></p>
   <p><%= @poll.description %></p>
-  <p>expired: <%= @poll.expired %></p>
   <ul>
     <% @poll.options.each do |option| %>
       <li>

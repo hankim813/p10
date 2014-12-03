@@ -1,33 +1,33 @@
 <h1>family settings</h1>
 
-<form action="/families/<%= @family.id %>/edit" method="post">
+<form action="/families/<%= current_family.id %>/edit" method="post">
   <div class="form-field">
     <label class="label" for="family[name]">Name</label>
-    <input type="text" name="family[name]" value="<%= @family.name %>">
+    <input type="text" name="family[name]" value="<%= current_family.name %>">
   </div>
   <div class="form-field">
     <label class="label" for="family[slogan]">Slogan</label>
-    <input type="text" name="family[slogan]" value="<%= @family.slogan %>">
+    <input type="text" name="family[slogan]" value="<%= current_family.slogan %>">
   </div>
   <div class="form-field">
     <label class="label" for="family[hometown]">Hometown</label>
-    <input type="text" name="family[hometown]" value="<%= @family.hometown %>">
+    <input type="text" name="family[hometown]" value="<%= current_family.hometown %>">
   </div>
   <div class="form-field">
     <label class="label" for="family[homestate]">Home State</label>
-    <input type="text" name="family[homestate]" value="<%= @family.homestate %>">
+    <input type="text" name="family[homestate]" value="<%= current_family.homestate %>">
   </div>
   <div class="form-field">
     <label class="label" for="family[homecountry]">Home Country</label>
-    <input type="text" name="family[homecountry]" value="<%= @family.homecountry %>">
+    <input type="text" name="family[homecountry]" value="<%= current_family.homecountry %>">
   </div>
   <div class="form-field">
     <label class="label" for="family[cover_photo_link]">Cover Photo</label>
-    <input type="text" name="family[cover_photo_link]" value="<%= @family.cover_photo_link %>">
+    <input type="text" name="family[cover_photo_link]" value="<%= current_family.cover_photo_link %>">
   </div>
   <div class="form-field">
     Family Invite Link: 
-    <a href="/users/new?key=<%= @family.token %>">Family Secret Token</a>
+    <a href="/users/new?key=<%= current_family.token %>">Family Secret Token</a>
   </div>
   <div class="form-field">
     <label class="label" for="user[password]">Password</label>

@@ -28,6 +28,10 @@
             <%= reply.description %> by <%= reply.user.nickname %>
             <% if authenticate_current_user_access_to(reply) %>
               <a href="/families/<%= current_user.family.id %>/comments/<%= reply.id %>/edit">edit comment</a>
+              <form action="/families/<%= current_user.family.id %>/posts/<%= post.id %>/comments/<%= reply.id %>/delete" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <input type="submit" value="delete reply">
+              </form>
             <% end %>
           </div>
         <% end %>

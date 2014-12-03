@@ -6,9 +6,8 @@ end
 get '/families/:family_id/show' do
   require_user
   authenticate_family_access(params[:family_id])
-  @family = Family.find_by(id: params[:family_id])
-  @posts = @family.posts.reverse
-  @polls = @family.polls
+  @posts = current_family.posts.reverse
+  @polls = current_family.polls
   @notice = params[:notice]
   erb :"/families/show"
 end
@@ -21,12 +20,7 @@ end
 get '/families/:family_id/edit' do
   require_user
   authenticate_family_access(params[:family_id])
-  if @family = Family.find_by(id: params[:family_id])
-    erb :'/families/edit'
-  else
-    redirect "/families/#{current_user.family.id}/show?notice=family%20not%20found"
-    return
-  end
+  erb :'/families/edit'
 end
 
 post '/families/new' do
@@ -47,19 +41,16 @@ end
 put '/families/:family_id/edit' do
   require_user
   authenticate_family_access(params[:family_id])
-  if @family = Family.find_by(id: params[:family_id]) 
-    if current_user.authenticate(params[:user][:password])
-      if @family.update_attributes(params[:family])
-        redirect "/families/#{current_user.family.id}/show?notice=family%20settings%20updated"
-        return
-      else
-        redirect "/families/#{current_user.family.id}/show?notice=family%20setting%20failed%20to%20update"
-      end
+  if current_user.authenticate(params[:user][:password])
+    if current_family.update_attributes(params[:family])
+      redirect "/families/#{current_user.family.id}/show?notice=family%20settings%20updated"
+      return
     else
-      redirect "/families/#{current_user.family.id}/show?notice=family%20not%20found"
+      redirect "/families/#{current_user.family.id}/show?notice=family%20setting%20failed%20to%20update"
+      return
     end
   else
-    @notice = "Incorrect password"
-    erb :"/families/edit"
+    redirect "/families/#{current_user.family.id}/show?notice=incorrect%20password"
+    return
   end
 end
