@@ -5,14 +5,14 @@
     <% @poll.options.each do |option| %>
       <li>
         <%= option.description %>
-        <% unless current_user_voted_in(@poll) %>
+        <% unless current_user_voted_for(@poll) %>
           <form action="/families/<%= current_user.family.id %>/polls/<%= @poll.id %>/options/<%= option.id %>/votes/new" method="post">
             <input type="submit" value="vote!">
           </form>
         <% end %>
       </li>
     <% end %>
-    <% if current_user_voted_in(@poll) %>
+    <% if current_user_voted_for(@poll) %>
       <p>You have voted already!</p>
     <% end %>
   </ul>

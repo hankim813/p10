@@ -10,7 +10,7 @@
             <%= vote.backer.nickname %>
           <% end %>
           <% unless current_user_voted_for(poll) %>
-            <form action="/families/<%= current_family.id %>/polls/<%= poll.id %>/options/<%= option.id %>/votes/new" method="post">
+            <form action="/families/<%= @family.id %>/polls/<%= poll.id %>/options/<%= option.id %>/votes/new" method="post">
               <input type="submit" value="vote!">
             </form>
           <% end %>
@@ -19,21 +19,59 @@
         <% if vote = current_user_voted_for(poll) %>
           <div>
             <p>You have voted already!</p>
-            <form action="/families/<%= current_family.id %>/users/<%= vote.backer.id %>/polls/<%= poll.id %>/options/<%= vote.option.id %>/votes/<%= vote.id %>/delete" method="post">
+            <form action="/families/<%= @family.id %>/users/<%= vote.backer.id %>/polls/<%= poll.id %>/options/<%= vote.option.id %>/votes/<%= vote.id %>/delete" method="post">
               <input type="hidden" name="_method" value="delete">
               <input type="submit" value="change my vote">
             </form>
           </div>
         <% end %>
     <div>
-      <a href="/families/<%= current_family.id %>/polls/<%= poll.id %>/show">view poll</a>
+      <a href="/families/<%= @family.id %>/polls/<%= poll.id %>/show">view poll</a>
       <% if authenticate_current_user_access_to(poll) %>
-        <a href="/families/<%= current_family.id %>/users/<%= poll.user.id %>/polls/<%= poll.id %>/edit">edit poll</a>
-        <form action="/families/<%= current_family.id %>/users/<%= poll.user.id %>/polls/<%= poll.id %>/delete" method="post">
+        <a href="/families/<%= @family.id %>/users/<%= poll.user.id %>/polls/<%= poll.id %>/edit">edit poll</a>
+        <form action="/families/<%= @family.id %>/users/<%= poll.user.id %>/polls/<%= poll.id %>/delete" method="post">
           <input type="hidden" name="_method" value="delete">
           <input type="submit" value="delete">
         </form>
       <% end %>
+    </div>
+    <div>
+      <% poll.comments.each do |comment| %>
+        <% if comment.parent_comment.nil? %>
+          <div class="comment-container">
+            <%= comment.description %> by <%= comment.user.nickname %>
+            <% if authenticate_current_user_access_to(comment) %> 
+              <a href="/families/<%= @family.id %>/users/<%= comment.user.id %>/polls/<%= poll.id %>/comments/<%= comment.id %>/edit">edit comment</a>
+              <form action="/families/<%= @family.id %>/users/<%= comment.user.id %>/polls/<%= poll.id %>/comments/<%= comment.id %>/delete" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <input type="submit" value="delete comment">
+              </form>
+            <% end %>
+            <form action="/families/<%= @family.id %>/polls/<%= poll.id %>/comments/<%= comment.id %>/reply" method="post">
+              <input type="text" name="description">
+              <input type="submit" value="reply">
+            </form>
+            </div>
+        <% end %>
+          <% comment.replies.each do |reply| %>
+            <div class="reply-container">
+              <%= reply.description %> by <%= reply.user.nickname %>
+              <% if authenticate_current_user_access_to(reply) %>
+                <a href="/families/<%= @family.id %>/users/<%= reply.user.id %>/polls/<%= poll.id %>/comments/<%= reply.id %>/edit">edit comment</a>
+                <form action="/families/<%= @family.id %>/users/<%= reply.user.id %>/polls/<%= poll.id %>/comments/<%= reply.id %>/delete" method="post">
+                  <input type="hidden" name="_method" value="delete">
+                  <input type="submit" value="delete reply">
+                </form>
+              <% end %>
+            </div>
+          <% end %>
+      <% end %>
+    </div>
+    <div>
+      <form action="/families/<%= @family.id %>/polls/<%= poll.id %>/comments/new" method="post">
+        <input type="text" name="description">
+        <input type="submit" value="comment">
+      </form>
     </div>
   </div>
 <% end %>

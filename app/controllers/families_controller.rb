@@ -6,10 +6,11 @@ end
 get '/families/:family_id/show' do
   require_user
   authenticate_family_access(params[:family_id])
-  @posts = current_family.posts.reverse
-  @polls = current_family.polls.reverse
-  @photos = current_family.photos.reverse
-  @albums = current_family.albums.reverse
+  @family = current_family
+  @posts = @family.posts.reverse
+  @polls = @family.polls.reverse
+  @photos = @family.photos.reverse
+  @albums = @family.albums.reverse
   @notice = params[:notice]
   erb :"/families/show"
 end
