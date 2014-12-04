@@ -27,6 +27,8 @@ Dotenv.load
 
 require 'aws/s3'
 
+require 'pony'
+
 # Some helper constants for path-centric logic
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 

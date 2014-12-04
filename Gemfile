@@ -17,6 +17,7 @@ gem 'shotgun'
 gem 'bcrypt-ruby'
 gem 'json'
 gem 'aws-s3', '~> 0.6.3'
+gem 'pony', '~> 1.11'
 
 group :test do
   gem 'shoulda-matchers'
