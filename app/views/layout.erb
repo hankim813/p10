@@ -27,6 +27,7 @@
           | <a href="/families/<%= current_family.id %>/edit">Family Settings</a>
         <% end %>
       <% end %>
+      | <a href="/families/<%= current_family.id %>/users/<%= current_user.id %>/inbox">Inbox</a>
       | <form action="/sessions/destroy" method="post">
         <input name="_method" type="hidden" value="delete" />
         <input type="submit" value="Sign Out">

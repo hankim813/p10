@@ -10,6 +10,7 @@ class Family < ActiveRecord::Base
   has_many :votes, through: :options
   has_many :photos, through: :users
   has_many :albums, through: :users
+  has_many :messages, through: :users
 
   include BCrypt
 
