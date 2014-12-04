@@ -9,6 +9,7 @@ get '/families/:family_id/polls/:poll_id/show' do
   require_user
   authenticate_family_access(params[:family_id])
   if @poll = current_family.polls.find_by(id: params[:poll_id])
+    @family = current_family
     erb :"/polls/show"
   else
     redirect "/families/#{current_family.id}/show?notice=poll%20not%20found"
@@ -20,6 +21,7 @@ get '/families/:family_id/users/:user_id/polls/:poll_id/edit' do
   authenticate_family_access(params[:family_id])
   authenticate_user_access(params[:user_id])
   if @poll = current_family.polls.find_by(id: params[:poll_id])
+    @family = current_family
     erb :'polls/edit'
   else
     redirect "/families/#{current_family.id}/show?notice=poll%20not%20found"

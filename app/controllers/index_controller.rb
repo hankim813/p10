@@ -1,5 +1,5 @@
 get '/' do
-	redirect "/families/#{current_user.family.id}/show" if current_user
+	redirect "/families/#{current_family.id}/show" if current_user
   # Landing Page
   erb :index
 end

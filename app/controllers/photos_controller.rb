@@ -1,6 +1,7 @@
 get '/families/:family_id/photos/new' do
 	require_user
 	authenticate_family_access(params[:family_id])
+	@family = current_family
 	erb :"/photos/new"
 end
 
@@ -9,6 +10,7 @@ get '/families/:family_id/users/:user_id/photos/:photo_id/edit' do
 	authenticate_family_access(params[:family_id])
 	authenticate_user_access(params[:user_id])
 	if @photo = current_family.photos.find_by(id: params[:photo_id])
+		@family = current_family
 		erb :"/photos/edit"
 	else
 		redirect "/families/#{current_family.id}/show?notice=photo%20not%20found"
@@ -19,6 +21,7 @@ get '/families/:family_id/photos/:photo_id/show' do
 	require_user
 	authenticate_family_access(params[:family_id])
 	if @photo = current_family.photos.find_by(id: params[:photo_id])
+		@family = current_family
 		erb :"/photos/show"
 	else
 		redirect "/families/#{current_family.id}/show?notice=photo%20not%20found"

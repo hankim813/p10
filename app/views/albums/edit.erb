@@ -1,6 +1,6 @@
 <h1>edit your album</h1>
 
-<form action='/families/<%= current_family.id %>/users/<%= @album.user.id %>/albums/<%= @album.id %>/edit' method='post'>
+<form action='/families/<%= @family.id %>/users/<%= @album.user.id %>/albums/<%= @album.id %>/edit' method='post'>
 	<div class="form-field">
 	  <label for='album-title'>Title</label>
 	  <input type="text" name="album[title]" id="album-title" value="<%= @album.title %>">
@@ -28,10 +28,10 @@
 			<% photo.tags.each do |tag| %>
 				<%= tag.word %>
 			<% end %>
-		<a href="/families/<%= current_family.id %>/photos/<%= photo.id %>/show">view photo</a>
+		<a href="/families/<%= @family.id %>/photos/<%= photo.id %>/show">view photo</a>
 		<% if authenticate_current_user_access_to(photo) %>
-			<a href="/families/<%= current_family.id %>/users/<%= photo.user.id %>/photos/<%= photo.id %>/edit">edit photo</a>
-			<form action="/families/<%= current_family.id %>/users/<%= photo.user.id %>/photos/<%= photo.id %>/delete" method="post">
+			<a href="/families/<%= @family.id %>/users/<%= photo.user.id %>/photos/<%= photo.id %>/edit">edit photo</a>
+			<form action="/families/<%= @family.id %>/users/<%= photo.user.id %>/photos/<%= photo.id %>/delete" method="post">
 				<input type="hidden" name="_method" value="delete">
 				<input type="submit" value="delete photo">
 			</form>

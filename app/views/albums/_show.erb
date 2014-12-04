@@ -1,8 +1,8 @@
 <div class="album-container">
-  <p><%= @album.title %> by <%= @album.user.nickname %></p>
-  <p><%= @album.description %></p>
-  <p><%= @album.location %></p>
-      <% @album.photos.each do |photo| %>
+  <p><%= album.title %> by <%= album.user.nickname %></p>
+  <p><%= album.description %></p>
+  <p><%= album.location %></p>
+      <% album.photos.each do |photo| %>
         <div class="photo-container">
           <img src="<%= photo.src %>" alt="<%= photo.caption %>" width="100%;">
           <p><%= photo.caption %></p>
@@ -23,25 +23,25 @@
           <% end %>
         </div>
       <% end %>
-  <% if authenticate_current_user_access_to(@album) %>
-    <a href="/families/<%= @family.id %>/users/<%= @album.user.id %>/albums/<%= @album.id %>/edit">edit album</a>
-    <form action="/families/<%= @family.id %>/users/<%= @album.user.id %>/albums/<%= @album.id %>/delete" method="post">
+  <% if authenticate_current_user_access_to(album) %>
+    <a href="/families/<%= @family.id %>/users/<%= album.user.id %>/albums/<%= album.id %>/edit">edit album</a>
+    <form action="/families/<%= @family.id %>/users/<%= album.user.id %>/albums/<%= album.id %>/delete" method="post">
       <input type="hidden" name="_method" value="delete">
       <input type="submit" value="delete">
     </form>
   <% end %>
-    <% @album.comments.each do |comment| %>
+    <% album.comments.each do |comment| %>
       <% if comment.parent_comment.nil? %>
         <div class="comment-container">
           <%= comment.description %> by <%= comment.user.nickname %>
           <% if authenticate_current_user_access_to(comment) %> 
-            <a href="/families/<%= @family.id %>/users/<%= comment.user.id %>/albums/<%= @album.id %>/comments/<%= comment.id %>/edit">edit comment</a>
-            <form action="/families/<%= @family.id %>/users/<%= comment.user.id %>/albums/<%= @album.id %>/comments/<%= comment.id %>/delete" method="post">
+            <a href="/families/<%= @family.id %>/users/<%= comment.user.id %>/albums/<%= album.id %>/comments/<%= comment.id %>/edit">edit comment</a>
+            <form action="/families/<%= @family.id %>/users/<%= comment.user.id %>/albums/<%= album.id %>/comments/<%= comment.id %>/delete" method="post">
               <input type="hidden" name="_method" value="delete">
               <input type="submit" value="delete comment">
             </form>
           <% end %>
-          <form action="/families/<%= @family.id %>/albums/<%= @album.id %>/comments/<%= comment.id %>/reply" method="post">
+          <form action="/families/<%= @family.id %>/albums/<%= album.id %>/comments/<%= comment.id %>/reply" method="post">
             <input type="text" name="description">
             <input type="submit" value="reply">
           </form>
@@ -51,8 +51,8 @@
           <div class="reply-container">
             <%= reply.description %> by <%= reply.user.nickname %>
             <% if authenticate_current_user_access_to(reply) %>
-              <a href="/families/<%= @family.id %>/users/<%= reply.user.id %>/albums/<%= @album.id %>/comments/<%= reply.id %>/edit">edit comment</a>
-              <form action="/families/<%= @family.id %>/users/<%= reply.user.id %>/albums/<%= @album.id %>/comments/<%= reply.id %>/delete" method="post">
+              <a href="/families/<%= @family.id %>/users/<%= reply.user.id %>/albums/<%= album.id %>/comments/<%= reply.id %>/edit">edit comment</a>
+              <form action="/families/<%= @family.id %>/users/<%= reply.user.id %>/albums/<%= album.id %>/comments/<%= reply.id %>/delete" method="post">
                 <input type="hidden" name="_method" value="delete">
                 <input type="submit" value="delete reply">
               </form>

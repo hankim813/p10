@@ -1,6 +1,6 @@
 <h1>edit your comment</h1>
 
-<form action="/families/<%= current_family.id %>/users/<%= current_user.id %>/comments/<%= @comment.id %>/edit" method="post">
+<form action="/families/<%= @family.id %>/users/<%= current_user.id %>/comments/<%= @comment.id %>/edit" method="post">
   <input type="text" name="description" value="<%= @comment.description %>">
   <input type="hidden" name="_method" value="put">
   <input type="submit" value="save">

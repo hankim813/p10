@@ -1,6 +1,5 @@
 <h1><%= current_user.family.name %></h1>
 
-<%= erb :"/polls/_index", layout: false %>
-<%= erb :"/posts/_index", layout: false %>
-<%= erb :"/photos/_index", layout: false %>
-<%= erb :"/albums/_index", layout: false %>
+<% @news_feed.each do |news| %>
+	<div><%= render_news(news) %></div>
+<% end %>

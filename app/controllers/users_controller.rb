@@ -1,5 +1,5 @@
 get '/users/new' do
-  redirect "families/#{current_user.family.id}/show?notice=you%20are%20logged%20in%20already" if current_user
+  redirect "families/#{current_family.id}/show?notice=you%20are%20logged%20in%20already" if current_user
   @key = params[:key]
   erb :'/users/new'
 end
@@ -43,7 +43,7 @@ put '/users/:user_id/edit' do
   authenticate_user_access(params[:user_id])
   if current_user.authenticate(params[:user][:password])
     current_user.update_attributes(params[:user])
-    redirect "/families/#{current_user.family.id}/show?notice=profile%20successfully%20updated"
+    redirect "/families/#{current_family.id}/show?notice=profile%20successfully%20updated"
   else
     @notice = "Password Incorrect"
     erb :"/users/edit"

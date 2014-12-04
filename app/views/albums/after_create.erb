@@ -14,8 +14,8 @@
   	<img src="<%= photo.src %>" alt="<%= photo.caption %>" width="150px;">
   	<p><%= photo.caption %></p>
   	<p><%= photo.location %></p>
-		<a href="/families/<%= current_family.id %>/users/<%= photo.user.id %>/photos/<%= photo.id %>/edit">edit photo</a>
-  	<form action="/families/<%= current_family.id %>/users/<%= photo.user.id %>/photos/<%= photo.id %>/delete" method="post">
+		<a href="/families/<%= @family.id %>/users/<%= photo.user.id %>/photos/<%= photo.id %>/edit">edit photo</a>
+  	<form action="/families/<%= @family.id %>/users/<%= photo.user.id %>/photos/<%= photo.id %>/delete" method="post">
 			<input type="hidden" name="_method" value="delete">
 			<input type="submit" value="delete photo">
 		</form>
@@ -23,7 +23,7 @@
   <% end %>
 </ul>
 
-<form action="/families/<%= current_family.id %>/users/<%= @album.user.id %>/albums/<%= @album.id %>/photos/new" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+<form action="/families/<%= @family.id %>/users/<%= @album.user.id %>/albums/<%= @album.id %>/photos/new" method="post" accept-charset="utf-8" enctype="multipart/form-data">
   <div class="form-field">
 	  <label for='content_file'>Image</label>
 	  <input type="file" name="content[file]" id="content_file" />
@@ -43,5 +43,5 @@
   <button type='submit'>Save</button>
 </form>
 
-<a href="/families/<%= current_family.id %>/show">done</a>
+<a href="/families/<%= @family.id %>/show">done</a>
 

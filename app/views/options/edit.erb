@@ -1,6 +1,6 @@
 <h1>edit your option</h1>
 
-<form action="/families/<%= current_family.id %>/users/<%= @option.poll.user.id %>/polls/<%= @option.poll.id  %>/options/<%= @option.id %>/edit" method="post">
+<form action="/families/<%= @family.id %>/users/<%= @option.poll.user.id %>/polls/<%= @option.poll.id  %>/options/<%= @option.id %>/edit" method="post">
   <label for="description">Option Description</label>
   <textarea name="description"><%= @option.description %></textarea>
   <input type="hidden" name="_method" value="put">

@@ -3,6 +3,7 @@ get '/families/:family_id/users/:user_id/polls/:poll_id/options/new' do
   authenticate_family_access(params[:family_id])
   authenticate_user_access(params[:user_id])
   if @poll = current_family.polls.find_by(id: params[:poll_id])
+    @family = current_family
     erb :"/options/new"
   else
     redirect "/families/#{current_family.id}/show?notice=poll%20not%20found"
@@ -14,6 +15,7 @@ get '/families/:family_id/users/:user_id/polls/:poll_id/options/:option_id/edit'
   authenticate_family_access(params[:family_id])
   authenticate_user_access(params[:user_id])
   if @option = current_family.options.find_by(id: params[:option_id])
+    @family = current_family
     erb :"/options/edit"
   else
     redirect "/families/#{current_family.id}/show?notice=option%20not%20found"

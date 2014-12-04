@@ -8,6 +8,7 @@ get '/families/:family_id/posts/:post_id/show' do
   require_user
   authenticate_family_access(params[:family_id])
   if @post = current_family.posts.find_by(id: params[:post_id])
+    @family = current_family
     erb :'/posts/show'
   else
     redirect "/families/#{current_family.id}/show?notice=post%20not%20found"
@@ -19,6 +20,7 @@ get '/families/:family_id/users/:user_id/posts/:post_id/edit' do
   authenticate_family_access(params[:family_id])
   authenticate_user_access(params[:user_id])
   if @post = current_family.posts.find_by(id: params[:post_id])
+    @family = current_family
     erb :'/posts/edit'
   else
     redirect "/families/#{current_family.id}/show?notice=post%20not%20found"

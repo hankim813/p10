@@ -1,6 +1,7 @@
 get '/families/:family_id/albums/new' do
 	require_user
 	authenticate_family_access(params[:family_id])
+	@family = current_family
 	erb :"/albums/new"
 end
 
@@ -9,6 +10,7 @@ get '/families/:family_id/users/:user_id/albums/:album_id/edit' do
 	authenticate_family_access(params[:family_id])
 	authenticate_user_access(params[:user_id])
 	if @album = current_family.albums.find_by(id: params[:album_id])
+		@family = current_family
 		erb :'/albums/edit'
 	else
 		redirect "/families/#{current_family.id}/show?notice=album%20not%20found"
@@ -19,6 +21,7 @@ get '/families/:family_id/albums/:album_id/show' do
 	require_user
 	authenticate_family_access(params[:family_id])
 	if @album = current_family.albums.find_by(id: params[:album_id])
+		@family = current_family
 		erb :'/albums/show'
 	else
 		redirect "/families/#{current_family.id}/show?notice=album%20not%20found"
@@ -30,6 +33,7 @@ get '/families/:family_id/users/:user_id/albums/:album_id/photos/new' do
 	authenticate_family_access(params[:family_id])
 	authenticate_user_access(params[:user_id])
 	if @album = current_family.albums.find_by(id: params[:album_id])
+		@family = current_family
 		erb :"/albums/after_create"
 	else
 		redirect "/families/#{current_family.id}/show?notice=album%20not%20found"
