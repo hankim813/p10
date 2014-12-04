@@ -1,7 +1,17 @@
 <h1>edit your post</h1>
 
-<form action="/posts/<%= @post.id %>/edit" method="post">
-  <textarea name="description" rows="15"><%= @post.description %></textarea>
+<form action="/families/<%= @family.id %>/users/<%= @post.user.id %>/posts/<%= @post.id %>/edit" method="post">
+	<div class="form-field">
+		<label for="description">description</label>
+	  <textarea name="description" rows="15"><%= @post.description %></textarea>
+  </div>
   <input type="hidden" name="_method" value="put">
   <input type="submit" value="edit">
 </form>
+
+<form action="/families/<%= @family.id %>/users/<%= @post.user.id %>/posts/<%= @post.id %>/delete" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="delete">
+</form>
+
+<a href="/families/<%= @family.id %>/show">back</a>

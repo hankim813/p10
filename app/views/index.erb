@@ -1,6 +1,60 @@
-<h1>homepage</h1>
-<%= @notice %>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : 1585228831711791,
+      xfbml      : true,
+      version    : 'v2.1'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+  function checkLoginState() {
+	  FB.getLoginStatus(function(response) {
+      if (response.status === 'connected') {
+        redirectToSignUp();
+      } else {
+        FB.login(function(response) {
+          if (response.status === 'connected') {
+            redirectToSignUp();
+          }
+        });
+      }
+    });
+  };
+
+  function redirectToSignUp() {
+  	FB.api('/me', function(response) {
+      $.ajax({
+        url: "/fb/api/users",
+        dataType: "JSON",
+        type: "post",
+        data: response
+      }).done(function(response){
+        if (response.email === undefined) {
+          window.location.replace(response);
+        } else {
+          window.location.replace("/sessions/new?notice=" + response.notice + "&email=" + response.email);
+        };
+      }).fail(function(response){
+        window.location.replace("/?notice=Something%20went%20wrong%20with%20facebook");
+      });
+  	});
+  };
+</script>
+
+<h1>circle.</h1>
+
+<div class="notice"><p><%= params[:notice] %></p></div>
 <% if !current_user %>
-<a href="/sessions/new">Sign In</a>
-<a href="/users/new">Create</a>
+  <div><a href="/sessions/new">see your family</a></div>
+  <div><a href="/users/new">create a circle for your family</a></div>
 <% end %>
+<a href="#" onclick="checkLoginState();">login through facebook</a>
+<div id="fb-root"></div>

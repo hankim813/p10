@@ -1,20 +1,31 @@
 <h1>edit your poll</h1>
-<form action="/polls/<%= @poll.id %>/edit" method="post">
-  <input type="text" name="poll[question]" value="<%= @poll.question %>">
-  <textarea rows="10" name="poll[description]"><%= @poll.description %></textarea>
+
+<form action="/families/<%= @family.id %>/users/<%= @poll.user.id %>/polls/<%= @poll.id %>/edit" method="post">
+  <div class="form-field">
+    <label for="poll[question]">Question</label>
+    <input type="text" name="poll[question]" value="<%= @poll.question %>">
+  </div>
+  <div class="form-field">
+    <label for="poll[description]">Description</label>
+    <textarea rows="10" name="poll[description]"><%= @poll.description %></textarea>
+  </div>
   <input type="hidden" name="_method" value="put">
   <input type="submit" value="save">
 </form>
-
-    <ul>
-      <% @poll.options.each do |option| %>
-        <li>
-          <%= option.description %>
-          <a href="/polls/<%= @poll.id %>/options/<%= option.id %>/edit">edit option</a>
-          <form action="/polls/<%= @poll.id %>/options/<%= option.id %>/delete" method="post">
-            <input type="hidden" name="_method" value="delete">
-            <input type="submit" value="delete option">
-          </form>
-        </li>
-      <% end %>
-    </ul>
+<ul>
+  <% @poll.options.each do |option| %>
+    <li>
+      <%= option.description %>
+      <a href="/families/<%= @family.id %>/users/<%= @poll.user.id %>/polls/<%= @poll.id %>/options/<%= option.id %>/edit">edit option</a>
+      <form action="/families/<%= @family.id %>/users/<%= @poll.user.id %>/polls/<%= @poll.id %>/options/<%= option.id %>/delete" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="delete option">
+      </form>
+    </li>
+  <% end %>
+</ul>
+<form action="/families/<%= @family.id %>/users/<%= @poll.user.id %>/polls/<%= @poll.id %>/options/add" method="post">
+  <label for="description">Description</label>
+  <input type="text" name="description" autofocus>
+  <input type="submit" value="add">
+</form>

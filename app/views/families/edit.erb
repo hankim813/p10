@@ -1,31 +1,41 @@
-<% if current_user %>
-  <% if @family.authenticate(current_user.family.id) %>
-    <h1>family settings</h1>
+<h1>family settings</h1>
 
-    <p><%= @notice %></p>
+<form action="/families/<%= @family.id %>/edit" method="post">
+  <div class="form-field">
+    <label class="label" for="family[name]">Name</label>
+    <input type="text" name="family[name]" value="<%= @family.name %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="family[slogan]">Slogan</label>
+    <input type="text" name="family[slogan]" value="<%= @family.slogan %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="family[hometown]">Hometown</label>
+    <input type="text" name="family[hometown]" value="<%= @family.hometown %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="family[homestate]">Home State</label>
+    <input type="text" name="family[homestate]" value="<%= @family.homestate %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="family[homecountry]">Home Country</label>
+    <input type="text" name="family[homecountry]" value="<%= @family.homecountry %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="family[cover_photo_link]">Cover Photo</label>
+    <input type="text" name="family[cover_photo_link]" value="<%= @family.cover_photo_link %>">
+  </div>
+  <div class="form-field">
+    Family Invite Link: 
+    <a href="/users/new?key=<%= @family.token %>">Family Secret Token</a>
+  </div>
+  <div class="form-field">
+    <label class="label" for="user[password]">Password</label>
+    <input type="password" name="user[password]">
+  </div>
+  <input type="hidden" name="_method" value="put">
+  <input type="submit" value="Save Changes">
+</form>
 
-    <form action="/families/<%= @family.id %>" method="post">
-      <label class="label" for="name">Name</label>
-      <input type="text" name="family[name]" value="<%= @family.name %>">
-      <label class="label" for="slogan">Slogan</label>
-      <input type="text" name="family[slogan]" value="<%= @family.slogan %>">
-      <label class="label" for="hometown">Hometown</label>
-      <input type="text" name="family[hometown]" value="<%= @family.hometown %>">
-      <label class="label" for="homestate">Home State</label>
-      <input type="text" name="family[homestate]" value="<%= @family.homestate %>">
-      <label class="label" for="homecountry">Home Country</label>
-      <input type="text" name="family[homecountry]" value="<%= @family.homecountry %>">
-      <label class="label" for="cover_photo_link">Cover Photo</label>
-      <input type="text" name="family[cover_photo_link]" value="<%= @family.cover_photo_link %>">
-      <label class="label" for="password">Password</label>
-      <input type="password" name="user[password]">
-      <input type="hidden" name="_method" value="put">
-      <input type="submit" value="Save Changes">
-    </form>
-  <% else %>
-    <h1>you are not the admin of this family</h1>
-  <% end %>
-<% else %>
-  <h1>you need to log in</h1>
-<% end %>
+
 

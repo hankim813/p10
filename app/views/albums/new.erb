@@ -1,0 +1,22 @@
+<h1>upload a new album</h1>
+
+<form action='/families/<%= @family.id %>/albums/new' method='post'>
+	<div class="form-field">
+	  <label for='album-title'>Title</label>
+	  <input type="text" name="album[title]" id="album-title" />
+	</div>
+	<div class="form-field">
+	  <label for='album-description'>Description</label>
+	  <input type="text" name="album[description]" id="album-description" />
+	</div>
+	<div class="form-field">
+	  <label for='album-location'>Location</label>
+	  <input type="text" name="album[location]" id="album-location" />
+	</div>
+	<div class="form-field">
+		<label for='album-tag'>Tags</label>
+		<input type="text" name="tags" id="album-tag" placeholder="separate tags by comma">
+	</div>
+  <button type='submit'>Save</button>
+</form>
+

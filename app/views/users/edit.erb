@@ -1,28 +1,46 @@
 <h1>account settings</h1>
 
-<p><%= @notice %></p>
-
-<form action="/users/<%= user.id %>" method="post">
-  <label class="label" for="first_name">First Name</label>
-  <input type="text" name="user[first_name]" value="<%= user.first_name %>">
-  <label class="label" for="last_name">Last Name</label>
-  <input type="text" name="user[last_name]" value="<%= user.last_name %>">
-  <label class="label" for="nickname">Nickname</label>
-  <input type="text" name="user[nickname]" value="<%= user.nickname %>">
-  <label class="label" for="email">Email</label>
-  <input type="text" name="user[email]" value="<%= user.email %>">
-  <label class="label" for="phone">Phone</label>
-  <input type="text" name="user[phone]" value="<%= user.phone %>">
-  <label class="label" for="address">Current Address</label>
-  <input type="text" name="user[address]" value="<%= user.address %>">
-  <label class="label" for="state">Current State</label>
-  <input type="text" name="user[state]" value="<%= user.state %>">
-  <label class="label" for="country">Current Country</label>
-  <input type="text" name="user[country]" value="<%= user.country %>">
-  <label class="label" for="email">Birthday</label>
-  <input type="date" name="user[birthday]" value="<%= user.birthday %>">
-  <label class="label" for="password">Password</label>
-  <input type="password" name="user[password]">
+<form action="/users/<%= current_user.id %>/edit" method="post">
+  <div class="form-field">
+    <label class="label" for="user[first_name]">First Name</label>
+    <input type="text" name="user[first_name]" value="<%= current_user.first_name %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="user[last_name]">Last Name</label>
+    <input type="text" name="user[last_name]" value="<%= current_user.last_name %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="user[nickname]">Nickname</label>
+    <input type="text" name="user[nickname]" value="<%= current_user.nickname %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="user[email]">Email</label>
+    <input type="email" name="user[email]" value="<%= current_user.email %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="user[phone]">Phone</label>
+    <input type="text" name="user[phone]" value="<%= current_user.phone %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="user[address]">Current Address</label>
+    <input type="text" name="user[address]" value="<%= current_user.address %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="user[state]">Current State</label>
+    <input type="text" name="user[state]" value="<%= current_user.state %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="user[country]">Current Country</label>
+    <input type="text" name="user[country]" value="<%= current_user.country %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="user[birthday]">Birthday</label>
+    <input type="date" name="user[birthday]" value="<%= current_user.birthday %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="user[password]">Password</label>
+    <input type="password" name="user[password]">
+  </div>
   <input type="hidden" name="_method" value="put">
   <input type="submit" value="Save Changes">
 </form>

@@ -1,11 +1,15 @@
 <h1>sign in</h1>
 
-<p><%= @notice %></p>
+<div class="notice"><p><%= params[:notice] %></p></div>
 
 <form action="/sessions/new" method="post">
-  <label class="label" for="email">Email</label>
-  <input type="text" name="email">
-  <label class="label" for="password">Password</label>
-  <input type="password" name="password">
+  <div class="form-field">
+    <label class="label" for="email">Email</label>
+    <input type="email" name="email" value="<%= params[:email] %>">
+  </div>
+  <div class="form-field">
+    <label class="label" for="password">Password</label>
+    <input type="password" name="password">
+  </div>
   <input type="submit" value="sign in">
 </form>

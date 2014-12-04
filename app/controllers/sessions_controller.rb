@@ -18,6 +18,6 @@ post '/sessions/new' do
 end
 
 delete '/sessions/destroy' do
-  session["user_id"] = nil
+  clear_session_id
   redirect '/'
 end

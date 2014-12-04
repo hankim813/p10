@@ -1,15 +1,16 @@
 helpers do
   def auto_embed_youtube(html)
-    if youtube_link = html.match(/https:\/\/www.youtube.com\/watch\?v=(\w+\W+\w+)/)
+    if youtube_link = html.match(/https:\/\/www.youtube.com\/watch\?v=(\S*)/)
       src = youtube_link.captures[0]
-      html.gsub!(/https:\/\/www.youtube.com\/watch\?v=(\w+\W+\w+)/, "<iframe width='560' height='315' src='//www.youtube.com/embed/#{src}' frameborder='0' allowfullscreen></iframe>")
+      html.gsub!(/https:\/\/www.youtube.com\/watch\?v=(\S*)/, "<iframe width='560' height='315' src='https://www.youtube.com/embed/#{src}' frameborder='0' allowfullscreen></iframe>")
+      html.gsub!(" . ", "<br>")
     end
     return html
   end
 
   def auto_embed_links(description)
     html = description.dup
-    html.gsub!(/\r\n/, "\n")
+    html.gsub!(/\r\n/, " . ")
     if links = html.scan(/(\n)?(http:\/\/)?(https:\/\/)?([\da-z\.-]+\.[a-z\.]{2,6}\/?\S*)/)
       links.each do |captures|
         p captures

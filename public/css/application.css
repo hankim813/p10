@@ -1,3 +1,126 @@
+/* General */
+
+a {
+  color: #084B8A;
+  text-decoration: none;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+a:hover {
+  color: #0080FF;
+  text-decoration: none;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+div {
+  margin: 0;
+  padding: 0;
+}
+
+/* Forms */
+
+label {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
 input {
-  display: block;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.form-field {
+  margin: 1% 0;
+  width: 100%;
+}
+
+.form-field label {
+  width: 15%;
+}
+
+.form-field input[type="text"], .form-field input[type="email"], .form-field input[type="password"], .form-field textarea {
+  width: 80%;
+}
+
+/* Layout */
+
+.container {
+  width: 85%;
+  margin: 0 auto;
+  padding: 3% 0;
+}
+
+.notice {
+  width: 50%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.notice p {
+  font-size: 1em;
+  text-align: center;
+  color: #585858;
+}
+
+/* Top Navigation Bar */
+
+nav {
+  width: 100%;
+  border-bottom: 1px solid blue;
+}
+
+/* Posts */
+
+.post-container {
+  border: 1px solid #E6E6E6;
+  box-shadow: 1px 1px 1px #D8D8D8;
+  padding: 5%;
+  margin: 1% 0;
+}
+
+/* Comments */
+
+.comment-container {
+  background-color: #FAFAFA;
+  padding: 1%;
+}
+
+.reply-container {
+  background-color: #F3E2A9;
+  padding: 1%;
+}
+
+/* Polls */
+
+.poll-container {
+  border: 1px solid #CEF6F5;
+  box-shadow: 1px 1px 1px #81BEF7;
+  padding: 1%;
+  margin: 1% 0;
+}
+
+/* Photos */
+
+.photo-container {
+  border: 1px solid #FE9A2E;
+  box-shadow: 1px 1px 1px #F7BE81;
+  padding: 1%;
+  margin: 1% 0;
+}
+
+/* Albums */
+
+.album-container {
+  border: 1px solid #04B45F;
+  box-shadow: 1px 1px 1px #0B610B;
+  padding: 1%;
+  margin: 1% 0;
 }

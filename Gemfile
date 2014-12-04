@@ -15,15 +15,19 @@ gem 'rake'
 
 gem 'shotgun'
 gem 'bcrypt-ruby'
+gem 'json'
+gem 'aws-s3', '~> 0.6.3'
 
 group :test do
   gem 'shoulda-matchers'
   gem 'rack-test'
   gem 'rspec'
   gem 'capybara'
+  gem 'pry'
 end
 
 group :test, :development do
   gem 'factory_girl'
   gem 'faker'
+  gem 'dotenv'
 end
