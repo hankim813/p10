@@ -1,0 +1,5 @@
+<h1><%= current_user.family.name %></h1>
+
+<% @news_feed.each do |news| %>
+	<div><%= render_news(news) %></div>
+<% end %>
