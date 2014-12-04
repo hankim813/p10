@@ -5,6 +5,10 @@
     <a href="/families/<%= current_family.id %>/posts/<%= post.id %>/show">view post</a> |
     <% if authenticate_current_user_access_to(post) %>
       <a href="/families/<%= current_family.id %>/users/<%= post.user.id %>/posts/<%= post.id %>/edit">edit post</a>
+      <form action="/families/<%= current_family.id %>/users/<%= post.user.id %>/posts/<%= post.id %>/delete" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="delete">
+      </form>
     <% end %>
     <% post.comments.each do |comment| %>
       <% if comment.parent_comment.nil? %>
@@ -35,12 +39,6 @@
             <% end %>
           </div>
         <% end %>
-    <% end %>
-    <% if authenticate_current_user_access_to(post) %>
-      <form action="/families/<%= current_family.id %>/users/<%= post.user.id %>/posts/<%= post.id %>/delete" method="post">
-        <input type="hidden" name="_method" value="delete">
-        <input type="submit" value="delete">
-      </form>
     <% end %>
     <form action="/families/<%= current_family.id %>/posts/<%= post.id %>/comments/new" method="post">
       <input type="text" name="description">
