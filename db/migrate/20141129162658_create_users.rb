@@ -13,6 +13,7 @@
       t.string :country
       t.date :birthday
       t.string :password_hash
+      t.string :family_key
 
       t.timestamps
     end

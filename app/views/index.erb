@@ -18,7 +18,7 @@
       <a href="/"><h3>circle</h3></a>
     </div>
   </nav>
-  <div class="notice"><p><%= @notice %></p></div>
+  <div class="notice"><p><%= params[:notice] %></p></div>
   <div id="background-image">
     <div class="landing-page-content">
 
@@ -87,7 +87,7 @@
           data: response
         }).done(function(response){
           if (response.email === undefined) {
-            window.location.replace(response);
+            window.location.replace(response.url);
           } else {
             window.location.replace("/sessions/new?notice=" + response.notice + "&email=" + response.email);
           };

@@ -20,11 +20,13 @@ post '/users/new' do
   user = User.new(params[:user])
   if user.save
     set_session_id(user.id)
+    family_key = SecureRandom.hex
     if params[:family].nil?
-      user.update_attribute(:admin, true)
+      user.update_attributes(admin: true, family_key: family_key )
       redirect "/families/new"
     else
       if family = Family.find_by(token: params[:family][:password])
+        user.update_attribute(:family_key, family_key)
         family.users << user
         redirect "/families/#{family.id}/show?notice=welcome%20to%20your%20family%20circle"
       else
@@ -33,8 +35,7 @@ post '/users/new' do
       end
     end
   else
-    @notice = "User info was invalid. Please try again."
-    erb :index
+    redirect '/users/new?notice=user%20info%20was%20invalid.'
   end
 end
 

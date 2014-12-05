@@ -23,7 +23,7 @@ class Family < ActiveRecord::Base
     self.token = @password
   end
 
-  def authenticate(family_id)
-    self.password == family_id
+  def authenticate(family_key)
+    self.password == family_key
   end
 end
