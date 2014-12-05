@@ -1,21 +1,54 @@
-<h1>upload a new photo</h1>
+<div class="nav-home fixed">
+  <a href="/">
+    <img src="/images/logo-2.png" class="rotate" alt="circle-logo" title="Born through DBC!">
+  </a>
+  <a href="/"><h3>circle</h3></a>
+  <% if current_user && !current_family.nil? %>
+    <div class="search-box">
+      <form action="/tags/search" method="get">
+        <input type="text" name="tags" placeholder="search for memories">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+    <div class="nav-links">
+	    <a href="#"><i class="fa fa-heart"></i> memories</a>
+      <a href="/families/<%= current_family.id %>/posts/new" id="new-upload"><i class="fa fa-plus"></i>	new</a>  
+      <a href="/users/<%= current_user.id %>/edit"><i class="fa fa-cog"></i> settings</a>
+      <a href="/families/<%= current_family.id %>/users/<%= current_user.id %>/inbox"><i class="fa fa-inbox"></i> inbox</a>
+      <form action="/sessions/destroy" method="post">
+        <input name="_method" type="hidden" value="delete" />
+        <button type="submit"><i class="fa fa-sign-out"></i> sign out</button>
+      </form>
+    </div>
+  <% end %>
+</div>
+<div class="photo-container">
+	<div class="upload-menu" id="upload-menu">
+		<a href="/families/<%= current_family.id %>/posts/new"><i class="fa fa-pencil"></i> post</a>
+		<a href="/families/<%= current_family.id %>/polls/new" id="upload-poll"><i class="fa fa-pie-chart"></i> poll</a>
+		<a href="/families/<%= current_family.id %>/albums/new" id="upload-album"><i class="fa fa-book"></i> album</a>
+		<a href="/families/<%= current_family.id %>/photos/new" id="upload-photo"><i class="fa fa-camera-retro"></i> photo</a>
+		<a href="#" id="close"><i class="fa fa-times"></i></a>
+	</div>
+	<h2>share a new photo</h2>
 
-<form action='/families/<%= @family.id %>/photos/new' method='post' accept-charset="utf-8" enctype="multipart/form-data">
-	<div class="form-field">
-	  <label for='content_file'>Image</label>
-	  <input type="file" name="content[file]" id="content_file" />
-	</div>
-	<div class="form-field">
-	  <label for='caption'>Caption</label>
-	  <input type="text" name="caption" id="caption" />
-	</div>
-	<div class="form-field">
-	  <label for='location'>Location</label>
-	  <input type="text" name="location" id="location" />
-	</div>
-	<div class="form-field">
-		<label for='photo-tag'>Tags</label>
-		<input type="text" name="tags" id="photo-tag" placeholder="separate tags by comma">
-	</div>
-  <button type='submit'>Save</button>
-</form>
+	<form action='/families/<%= @family.id %>/photos/new' method='post' accept-charset="utf-8" enctype="multipart/form-data">
+		<div class="form-field">
+		  <label for='content_file'>Image</label>
+		  <input type="file" name="content[file]" id="content_file" />
+		</div>
+		<div class="form-field">
+		  <label for='caption'>Caption</label>
+		  <input type="text" name="caption" id="caption" />
+		</div>
+		<div class="form-field">
+		  <label for='location'>Location</label>
+		  <input type="text" name="location" id="location" />
+		</div>
+		<div class="form-field">
+			<label for='photo-tag'>Tags</label>
+			<input type="text" name="tags" id="photo-tag" placeholder="separate tags by comma">
+		</div>
+	  <button type='submit'>share</button>
+	</form>
+</div>

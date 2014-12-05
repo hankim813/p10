@@ -8,4 +8,6 @@ module Seeder
   family.users << user3
   family.password = user.family_key
   family.save
+  user2.update_attribute(:family_key, user.family_key)
+  user3.update_attribute(:family_key, user.family_key)
 end

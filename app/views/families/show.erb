@@ -21,6 +21,7 @@
           </form>
         </div>
         <div class="nav-links">
+	        <a href="#"><i class="fa fa-heart"></i> memories</a>
           <a href="/families/<%= current_family.id %>/posts/new" id="new-upload"><i class="fa fa-plus"></i>	new</a>  
           <a href="/users/<%= current_user.id %>/edit"><i class="fa fa-cog"></i> settings</a>
           <a href="/families/<%= current_family.id %>/users/<%= current_user.id %>/inbox"><i class="fa fa-inbox"></i> inbox</a>
@@ -32,15 +33,21 @@
       <% end %>
     </div>
 		<div class="news-feed-container">
-		  
-		  <div class="notice"><p><%= @notice %></p></div>
+		  <a name="news-feed-anchor"></a>
+			  <% if @notice %>
+				  <div class="notice"><p id="notice-alert"><%= @notice %></p></div>
+			  <% else %>
+				  <div class="notice"><p id="notice-flash"><%= params[:notice] %></p></div>
+			  <% end %>
 
 		  <div class="upload-menu" id="upload-menu">
-		  	<a href="#" id="upload-post"><i class="fa fa-pencil"></i> post</a>
-		  	<a href="#" id="upload-poll"><i class="fa fa-pie-chart"></i> poll</a>
-		  	<a href="#" id="upload-album"><i class="fa fa-book"></i> album</a>
-		  	<a href="#" id="upload-photo"><i class="fa fa-camera-retro"></i> photo</a>
+		  	<a href="/families/<%= current_family.id %>/posts/new"><i class="fa fa-pencil"></i> post</a>
+		  	<a href="/families/<%= current_family.id %>/polls/new" id="upload-poll"><i class="fa fa-pie-chart"></i> poll</a>
+		  	<a href="/families/<%= current_family.id %>/albums/new" id="upload-album"><i class="fa fa-book"></i> album</a>
+		  	<a href="/families/<%= current_family.id %>/photos/new" id="upload-photo"><i class="fa fa-camera-retro"></i> photo</a>
+		  	<a href="#" id="close"><i class="fa fa-times"></i></a>
 		  </div>
+
 			<% @news_feed.each do |news| %>
 				<div><%= render_news(news) %></div>
 			<% end %>
