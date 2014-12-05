@@ -18,6 +18,7 @@ gem 'bcrypt-ruby'
 gem 'json'
 gem 'aws-s3', '~> 0.6.3'
 gem 'pony', '~> 1.11'
+gem 'dotenv'
 
 group :test do
   gem 'shoulda-matchers'
@@ -30,5 +31,4 @@ end
 group :test, :development do
   gem 'factory_girl'
   gem 'faker'
-  gem 'dotenv'
 end
