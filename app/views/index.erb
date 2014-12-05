@@ -49,31 +49,26 @@
   };
 </script>
 <div id="background-image">
+  <div class="landing-page-content">
 
-<div class="landing-page-content">
-  <h1 class="landing-page-slogan">welcome home.</h1>
+    <h1 class="landing-page-slogan">welcome home.</h1>
 
-  <div class="session-form-wrapper" id="session-form-wrapper"></div>
+    <div class="session-form-wrapper" id="session-form-wrapper"></div>
 
-  <div class="logo">
-    <a href="/">
-      <img src="/images/logo-2.png" class="rotate" alt="circle-logo" title="Born through DBC!">
-    </a>
-
-    <h1>circle</h1>  
+    <div class="logo">
+      <a href="/">
+        <img src="/images/logo-2.png" class="rotate" alt="circle-logo" title="Born through DBC!">
+      </a>
+      <h1>circle</h1>  
+    </div>
+    
+    <div class="login-links-container">
+      <% if !current_user %>
+        <a href="/sessions/new" id="login">see your family</a>
+        <a href="/users/new" id="signup">create a circle</a>
+      <% end %>
+        <a href="#" onclick="checkLoginState();" id="fb-login">login with facebook</a>
+    </div>
   </div>
-  
-  <div class="login-links-container">
-    <% if !current_user %>
-      <a href="/sessions/new" id="login">see your family</a>
-      <a href="/users/new" id="signup">create a circle</a>
-    <% end %>
-      <a href="#" onclick="checkLoginState();" id="fb-login">login with facebook</a>
-  </div>
-</div>
-
-
-
-<div id="fb-root"></div>  
-
+  <div id="fb-root"></div>  
 </div>

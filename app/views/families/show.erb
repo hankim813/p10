@@ -1,5 +1,20 @@
-<h1><%= current_user.family.name %></h1>
+<div class="bg-container">
+	<div class="family-cover-photo">
+		<img src="http://elitecapture.files.wordpress.com/2012/08/family-portraits-1-copy1.jpg">
+		<div class="caret"><i class="fa fa-caret-up" title="scroll up!"></i></div>
+		<h1><%= @family.name %></h1>
+		<h3>"<%= @family.slogan %>"</h3>
 
-<% @news_feed.each do |news| %>
-	<div><%= render_news(news) %></div>
-<% end %>
+	</div>
+
+	<div class="news-feed-container">
+		<h1>hello</h1>
+		<% @news_feed.each do |news| %>
+			<div><%= render_news(news) %></div>
+		<% end %>
+	</div>
+
+</div>
+
+
+
