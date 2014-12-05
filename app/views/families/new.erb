@@ -1,0 +1,26 @@
+<div class="session-page-login-container">
+  <h1>create a new circle for your family</h1>
+
+  <form action="/families/new" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+    <div class="form-field">
+      <input type="text" name="family[name]" placeholder="what's your family's name?">
+    </div>
+    <div class="form-field">
+      <input type="text" name="family[slogan]" placeholder="your family, in one sentence">
+    </div>
+    <div class="form-field">
+      <div align="center">upload a family photo</div>
+      <div align="center" style="position: relative;" id="upload-photo-user"><i class="fa fa-file-image-o"></i><input type="file" name="content[file]" id="content_file" /></div>
+    </div>
+    <div class="form-field">
+      <input type="text" name="family[hometown]" placeholder="your family hometown please">
+    </div>
+    <div class="form-field">
+      <input type="text" name="family[homestate]" placeholder="and... the state?">
+    </div>
+    <div class="form-field">
+      <input type="text" name="family[homecountry]" placeholder="just to be sure, which country?">
+    </div>
+    <div align="center"><button type="submit">create your family circle</button></div>
+  </form>
+</div>
