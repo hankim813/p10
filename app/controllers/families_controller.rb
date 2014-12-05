@@ -35,14 +35,17 @@ end
 post '/families/new' do
   require_user
   family = Family.new(params[:family])
-  if family.save
-    family.users << current_user
-    family.password = current_user.family_key
-    family.save
-    redirect "/families/#{current_family.id}/create?key=#{family.password}"
-  else
-    @notice = "Something went wrong, please try again"
-    erb :'/families/new'
+  if url = upload(params[:content]['file'][:filename], params[:content]['file'][:tempfile])
+    if family.save
+      family.update_attribute(:cover_photo_link, url)
+      family.users << current_user
+      family.password = current_user.family_key
+      family.save
+      redirect "/families/#{current_family.id}/create?key=#{family.password}"
+    else
+      @notice = "Something went wrong, please try again"
+      erb :'/families/new'
+    end
   end
 end
 

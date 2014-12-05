@@ -1,7 +1,7 @@
 <div class="session-page-login-container">
   <h1>sign up</h1>
 
-  <form action="/users/new" method="post">
+  <form action="/users/new" method="post" accept-charset="utf-8" enctype="multipart/form-data">
     <div class="form-field">
       <input type="text" name="user[first_name]" value="<%= params[:first_name] %>" placeholder="what's your first name?">
     </div>
@@ -10,6 +10,10 @@
     </div>
     <div class="form-field">
       <input type="text" name="user[nickname]" placeholder="how do you want your family to call you?">
+    </div>
+    <div class="form-field">
+      <div align="center">upload your profile picture</div>
+      <div align="center" style="position: relative;" id="upload-photo-user"><i class="fa fa-file-image-o"></i><input type="file" name="content[file]" id="content_file" /></div>
     </div>
     <div class="form-field" id="family-token-form-field">
       <% if @key %>
@@ -29,6 +33,6 @@
     <div class="form-field">
       <input type="password" name="user[password]" placeholder="lastly, choose your password please!">
     </div>
-    <div align="center"><button type="submit">Join the Circle</button></div>
+    <div align="center"><button type="submit">join the circle</button></div>
   </form>
 </div>

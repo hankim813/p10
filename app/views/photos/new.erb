@@ -33,9 +33,11 @@
 	<h2>share a new photo</h2>
 
 	<form action='/families/<%= @family.id %>/photos/new' method='post' accept-charset="utf-8" enctype="multipart/form-data">
-		<div class="form-field">
-		  <label for='content_file'>Image</label>
-		  <input type="file" name="content[file]" id="content_file" />
+		<div class="session-page-login-container">
+			<div class="form-field">
+			  <div align="center">upload your profile picture</div>
+	      <div align="center" style="position: relative;" id="upload-photo-photo"><i class="fa fa-file-image-o"></i><input type="file" name="content[file]" id="content_file" /></div>
+			</div>
 		</div>
 		<div class="form-field">
 		  <label for='caption'>Caption</label>

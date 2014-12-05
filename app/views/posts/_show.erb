@@ -1,43 +1,74 @@
-<h1><%= post.parsed_html %></h1>
-<% post.comments.each do |comment| %>
-  <% if comment.parent_comment.nil? %>
-    <div class="comment-container">
-      <%= comment.description %> by <%= comment.user.nickname %>
-      <% if authenticate_current_user_access_to(comment) %> 
-        <a href="/families/<%= @family.id %>/users/<%= comment.user.id %>/posts/<%= post.id %>/comments/<%= comment.id %>/edit">edit comment</a>
-        <form action="/families/<%= @family.id %>/users/<%= comment.user.id %>/posts/<%= post.id %>/comments/<%= comment.id %>/delete" method="post">
-          <input type="hidden" name="_method" value="delete">
-          <input type="submit" value="delete comment">
-        </form>
-      <% end %>
-      <form action="/families/<%= @family.id %>/posts/<%= post.id %>/comments/<%= comment.id %>/reply" method="post">
-        <input type="text" name="description">
-        <input type="submit" value="reply">
+<div class="post-container-home">
+  <% if authenticate_current_user_access_to(post) %>
+    <div class="post-control">
+      <form action="/families/<%= @family.id %>/users/<%= post.user.id %>/posts/<%= post.id %>/delete" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit" class="delete-button-post"><i class="fa fa-times"></i></button>
       </form>
-      </div>
+    </div>
   <% end %>
-    <% comment.replies.each do |reply| %>
-      <div class="reply-container">
-        <%= reply.description %> by <%= reply.user.nickname %>
-        <% if authenticate_current_user_access_to(reply) %>
-          <a href="/families/<%= @family.id %>/users/<%= reply.user.id %>/posts/<%= post.id %>/comments/<%= reply.id %>/edit">edit comment</a>
-          <form action="/families/<%= @family.id %>/users/<%= reply.user.id %>/posts/<%= post.id %>/comments/<%= reply.id %>/delete" method="post">
-            <input type="hidden" name="_method" value="delete">
-            <input type="submit" value="delete reply">
-          </form>
-        <% end %>
-      </div>
-    <% end %>
-<% end %>
-<% if authenticate_current_user_access_to(post) %>
-  <form action="/families/<%= @family.id %>/users/<%= post.user.id %>/posts/<%= post.id %>/delete" method="post">
-  <input type="hidden" name="_method" value="delete">
-  <input type="submit" value="delete">
-</form>
-<% end %>
-<form action="/families/<%= @family.id %>/posts/<%= post.id %>/comments/new" method="post">
-  <input type="text" name="description">
-  <input type="submit" value="comment">
-</form>
 
-<a href="/families/<%= @family.id %>/show">back</a>
+  <p class="post-description"><%= post.parsed_html %></p>
+
+  <ul class="list-tags">
+  <% post.tags.each do |tag| %>
+    <li class="post-author">#<%= tag.word %></li>
+  <% end %>
+  </ul>
+  <p class="post-author">shared by <%= post.user.nickname %></p>
+
+  <% post.comments.each do |comment| %>
+
+    <% if comment.parent_comment.nil? %>
+
+      <div class="comment-container">
+        <p class="comment-description"><%= comment.description %></p>
+        <p class="comment-author">by <%= comment.user.nickname %></p>
+        
+        <% if authenticate_current_user_access_to(comment) %> 
+
+          <div class="comment-control">
+            <a href="/families/<%= @family.id %>/users/<%= comment.user.id %>/posts/<%= post.id %>/comments/<%= comment.id %>/edit" title="edit comment"><i class="fa fa-pencil-square-o"></i></a>
+
+            <form action="/families/<%= @family.id %>/users/<%= comment.user.id %>/posts/<%= post.id %>/comments/<%= comment.id %>/delete" method="post">
+              <input type="hidden" name="_method" value="delete">
+              <button type="submit" class="delete-button" title="delete comment"><i class="fa fa-trash"></i></button>
+            </form>
+          </div>
+
+        <% end %>
+
+        <form action="/families/<%= @family.id %>/posts/<%= post.id %>/comments/<%= comment.id %>/reply" method="post">
+          <input type="text" name="description">
+          <button type="submit" class="reply-button">reply</button>
+        </form>
+
+        </div>
+
+    <% end %>
+
+      <% comment.replies.each do |reply| %>
+
+        <div class="reply-container">
+          <p class="comment-description"><%= reply.description %></p>
+          <p class="comment-author">by <%= reply.user.nickname %></p>
+
+          <% if authenticate_current_user_access_to(reply) %>
+            <div class="comment-control">
+              <a href="/families/<%= @family.id %>/users/<%= reply.user.id %>/posts/<%= post.id %>/comments/<%= reply.id %>/edit" title="edit reply"><i class="fa fa-pencil-square-o"></i></a>
+              <form action="/families/<%= @family.id %>/users/<%= reply.user.id %>/posts/<%= post.id %>/comments/<%= reply.id %>/delete" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit" class="delete-button" title="delete reply"><i class="fa fa-trash"></i></button>
+              </form>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+  <% end %>
+  <div class="post-comment">
+    <form action="/families/<%= @family.id %>/posts/<%= post.id %>/comments/new" method="post">
+      <input type="text" name="description">
+      <button type="submit" class="comment-button">comment</button>
+    </form>
+  </div>
+</div>

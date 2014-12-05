@@ -1,13 +1,13 @@
 <div class="bg-container">
 	<div class="family-cover-photo">
-		<img src="http://elitecapture.files.wordpress.com/2012/08/family-portraits-1-copy1.jpg">
+		<img src="<%= @family.cover_photo_link %>">
 		<div class="caret"><i class="fa fa-caret-up" title="scroll up!"></i></div>
 		<h1><%= @family.name %></h1>
 		<h3>"<%= @family.slogan %>"</h3>
-
 	</div>
 
 	<div class="news-feed-bg">
+	  <a name="news-feed-anchor"></a>
 		<div class="nav-home">
       <a href="/">
         <img src="/images/logo-2.png" class="rotate" alt="circle-logo" title="Born through DBC!">
@@ -33,7 +33,6 @@
       <% end %>
     </div>
 		<div class="news-feed-container">
-		  <a name="news-feed-anchor"></a>
 			  <% if @notice %>
 				  <div class="notice"><p id="notice-alert"><%= @notice %></p></div>
 			  <% else %>

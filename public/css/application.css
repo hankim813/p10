@@ -10,6 +10,7 @@ body {
   padding: 0;
   margin: 0;
   padding-bottom: 3%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -229,12 +230,61 @@ input:focus {
   display: block;
 }
 
+.enter {
+  margin-top: 7%;
+}
+
+.enter a{
+  width: 30%;
+  margin: 0 auto;
+  background-color: #FF8B00;
+  padding: 1% 5%;
+  border-radius: 4px;
+  color: #fff;
+  transition: all 0.3s ease-out;
+}
+
+.enter a:hover {
+  color: #fff;
+  opacity: 0.8;
+  transition: all 0.3s ease-out;
+}
+
 /* Sign In/Out */
 
 .session-page-login-container {
   width: 85%;
   margin: 0 auto;
   padding-top: 80px;
+}
+
+.session-page-login-container .form-field div {
+  font-size: 2em;
+}
+
+.session-page-login-container .form-field input[type="file"] {
+  opacity: 0;
+}
+
+.session-page-login-container .form-field input[type="file"]:hover {
+  cursor: pointer;
+}
+
+#upload-photo-user i {
+  position: relative;
+  left: 25%;
+  margin-top: 5%;
+}
+
+#upload-photo-photo input{
+  position: relative;
+  top: -5%;
+}
+
+#upload-photo-photo i {
+  position: absolute;
+  top: 35%;
+  left: 48%;
 }
 
 .session-page-login-container .form-field input[type="email"],
@@ -401,11 +451,11 @@ nav {
   left: 0;
   right: 0;
   margin: 0 auto;
-  top: 18%;
+  top: 20%;
   z-index: 10;
   color: #fff;
   text-shadow: 1px 1px 1px #F2F2F2;
-  opacity: 0.95;
+  opacity: 0.9;
 }
 
 .family-cover-photo h3 {
@@ -416,7 +466,7 @@ nav {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   right:0;
   margin: 0 auto;
-  top: 40%;
+  top: 45%;
   z-index: 10;
   color: #FAFAFA;
   text-shadow: 1px 1px 1px #E6E6E6;
@@ -447,7 +497,7 @@ nav {
 }
 
 .news-feed-container {
-  width: 85%;
+  width: 75%;
   margin: 0 auto;
   padding-top: 70px;
 }
@@ -662,6 +712,32 @@ nav {
 
 /* Posts */
 
+.post-container-home {
+  width: 100%;
+  padding: 1% 2%;
+  margin: 4% 0;
+  position: relative;
+  background-color: #FDFDFD;
+  box-shadow: 1px 1px 1px #E6E6E6;
+}
+
+.post-container-home img {
+  width: 100%;
+  border-radius: 3px;
+  padding-top: 8px;
+}
+
+.post-description {
+  font-size: 1.5em;
+  margin: 1% 0;
+}
+
+.post-author {
+  color: #848484;
+  font-size: 0.9em;
+  margin: 0;
+}
+
 .post-container {
   width: 85%;
   margin: 6% auto 0 auto;
@@ -722,16 +798,147 @@ nav {
   transition: all 0.3s ease-out;
 }
 
+.post-control {
+  padding: 7px 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline;
+}
+
+.list-tags {
+  margin: 0;
+  padding:0;
+  list-style: none;
+}
+
+.list-tags li {
+  display: inline;
+  color: #BDBDBD !important;
+}
+
 /* Comments */
 
 .comment-container {
-  background-color: #FAFAFA;
-  padding: 1%;
+  width: 97%;
+  margin: 1% 0;
+  padding: 1% 2%;
+  display: block;
+  position: relative;
+  background-color: #FFFFFF;
+}
+
+.comment-description {
+  font-size: 1.1em;
+  margin: 0;
+}
+
+.comment-author {
+  font-size: 0.8em;
+  color: #848484;
+  margin: 0;
+}
+
+.comment-control {
+  padding: 2% 0;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  display: inline;
+}
+
+.comment-control a {
+  display: inline;
+  float: left;
+  color: #B7B7B7;
+  transition: all 0.2s ease-out;
+}
+
+.comment-control a:hover {
+  color: #FFD100;
+  transition: all 0.2s ease-out;
+}
+
+.comment-control form {
+  display: inline;
+}
+
+.post-comment input[type="text"] {
+  margin: 10px auto 0px 2%;
+  outline: none;
+  width: 89%;
+  height: 25px
+}
+
+.comment-button {
+  background-color: #0169A1;
+  border: none;
+  padding: 5px 10px;
+  color: #fff;
+  transition: all 0.2s ease-out;
+}
+
+.comment-button:hover {
+  opacity: 0.7;
+  transition: all 0.2s ease-out;
+}
+
+.delete-button-post {
+  background-color: transparent;
+  border: none;
+  position: relative;
+  top: -3px;
+  color: #B7B7B7;
+  font-size: 1em;
+  transition: all 0.2s ease-out;
+}
+
+.delete-button-post:hover {
+  color: #FD3900;
+  transition: all 0.2s ease-out;
+}
+
+.delete-button {
+  background-color: transparent;
+  border: none;
+  position: relative;
+  top: -3px;
+  color: #B7B7B7;
+  font-size: 1em;
+  transition: all 0.2s ease-out;
+}
+
+.delete-button:hover {
+  color: #FFD100;
+  transition: all 0.2s ease-out;
+}
+
+.comment-container input[type="text"] {
+  margin: 5px 0;
+  outline: none;
+  width: 30%;
+  height: 25px
+}
+
+.reply-button {
+  background-color: #0169A1;
+  border: none;
+  padding: 5px 10px;
+  color: #fff;
+  transition: all 0.2s ease-out;
+}
+
+.reply-button:hover {
+  opacity: 0.7;
+  transition: all 0.2s ease-out;
 }
 
 .reply-container {
-  background-color: #F3E2A9;
-  padding: 1%;
+  width: 97%;
+  padding: 1% 2%;
+  display: block;
+  position: relative;
+  background-color: #F7F7F7;
 }
 
 /* Polls */
