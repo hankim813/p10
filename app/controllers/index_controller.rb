@@ -1,7 +1,7 @@
 get '/' do
 	redirect "/families/#{current_family.id}/show" if current_user
   @notice = params[:notice]
-  erb :index
+  erb :index, layout: false
 end
 
 post '/send' do

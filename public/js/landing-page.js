@@ -24,7 +24,7 @@
 	LoginController.View = function() {
 		this.sessionFormContainer = $('#session-form-wrapper');
 		this.signUpWrapper = $('#sign-up-wrapper');
-		this.loginBox = "<div class='session-form-container'>\n<form action='/sessions/new' method='post'>\n<div class='form-field'>\n<input type='email' name='email' id='user-email' placeholder='email'>\n</div>\n<div class='form-field'>\n<input type='password' name='password' placeholder='password'>\n</div>\n<div align='center'><button type='submit'>sign in</button></div>\n</form>\n</div>"
+		this.loginBox = "<div class='session-form-container'>\n<form action='/sessions/new' method='post'>\n<div class='form-field'>\n<input type='email' name='email' id='user-email' placeholder='email'>\n</div>\n<div class='form-field'>\n<input type='password' name='password' placeholder='password'>\n</div>\n<div><button type='submit'>sign in</button></div>\n</form>\n</div>"
 	};
 
 	LoginController.View.prototype.showLogin = function(e) {
