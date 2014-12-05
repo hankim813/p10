@@ -16,7 +16,7 @@ helpers do
   end
 
   def require_user
-    redirect "/sessions/new?notice=you%20must%20sign%20in" unless current_user
+    redirect "/?notice=you%20must%20sign%20in" unless current_user
   end
 
   def authenticate_family_access(family_id)

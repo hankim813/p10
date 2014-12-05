@@ -1,6 +1,6 @@
 get '/' do
 	redirect "/families/#{current_family.id}/show" if current_user
-  # Landing Page
+  @notice = params[:notice]
   erb :index
 end
 

@@ -4,13 +4,18 @@
 
   <link rel="stylesheet" href="/css/normalize.css">
   <link rel="stylesheet" href="/css/application.css">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="/js/application.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="favicon.png" sizes="16x16" type="image/png">
   <title>Circle | A Digital Living Room for your Family</title>
 </head>
 <body>
   <nav>
+    <div class="nav-logo">
+      <a href="/">
+        <img src="/images/logo-2.png" class="rotate" alt="circle-logo" title="Born through DBC!">
+      </a>
+      <a href="/"><h3>circle</h3></a>
+    </div>
     <% if current_user && !current_family.nil? %>
       <form action="/tags/search" method="get">
         <input type="text" name="tags" placeholder="search for tags..separate by comma">
@@ -34,9 +39,11 @@
       </form>
     <% end %>
   </nav>
-  <div class="container">
-    <div class="notice"><p><%= @notice %></p></div>
-    <%= yield %>
-  </div>
+  <div class="notice"><p><%= @notice %></p></div>
+  <%= yield %>
+  <div class="footer"><p>HK Productions &copy; 2014. All Rights Reserved.</p></div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="/js/application.js"></script>
+  <script src="/js/landing-page.js"></script>
 </body>
 </html>

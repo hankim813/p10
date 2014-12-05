@@ -7,6 +7,8 @@
 
 body {
   -webkit-font-smoothing: antialiased;
+  padding: 0;
+  margin: 0;
 }
 
 a {
@@ -32,6 +34,21 @@ div {
   padding: 0;
 }
 
+/* Footer */
+
+.footer {
+  padding-top: 3%;
+  bottom: 3%;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.footer p {
+  text-align: center;
+  color: #BDBDBD;
+  font-size: 1.3em;
+}
+
 /* Forms */
 
 label {
@@ -47,40 +64,29 @@ input {
 }
 
 .form-field {
-  margin: 1% 0;
+  margin: 3% 0;
   width: 100%;
 }
 
-.form-field label {
-  width: 15%;
-}
-
 .form-field input[type="text"], .form-field input[type="email"], .form-field input[type="password"], .form-field textarea {
-  width: 80%;
+  width: 100%;
 }
 
 /* Landing Page */
 
 #background-image {
-  background-image: url("../images/coffee-bg.gif");
+  background-image: url("../images/coffee.gif");
   background-color: #cccccc;
-  background-size: cover;
+  background-size: 100% 100%;
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  -webkit-filter: blur(3px);
-  -moz-filter: blur(3px);
-  -o-filter: blur(3px);
-  -ms-filter: blur(3px);
-  filter: blur(3px);
-  z-index: -10;
   overflow: hidden;
-  margin: -3px -5px 0px -3px;
 }
 
-#background-image::after {
+#background-image::before {
   content: "";
   width: 100%;
   height: 100%;
@@ -88,118 +94,217 @@ input {
   top: 0;
   left:0;
   background-color: #FFFFFF;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .landing-page-content {
-  text-align: center;
-  width: 15%;
+  text-align: left;
+  width: 45%;
   position: absolute;
-  right: 4%;
   top: 5%;
+  left: 3%;
+  display: block;
+  overflow: hidden;
+  z-index: 100;
 }
 
-.landing-page-content h1 {
+.landing-page-slogan {
+  font-size: 4em;
+  margin: 0;
+  padding: 5% 0 0 0;
+  font-family: 'Lily Script One', cursive;
+  color: #2E2E2E;
+  text-shadow: 1px 1px 1px #A4A4A4;
+}
+
+.logo {
+  padding-top: 5%; 
+}
+
+.logo img {
+  width: 70px;
+  position: relative;
+  left: 10.2%;
+  outline: 1px solid transparent;
+}
+
+.logo a {
+  outline: 1px solid transparent;
+  -webkit-backface-visibility: hidden; 
+  backface-visibility: hidden;
+}
+
+.logo h1 {
   font-family: 'Lekton', sans-serif;
   color: #2E2E2E;
-  font-size: 3em;
   padding: 0;
-  margin: 2% 0;
-}
-
-#logo {
-  width: 70px;
-  margin-bottom: 5%;
+  margin: 0;
+  font-size: 3em;
+  position: relative;
+  left: 4.7%;
 }
 
 .rotate {
-  -webkit-transition-duration: 0.8s;
-  -moz-transition-duration: 0.8s;
-  -o-transition-duration: 0.8s;
-  transition-duration: 0.8s;
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
   -webkit-transition-property: -webkit-transform;
   -moz-transition-property: -moz-transform;
   -o-transition-property: -o-transform;
   transition-property: transform;
   overflow: hidden;
-  -webkit-backface-visibility: hidden;
   outline: 1px solid transparent;
+  -webkit-backface-visibility: hidden; 
+  backface-visibility: hidden;
 }  
  
 .rotate:hover {
   -webkit-transform:rotate(-360deg);
   -moz-transform:rotate(-360deg);
   -o-transform:rotate(-360deg);
-  -webkit-backface-visibility: hidden;
   outline: 1px solid transparent;
+  -webkit-backface-visibility: hidden; 
+  backface-visibility: hidden;
 }  
 
+.login-links-container a {
+  margin: 1% 0;
+  transition: all 0.3s ease-out;
+}
+
+.login-links-container a:hover {
+  opacity: 0.7;
+  transition: all 0.3s ease-out;
+}
+
 #login {
-  width: 145px;
-  height: 25px;
-  padding: 3% 10%;
+  max-width: 140px;
+  padding: 1% 5%;
   background-color: #FF9B24;
   border-radius: 2px;
   display: table-cell;
   vertical-align: middle;
   text-align: center;
   color: #fff;
+  display: block;
 }
 
 #signup {
-  width: 145px;
-  height: 25px;
-  padding: 3% 10%;
+  max-width: 140px;
+  padding: 1% 5%;
   background-color: #FFCF50;
   border-radius: 2px;
   display: table-cell;
   vertical-align: middle;
   text-align: center;
   color: #fff;
+  display: block;
 }
 
 #fb-login{
-  width: 145px;
-  height: 25px;
-  padding: 3% 10%;
+  max-width: 140px;
+  padding: 1% 5%;
   background-color: #44619D;
   border-radius: 2px;
   display: table-cell;
   vertical-align: middle;
   text-align: center;
   color: #fff;
+  display: block;
 }
 
-.login-links {
-  margin: 3% 0;
-  transition: all 0.3s ease-out;
+/* Sign In/Out */
+
+.session-page-login-container {
+  width: 85%;
+  margin: 0 auto;
 }
 
-.login-links:hover {
-  opacity: 0.8;
-  transition: all 0.3s ease-out;
+.session-page-login-container .form-field input[type="email"],
+.session-page-login-container .form-field input[type="text"],
+.session-page-login-container .form-field input[type="password"] {
+  height: 70px;
+  margin: 0;
+  font-size: 2em;
+  font-weight: 300;
+  text-align: center;
 }
 
-.landing-page-slogan {
-  position: absolute;
-  bottom: 2%;
-  right: 5%;
-  font-family: 'Lily Script One', cursive;
-  color: #2E2E2E;
-}
-
-.landing-page-slogan h1 {
+.session-page-login-container h1 {
+  text-align: center;
   font-size: 3em;
-  color: #1C1C1C;
+  color: #0BA7FB;
+  text-shadow: 1px 1px 1px #82D3FF;
+}
+
+.session-page-login-container p {
+  text-align: center;
+  font-size: 2em;
+  color: #FFCF50;
+}
+
+.session-page-login-container a {
+  font-size: 2em;
+}
+
+.session-page-login-container button {
+  text-align: center;
+  border: none;
+  font-size: 1.5em;
+  padding: 1% 5%;
+  background-color: #FF9B24;
+  color: #fff;
+  border-radius: 2px;
+  font-weight: 300;
+  transition: all 0.3s ease-out;
+}
+
+.session-page-login-container button:hover {
+  opacity: 0.7;
+  transition: all 0.3s ease-out;
+}
+
+.session-form-wrapper {
+  width: 80%;
+  height: 200px;
+  margin: 10% 0 5% 0;
+}
+
+.session-form-container {
+  width: 100%;
+  height: 200px;
+  margin: 5% 0;
+  box-shadow: 1px 1px 1px #F2F2F2;
+}
+
+.session-form-container .form-field input[type="email"],
+.session-form-container .form-field input[type="password"]{
+  height: 50px;
+  font-size: 2em;
+  font-weight: 300;
+  text-align: center;
+  border: none;
+}
+
+.session-form-container button {
+  text-align: center;
+  border: none;
+  font-size: 1.5em;
+  padding: 1% 5%;
+  background-color: #FF9B24;
+  color: #fff;
+  border-radius: 2px;
+  font-weight: 300;
+  transition: all 0.3s ease-out;
+}
+
+.session-form-container button:hover {
+  opacity: 0.7;
+  transition: all 0.3s ease-out;
 }
 
 /* Layout */
-
-.container {
-  width: 85%;
-  margin: 0 auto;
-  padding: 3% 0;
-}
 
 .notice {
   width: 50%;
@@ -217,6 +322,34 @@ input {
 
 nav {
   width: 100%;
+  height: 35px;
+}
+
+.nav-logo {
+  padding: 7px 10px;
+}
+.nav-logo a {
+  outline: 1px solid transparent;
+  -webkit-backface-visibility: hidden; 
+  backface-visibility: hidden;
+}
+
+.nav-logo img {
+  width: 28px;
+  opacity: 0.4;
+  outline: 1px solid transparent;
+}
+
+.nav-logo h3 {
+  font-family: 'Lekton', sans-serif;
+  color: #D8D8D8;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  left: 5px;
+  top: -6px;
+  font-size: 1.9em;
 }
 
 /* Posts */
