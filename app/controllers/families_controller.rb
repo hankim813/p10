@@ -16,7 +16,7 @@ get '/families/:family_id/show' do
     @notice = params[:notice]
     erb :"/families/show"
   else
-    redirect "/families/#{current_family.id}/show?notice=that%20is%20not%20your%20family"
+    redirect "/families/#{current_family.id}/show?notice=that%20is%20not%20your%20family#news-feed-anchor"
   end
 end
 
@@ -54,11 +54,11 @@ put '/families/:family_id/edit' do
   authenticate_family_access(params[:family_id])
   if current_user.authenticate(params[:user][:password])
     if current_family.update_attributes(params[:family])
-      redirect "/families/#{current_family.id}/show?notice=family%20settings%20updated"
+      redirect "/families/#{current_family.id}/show?notice=family%20settings%20updated#news-feed-anchor"
     else
-      redirect "/families/#{current_family.id}/show?notice=family%20setting%20failed%20to%20update"
+      redirect "/families/#{current_family.id}/show?notice=family%20setting%20failed%20to%20update#news-feed-anchor"
     end
   else
-    redirect "/families/#{current_family.id}/show?notice=incorrect%20password"
+    redirect "/families/#{current_family.id}/show?notice=incorrect%20password#news-feed-anchor"
   end
 end

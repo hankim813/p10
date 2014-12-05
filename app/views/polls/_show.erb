@@ -1,58 +1,104 @@
-<div class="poll-container">
-  <p><%= poll.question %> by <%= poll.user.nickname %></p>
-  <p><%= poll.description %></p>
-  <ul>
-    <% poll.options.each do |option| %>
-      <li>
-        <%= option.description %>
-        <% unless current_user_voted_for(poll) %>
-          <form action="/families/<%= @family.id %>/polls/<%= poll.id %>/options/<%= option.id %>/votes/new" method="post">
-            <input type="submit" value="vote!">
-          </form>
-        <% end %>
-      </li>
-    <% end %>
-    <% if current_user_voted_for(poll) %>
-      <p>You have voted already!</p>
+<div class="post-container-home">
+  <% if authenticate_current_user_access_to(poll) %>
+    <div class="post-control">
+      <form action="/families/<%= @family.id %>/users/<%= poll.user.id %>/polls/<%= poll.id %>/delete" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit"class="delete-button-post"><i class="fa fa-times"></i></button>
+      </form>
+    </div>
+  <% end %>
+
+  <p class="post-description">Poll: <%= poll.question %></p>
+
+  <ul class="list-tags">
+    <% poll.tags.each do |tag| %>
+      <li class="post-author">#<%= tag.word %></li>
     <% end %>
   </ul>
-  <% if authenticate_current_user_access_to(poll) %>
-    <a href="/families/<%= @family.id %>/users/<%= poll.user.id %>/polls/<%= poll.id %>/edit">edit poll</a>
-    <form action="/families/<%= @family.id %>/users/<%= poll.user.id %>/polls/<%= poll.id %>/delete" method="post">
-      <input type="hidden" name="_method" value="delete">
-      <input type="submit" value="delete">
-    </form>
-  <% end %>
-</div>
-<div>
-<% poll.comments.each do |comment| %>
-  <% if comment.parent_comment.nil? %>
-    <div class="comment-container">
-      <%= comment.description %> by <%= comment.user.nickname %>
-      <% if authenticate_current_user_access_to(comment) %> 
-        <a href="/families/<%= @family.id %>/users/<%= comment.user.id %>/polls/<%= poll.id %>/comments/<%= comment.id %>/edit">edit comment</a>
-        <form action="/families/<%= @family.id %>/users/<%= comment.user.id %>/polls/<%= poll.id %>/comments/<%= comment.id %>/delete" method="post">
-          <input type="hidden" name="_method" value="delete">
-          <input type="submit" value="delete comment">
-        </form>
+
+  <p class="poll-context"><%= poll.description %></p>
+  <p class="post-author">shared by: <%= poll.user.nickname %></p>
+
+    <ul class="poll-show">
+      <% poll.options.each do |option| %>
+        <li>
+        <div>
+          <p><%= option.description %></p>
+          <span class="vote-count">vote count: <%= option.vote_count %></span>
+            <% option.votes.each do |vote| %>
+              <span class="vote-count"><%= vote.backer.nickname %></span>
+            <% end %>
+          
+          <% unless current_user_voted_for(poll) %>
+          <div class="vote">
+            <form action="/families/<%= @family.id %>/polls/<%= poll.id %>/options/<%= option.id %>/votes/new" method="post">
+                <button type="submit" class="vote-button">vote</button>
+            </form>
+          </div>
+        </div>
+          <% end %>
+        </li>
       <% end %>
-      <form action="/families/<%= @family.id %>/polls/<%= poll.id %>/comments/<%= comment.id %>/reply" method="post">
-        <input type="text" name="description">
-        <input type="submit" value="reply">
-      </form>
-      </div>
-  <% end %>
-    <% comment.replies.each do |reply| %>
-      <div class="reply-container">
-        <%= reply.description %> by <%= reply.user.nickname %>
-        <% if authenticate_current_user_access_to(reply) %>
-          <a href="/families/<%= @family.id %>/users/<%= reply.user.id %>/polls/<%= poll.id %>/comments/<%= reply.id %>/edit">edit comment</a>
-          <form action="/families/<%= @family.id %>/users/<%= reply.user.id %>/polls/<%= poll.id %>/comments/<%= reply.id %>/delete" method="post">
-            <input type="hidden" name="_method" value="delete">
-            <input type="submit" value="delete reply">
-          </form>
-        <% end %>
+    </ul>
+    <% if vote = current_user_voted_for(poll) %>
+      <div class="form-field">
+        <form action="/families/<%= @family.id %>/users/<%= current_user.id %>/polls/<%= poll.id %>/options/<%= vote.option.id %>/votes/<%= vote.id %>/delete" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <button type="submit" class="delete-vote-button">change my vote</button>
+        </form>
       </div>
     <% end %>
-<% end %>
+
+    <% poll.comments.each do |comment| %>
+
+      <% if comment.parent_comment.nil? %>
+
+        <div class="comment-container">
+          <p class="comment-description"><%= comment.description %></p>
+          <p class="comment-author">by <%= comment.user.nickname %></p>
+
+          <% if authenticate_current_user_access_to(comment) %> 
+            <div class="comment-control">
+              <a href="/families/<%= @family.id %>/users/<%= comment.user.id %>/polls/<%= poll.id %>/comments/<%= comment.id %>/edit" title="edit comment"><i class="fa fa-pencil-square-o"></i></a>
+
+              <form action="/families/<%= @family.id %>/users/<%= comment.user.id %>/polls/<%= poll.id %>/comments/<%= comment.id %>/delete" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit" class="delete-button" title="delete comment"><i class="fa fa-trash"></i></button>
+              </form>
+            </div>
+
+          <% end %>
+
+          <form action="/families/<%= @family.id %>/polls/<%= poll.id %>/comments/<%= comment.id %>/reply" method="post">
+            <input type="text" name="description">
+            <button type="submit" class="reply-button">reply</button>
+          </form>
+        </div>
+
+      <% end %>
+
+      <% comment.replies.each do |reply| %>
+
+        <div class="reply-container">
+          <p class="comment-description"><%= reply.description %></p>
+          <p class="comment-author">by <%= reply.user.nickname %></p>
+
+          <% if authenticate_current_user_access_to(reply) %>
+            <div class="comment-control">
+              <a href="/families/<%= @family.id %>/users/<%= reply.user.id %>/polls/<%= poll.id %>/comments/<%= reply.id %>/edit" title="edit reply"><i class="fa fa-pencil-square-o"></i>
+              <form action="/families/<%= @family.id %>/users/<%= reply.user.id %>/polls/<%= poll.id %>/comments/<%= reply.id %>/delete" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit" class="delete-button" title="delete reply"><i class="fa fa-trash"></i></button>
+              </form>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+    <div class="post-comment">
+      <form action="/families/<%= @family.id %>/polls/<%= poll.id %>/comments/new" method="post">
+        <input type="text" name="description">
+        <button type="submit" class="comment-button">comment</button>
+      </form>
+    </div>
 </div>
