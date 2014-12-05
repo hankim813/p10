@@ -1,0 +1,29 @@
+<h1>Inbox</h1>
+
+<h2>recieved messages</h2>
+<% current_family.messages.each do |message| %>
+	<% if message.recipient.id == current_user.id %>
+		<p>"<%= message.description %>" from <%= message.user.nickname %></p>
+	<% end %>
+<% end %>
+<h2>sent messages</h2>
+<% current_family.messages.each do |message| %>
+	<% if message.user.id == current_user.id %>
+		<p>"<%= message.description %>" to <%= message.recipient.nickname %></p>
+	<% end %>
+<% end %>
+
+------------
+<% @family.users.each do |user| %>
+	<% if user == current_user %>
+		<% next %>
+	<% else %>
+		<div>
+			<p><%= user.nickname %></p>
+			<form action="/families/<%= @family.id %>/users/<%= current_user.id %>/recipient/<%= user.id %>/messages/new" method="post">
+				<input type="text" name="description">
+				<input type="submit" value="send message">
+			</form>
+		</div>
+	<% end %>
+<% end %>

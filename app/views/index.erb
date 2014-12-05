@@ -1,60 +1,101 @@
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : 1585228831711791,
-      xfbml      : true,
-      version    : 'v2.1'
-    });
-  };
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/application.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="favicon.png" sizes="16x16" type="image/png">
+  <title>Circle | A Digital Living Room for your Family</title>
+</head>
+<body>
+  <nav>
+    <div class="nav-logo">
+      <a href="/">
+        <img src="/images/logo-2.png" class="rotate" alt="circle-logo" title="Born through DBC!">
+      </a>
+      <a href="/"><h3>circle</h3></a>
+    </div>
+  </nav>
+  <div class="notice"><p><%= params[:notice] %></p></div>
+  <div id="background-image">
+    <div class="landing-page-content">
 
-  function checkLoginState() {
-	  FB.getLoginStatus(function(response) {
-      if (response.status === 'connected') {
-        redirectToSignUp();
-      } else {
-        FB.login(function(response) {
-          if (response.status === 'connected') {
-            redirectToSignUp();
-          }
-        });
-      }
-    });
-  };
+      <h1 class="landing-page-slogan">welcome home.</h1>
 
-  function redirectToSignUp() {
-  	FB.api('/me', function(response) {
-      $.ajax({
-        url: "/fb/api/users",
-        dataType: "JSON",
-        type: "post",
-        data: response
-      }).done(function(response){
-        if (response.email === undefined) {
-          window.location.replace(response);
-        } else {
-          window.location.replace("/sessions/new?notice=" + response.notice + "&email=" + response.email);
-        };
-      }).fail(function(response){
-        window.location.replace("/?notice=Something%20went%20wrong%20with%20facebook");
+      <div class="session-form-wrapper" id="session-form-wrapper"></div>
+
+      <div class="logo">
+        <a href="/">
+          <img src="/images/logo-2.png" class="rotate" alt="circle-logo" title="Born through DBC!">
+        </a>
+        <h1>circle</h1>  
+      </div>
+      
+      <div class="login-links-container">
+        <% if !current_user %>
+          <a href="/sessions/new" id="login">see your family</a>
+          <a href="/users/new" id="signup">create a circle</a>
+        <% end %>
+          <a href="#" onclick="checkLoginState();" id="fb-login">login with facebook</a>
+      </div>
+    </div>
+    <div id="fb-root"></div>  
+  </div>
+  <!-- <div class="footer"><p>HK Productions &copy; 2014. All Rights Reserved.</p></div> -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="/js/application.js"></script>
+  <script src="/js/landing-page.js"></script>
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : 1585228831711791,
+        xfbml      : true,
+        version    : 'v2.1'
       });
-  	});
-  };
-</script>
+    };
 
-<h1>circle.</h1>
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
 
-<div class="notice"><p><%= params[:notice] %></p></div>
-<% if !current_user %>
-  <div><a href="/sessions/new">see your family</a></div>
-  <div><a href="/users/new">create a circle for your family</a></div>
-<% end %>
-<a href="#" onclick="checkLoginState();">login through facebook</a>
-<div id="fb-root"></div>
+    function checkLoginState() {
+      FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+          redirectToSignUp();
+        } else {
+          FB.login(function(response) {
+            if (response.status === 'connected') {
+              redirectToSignUp();
+            }
+          });
+        }
+      });
+    };
+
+    function redirectToSignUp() {
+      FB.api('/me', function(response) {
+        $.ajax({
+          url: "/fb/api/users",
+          dataType: "JSON",
+          type: "post",
+          data: response
+        }).done(function(response){
+          if (response.email === undefined) {
+            window.location.replace(response.url);
+          } else {
+            window.location.replace("/sessions/new?notice=" + response.notice + "&email=" + response.email);
+          };
+        }).fail(function(response){
+          window.location.replace("/?notice=Something%20went%20wrong%20with%20facebook");
+        });
+      });
+    };
+  </script>
+</body>
+</html>

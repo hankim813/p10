@@ -1,20 +1,22 @@
-<h1>add some options</h1>
-<p><%= @poll.question %></p>
-<p><%= @poll.description %></p>
-<% @poll.tags.each do |tag|%>
-  <p>#<%= tag.word %></p>
-<% end %>
-<ul>
-  <% @poll.options.each do |option| %>
-  <li><%= option.description %></li>
-  <% end %>
-</ul>
+<div class="session-page-login-container">
+	<h1>Cool, let's add some choices!</h1>
+	<p class="poll-question">Question: <%= @poll.question %></p>
+	<p class="poll-context">Context: <%= @poll.description %></p>
 
-<form action="/families/<%= @family.id %>/users/<%= @poll.user.id %>/polls/<%= @poll.id %>/options/new" method="post">
-  <label for="description">Description</label>
-  <input type="text" name="description" autofocus>
-  <input type="submit" value="add">
-</form>
+	<ul class="poll-options">
+	  <% @poll.options.each do |option| %>
+	  <li><%= option.description %></li>
+	  <% end %>
+	</ul>
 
-<a href="/families/<%= @family.id %>/show">done</a>
-
+	<form action="/families/<%= @family.id %>/users/<%= @poll.user.id %>/polls/<%= @poll.id %>/options/new" method="post">
+		<div class="form-field">
+		  <div align="center">Add a choice:</div>
+		  <br>
+		  <input type="text" name="description" autofocus>
+		</div>
+	  <div align="center"><button type="submit">add</button></div>
+	</form>
+	<br>
+	<div align="center"><a href="/families/<%= @family.id %>/show?notice=poll%20successfully%20created#news-feed-anchor">done</a></div>
+</div>

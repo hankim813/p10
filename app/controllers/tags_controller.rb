@@ -4,17 +4,38 @@ get '/tags/search' do
 		@news_feed = []
 		found_tags = []
 		tags_to_search.each { |tag| found_tags << current_family.tags.find_by(word: tag) }
-		found_tags.each do |tag| 
-			@news_feed << tag.posts
-			@news_feed << tag.polls
-			@news_feed << tag.photos
-			@news_feed << tag.albums
+		unless found_tags[0] == nil
+			found_tags.each do |tag| 
+				@news_feed << tag.posts
+				@news_feed << tag.polls
+				@news_feed << tag.photos
+				@news_feed << tag.albums
+			end
+			@news_feed.flatten!.sort_by!(&:updated_at).reverse!
 		end
-		@news_feed.flatten!.sort_by!(&:updated_at).reverse!
-		
-		@news_feed.count == 1 ? (@notice = "Found 1 result") : (@notice = "Found #{@news_feed.count} results")
-		erb :"/tags/show" 
+		if @news_feed.count == 1 
+			redirect "/families/#{current_family.id}/tags/search/show?notice=found%201%20result#news-feed-anchor"
+		else
+			redirect "/families/#{current_family.id}/tags/search/show?notice=found%20#{@news_feed.count}%20results#news-feed-anchor" 
+		end
 	else
-		redirect "/families/#{current_family.id}/show?notice=no%20results%20found"
+		redirect "/families/#{current_family.id}/show?notice=no%20results%20found#news-feed-anchor"
+	end
+end
+
+get '/families/:family_id/tags/search/show' do
+	require_user
+	if authenticate_family_access(params[:family_id])
+	  @family = current_family
+	  @news_feed = []
+	  @family.posts.each { |post| @news_feed << post }
+	  @family.polls.each { |poll| @news_feed << poll }
+	  @family.photos.each { |photo| @news_feed << photo }
+	  @family.albums.each { |album| @news_feed << album }
+	  @news_feed.sort_by!(&:updated_at).reverse!
+	  @notice = params[:notice]
+	  erb :"/families/show"
+	else
+	  redirect "/families/#{current_family.id}/show?notice=that%20is%20not%20your%20family#news-feed-anchor"
 	end
 end

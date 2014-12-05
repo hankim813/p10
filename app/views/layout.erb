@@ -4,40 +4,26 @@
 
   <link rel="stylesheet" href="/css/normalize.css">
   <link rel="stylesheet" href="/css/application.css">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="/js/application.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="favicon.png" sizes="16x16" type="image/png">
   <title>Circle | A Digital Living Room for your Family</title>
 </head>
 <body>
   <nav>
-    <% if current_user && !current_family.nil? %>
-      <form action="/tags/search" method="get">
-        <input type="text" name="tags" placeholder="search for tags..separate by comma">
-        <input type="submit" value="search">
-      </form>
-      <a href="/families/<%= current_family.id %>/show">home</a> |
-      <a href="/families/<%= current_family.id %>/posts/new">new post</a> |
-      <a href="/families/<%= current_family.id %>/polls/new">new poll</a> |
-      <a href="/families/<%= current_family.id %>/albums/new">new album</a> |
-      <a href="/families/<%= current_family.id %>/photos/new">new photo</a> |
-      <a href="/users/<%= current_user.id %>/edit">account settings</a>
-      <% unless current_user.family.nil? %>
-        <% if current_user.admin %>
-          | <a href="/families/<%= current_family.id %>/edit">Family Settings</a>
-        <% end %>
-      <% end %>
-      | <form action="/sessions/destroy" method="post">
-        <input name="_method" type="hidden" value="delete" />
-        <input type="submit" value="Sign Out">
-      </form>
-    <% else %>
-      <a href="/">home</a>
-    <% end %>
+    <div class="nav-logo">
+      <a href="/">
+        <img src="/images/logo-2.png" class="rotate" alt="circle-logo" title="Born through DBC!">
+      </a>
+      <a href="/"><h3>circle</h3></a>
+    </div>
   </nav>
-  <div class="container">
-    <div class="notice"><p><%= @notice %></p></div>
-    <%= yield %>
-  </div>
+  <%= yield %>
+  <!-- <div class="footer"><p>HK Productions &copy; 2014. All Rights Reserved.</p></div> -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="/js/application.js"></script>
+  <script src="/js/landing-page.js"></script>
+  <script src="/js/uploads.js"></script>
+  <script src="/js/comments.js"></script>
 </body>
 </html>

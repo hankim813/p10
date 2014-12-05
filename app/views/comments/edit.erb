@@ -1,7 +1,12 @@
-<h1>edit your comment</h1>
+<div class="session-page-login-container">
+	<h1>edit your comment</h1>
 
-<form action="/families/<%= @family.id %>/users/<%= current_user.id %>/comments/<%= @comment.id %>/edit" method="post">
-  <input type="text" name="description" value="<%= @comment.description %>">
-  <input type="hidden" name="_method" value="put">
-  <input type="submit" value="save">
-</form>
+	<form action="/families/<%= @family.id %>/users/<%= current_user.id %>/comments/<%= @comment.id %>/edit" method="post">
+		<div class="form-field">
+		  <input type="text" name="description" value="<%= @comment.description %>">
+		  <input type="hidden" name="_method" value="put">
+		  <br><br>
+		  <div align="center"><button type="submit">save</button></div>
+	  </div>
+	</form>
+</div>

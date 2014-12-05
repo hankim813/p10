@@ -18,23 +18,26 @@ end
 
 post '/users/new' do
   user = User.new(params[:user])
+  url = upload(params[:content]['file'][:filename], params[:content]['file'][:tempfile])
   if user.save
-    set_session_id(user.id)
-    if params[:family].nil?
-      user.update_attribute(:admin, true)
+    user.update_attribute(:profile_pic_link, url)
+    family_key = SecureRandom.hex
+    if params[:family][:password].nil? || params[:family][:password].empty?
+      user.update_attributes(admin: true, family_key: family_key )
+      set_session_id(user.id)
       redirect "/families/new"
     else
+      set_session_id(user.id)
       if family = Family.find_by(token: params[:family][:password])
+        user.update_attribute(:family_key, family_key)
         family.users << user
         redirect "/families/#{family.id}/show?notice=welcome%20to%20your%20family%20circle"
       else
-        @notice = "Your family token must be invalid! Can't find your family!"
-        erb :index
+        redirect "/families/new?notice=%20invalid%20family%20token"
       end
     end
   else
-    @notice = "User info was invalid. Please try again."
-    erb :index
+    redirect '/users/new?notice=user%20info%20was%20invalid.'
   end
 end
 

@@ -1,4 +1,5 @@
 get '/sessions/new' do
+  @notice = params[:notice]
   erb :'sessions/new'
 end
 

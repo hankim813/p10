@@ -16,12 +16,12 @@ helpers do
   end
 
   def require_user
-    redirect "/sessions/new?notice=you%20must%20sign%20in" unless current_user
+    redirect "/?notice=you%20must%20sign%20in" unless current_user
   end
 
   def authenticate_family_access(family_id)
-    if family = Family.find_by(id: family_id)
-      family.authenticate(current_family.id) #BCRYPT BABY
+    if family = Family.find_by(id: family_id) 
+      return true if family.authenticate(current_user.family_key) #BCRYPT & SECURERANDOMBABY
     else
       redirect "/families/#{current_family.id}/show?notice=you%20have%20no%20access%20to%20that%20family"
     end
