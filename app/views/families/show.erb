@@ -1,0 +1,58 @@
+<div class="bg-container">
+	<div class="family-cover-photo">
+		<img src="<%= @family.cover_photo_link %>">
+		<div class="caret"><i class="fa fa-caret-up" title="scroll up!"></i></div>
+		<h1><%= @family.name %></h1>
+		<h3>"<%= @family.slogan %>"</h3>
+	</div>
+
+	<div class="news-feed-bg">
+	  <a name="news-feed-anchor"></a>
+		<div class="nav-home">
+      <a href="/">
+        <img src="/images/logo-2.png" class="rotate" alt="circle-logo" title="Born through DBC!">
+      </a>
+      <a href="/"><h3>circle</h3></a>
+      <% if current_user && !current_family.nil? %>
+        <div class="search-box">
+          <form action="/tags/search" method="get">
+            <input type="text" name="tags" placeholder="search for memories">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+        <div class="nav-links">
+	        <a href="#"><i class="fa fa-heart"></i> memories</a>
+          <a href="/families/<%= current_family.id %>/posts/new" id="new-upload"><i class="fa fa-plus"></i>	new</a>  
+          <a href="/users/<%= current_user.id %>/edit"><i class="fa fa-cog"></i> settings</a>
+          <a href="/families/<%= current_family.id %>/users/<%= current_user.id %>/inbox"><i class="fa fa-inbox"></i> inbox</a>
+          <form action="/sessions/destroy" method="post">
+            <input name="_method" type="hidden" value="delete" />
+            <button type="submit"><i class="fa fa-sign-out"></i> sign out</button>
+          </form>
+        </div>
+      <% end %>
+    </div>
+		<div class="news-feed-container">
+			  <% if @notice %>
+				  <div class="notice"><p id="notice-alert"><%= @notice %></p></div>
+			  <% else %>
+				  <div class="notice"><p id="notice-flash"><%= params[:notice] %></p></div>
+			  <% end %>
+
+		  <div class="upload-menu" id="upload-menu">
+		  	<a href="/families/<%= current_family.id %>/posts/new"><i class="fa fa-pencil"></i> post</a>
+		  	<a href="/families/<%= current_family.id %>/polls/new" id="upload-poll"><i class="fa fa-pie-chart"></i> poll</a>
+		  	<a href="/families/<%= current_family.id %>/albums/new" id="upload-album"><i class="fa fa-book"></i> album</a>
+		  	<a href="/families/<%= current_family.id %>/photos/new" id="upload-photo"><i class="fa fa-camera-retro"></i> photo</a>
+		  	<a href="#" id="close"><i class="fa fa-times"></i></a>
+		  </div>
+
+			<% @news_feed.each do |news| %>
+				<%= render_news(news) %>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+
+

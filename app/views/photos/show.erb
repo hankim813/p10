@@ -1,0 +1,51 @@
+<div class="photo-container">
+	<img src="<%= @photo.src %>" alt="<%= @photo.caption %>" width="100%;">
+	<p><%= @photo.caption %></p>
+	<p>Taken: <%= @photo.location %></p>
+	<p>By: <%= @photo.user.nickname %></p>
+	<p>Album: <%= @photo.album %></p>
+	<p>Tags:</p> 
+		<% @photo.tags.each do |tag| %>
+			<%= tag.word %>
+		<% end %>
+	<a href="/families/<%= @family.id %>/photos/<%= @photo.id %>/show">view photo</a>
+	<% if authenticate_current_user_access_to(@photo) %>
+		<a href="/families/<%= @family.id %>/users/<%= @photo.user.id %>/photos/<%= @photo.id %>/edit">edit photo</a>
+		<form action="/families/<%= @family.id %>/users/<%= @photo.user.id %>/photos/<%= @photo.id %>/delete" method="post">
+			<input type="hidden" name="_method" value="delete">
+			<input type="submit" value="delete photo">
+		</form>
+	<% end %>
+</div>
+<div>
+<% @photo.comments.each do |comment| %>
+  <% if comment.parent_comment.nil? %>
+    <div class="comment-container">
+      <%= comment.description %> by <%= comment.user.nickname %>
+      <% if authenticate_current_user_access_to(comment) %> 
+        <a href="/families/<%= @family.id %>/users/<%= comment.user.id %>/photos/<%= @photo.id %>/comments/<%= comment.id %>/edit">edit comment</a>
+        <form action="/families/<%= @family.id %>/users/<%= comment.user.id %>/photos/<%= @photo.id %>/comments/<%= comment.id %>/delete" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <input type="submit" value="delete comment">
+        </form>
+      <% end %>
+      <form action="/families/<%= @family.id %>/photos/<%= @photo.id %>/comments/<%= comment.id %>/reply" method="post">
+        <input type="text" name="description">
+        <input type="submit" value="reply">
+      </form>
+      </div>
+  <% end %>
+    <% comment.replies.each do |reply| %>
+      <div class="reply-container">
+        <%= reply.description %> by <%= reply.user.nickname %>
+        <% if authenticate_current_user_access_to(reply) %>
+          <a href="/families/<%= @family.id %>/users/<%= reply.user.id %>/photos/<%= @photo.id %>/comments/<%= reply.id %>/edit">edit comment</a>
+          <form action="/families/<%= @family.id %>/users/<%= reply.user.id %>/photos/<%= @photo.id %>/comments/<%= reply.id %>/delete" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <input type="submit" value="delete reply">
+          </form>
+        <% end %>
+      </div>
+    <% end %>
+<% end %>
+</div>

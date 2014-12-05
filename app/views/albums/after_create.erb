@@ -1,0 +1,47 @@
+<h1>add some photos</h1>
+
+<p>Title: <%= @album.title %></p>
+<p>Description: <%= @album.description %></p>
+<p>Location: <%= @album.location %></p>
+<p>Tags:</p>
+<% @album.tags.each do |tag|%>
+  <p>#<%= tag.word %></p>
+<% end %>
+<p>Photos</p>
+<ul>
+  <% @album.photos.each do |photo| %>
+  <div>
+  	<img src="<%= photo.src %>" alt="<%= photo.caption %>" width="150px;">
+  	<p><%= photo.caption %></p>
+  	<p><%= photo.location %></p>
+		<a href="/families/<%= @family.id %>/users/<%= photo.user.id %>/photos/<%= photo.id %>/edit">edit photo</a>
+  	<form action="/families/<%= @family.id %>/users/<%= photo.user.id %>/photos/<%= photo.id %>/delete" method="post">
+			<input type="hidden" name="_method" value="delete">
+			<input type="submit" value="delete photo">
+		</form>
+	</div>
+  <% end %>
+</ul>
+
+<form action="/families/<%= @family.id %>/users/<%= @album.user.id %>/albums/<%= @album.id %>/photos/new" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+  <div class="form-field">
+	  <label for='content_file'>Image</label>
+	  <input type="file" name="content[file]" id="content_file" />
+	</div>
+	<div class="form-field">
+	  <label for='caption'>Caption</label>
+	  <input type="text" name="caption" id="caption" />
+	</div>
+	<div class="form-field">
+	  <label for='location'>Location</label>
+	  <input type="text" name="location" id="location" />
+	</div>
+	<div class="form-field">
+		<label for='photo-tag'>Tags</label>
+		<input type="text" name="tags" id="photo-tag" placeholder="separate tags by comma">
+	</div>
+  <button type='submit'>Save</button>
+</form>
+
+<a href="/families/<%= @family.id %>/show">done</a>
+

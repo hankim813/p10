@@ -1,0 +1,43 @@
+<h1><%= @post.parsed_html %></h1>
+<% @post.comments.each do |comment| %>
+  <% if comment.parent_comment.nil? %>
+    <div class="comment-container">
+      <%= comment.description %> by <%= comment.user.nickname %>
+      <% if authenticate_current_user_access_to(comment) %> 
+        <a href="/families/<%= @family.id %>/users/<%= comment.user.id %>/posts/<%= @post.id %>/comments/<%= comment.id %>/edit">edit comment</a>
+        <form action="/families/<%= @family.id %>/users/<%= comment.user.id %>/posts/<%= @post.id %>/comments/<%= comment.id %>/delete" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <input type="submit" value="delete comment">
+        </form>
+      <% end %>
+      <form action="/families/<%= @family.id %>/posts/<%= @post.id %>/comments/<%= comment.id %>/reply" method="post">
+        <input type="text" name="description">
+        <input type="submit" value="reply">
+      </form>
+      </div>
+  <% end %>
+    <% comment.replies.each do |reply| %>
+      <div class="reply-container">
+        <%= reply.description %> by <%= reply.user.nickname %>
+        <% if authenticate_current_user_access_to(reply) %>
+          <a href="/families/<%= @family.id %>/users/<%= reply.user.id %>/posts/<%= @post.id %>/comments/<%= reply.id %>/edit">edit comment</a>
+          <form action="/families/<%= @family.id %>/users/<%= reply.user.id %>/posts/<%= @post.id %>/comments/<%= reply.id %>/delete" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <input type="submit" value="delete reply">
+          </form>
+        <% end %>
+      </div>
+    <% end %>
+<% end %>
+<% if authenticate_current_user_access_to(@post) %>
+  <form action="/families/<%= @family.id %>/users/<%= @post.user.id %>/posts/<%= @post.id %>/delete" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="delete">
+</form>
+<% end %>
+<form action="/families/<%= @family.id %>/posts/<%= @post.id %>/comments/new" method="post">
+  <input type="text" name="description">
+  <input type="submit" value="comment">
+</form>
+
+<a href="/families/<%= @family.id %>/show">back</a>

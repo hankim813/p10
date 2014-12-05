@@ -1,0 +1,22 @@
+<div class="session-page-login-container">
+	<h1>Cool, let's add some choices!</h1>
+	<p class="poll-question">Question: <%= @poll.question %></p>
+	<p class="poll-context">Context: <%= @poll.description %></p>
+
+	<ul class="poll-options">
+	  <% @poll.options.each do |option| %>
+	  <li><%= option.description %></li>
+	  <% end %>
+	</ul>
+
+	<form action="/families/<%= @family.id %>/users/<%= @poll.user.id %>/polls/<%= @poll.id %>/options/new" method="post">
+		<div class="form-field">
+		  <div align="center">Add a choice:</div>
+		  <br>
+		  <input type="text" name="description" autofocus>
+		</div>
+	  <div align="center"><button type="submit">add</button></div>
+	</form>
+	<br>
+	<div align="center"><a href="/families/<%= @family.id %>/show?notice=poll%20successfully%20created#news-feed-anchor">done</a></div>
+</div>
