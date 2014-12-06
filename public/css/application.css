@@ -579,6 +579,7 @@ nav {
 }
 
 .nav-links {
+  margin-top: 3px;
   float: right;
   width: 40%;
 }
@@ -711,6 +712,17 @@ nav {
 
 /* Posts */
 
+
+.profile-pic {
+  width: 40px !important;
+  height: 40px;
+  border-radius: 20px !important;
+  display: inline-block !important;
+  border: 3px solid #FFFFFF !important;
+  margin: 1% 0 !important;
+  padding: 0 !important;
+}
+
 .post-container-home {
   width: 75%;
   padding: 1% 2%;
@@ -735,6 +747,15 @@ nav {
   color: #848484;
   font-size: 0.9em;
   margin: 0;
+}
+
+.post-author a {
+  transition: all 0.2s ease-out;
+}
+
+.post-author a:hover {
+  transition: all 0.2s ease-out;
+  opacity: 0.8;
 }
 
 .post-container {
@@ -1061,7 +1082,7 @@ nav {
 
 .vote-count {
   font-size: 1.5em;
-  margin: 0 1.5%;
+  margin: 0 1%;
 }
 
 .delete-vote-button {
@@ -1206,4 +1227,74 @@ nav {
 .album-container button:hover {
   opacity: 0.7;
   transition: all 0.3s ease-out;
+}
+
+/* Inbox */
+
+.inbox-container {
+  width: 75%;
+  padding: 1%;
+  margin: 4% auto;
+  position: relative;
+  display: block;
+  background-color: #FDFDFD;
+  box-shadow: 1px 1px 1px #E6E6E6;
+  border: 1px solid blue;
+}
+
+.inbox-header-container {
+  display: block;
+}
+
+.inbox-container h1 {
+  text-align: left;
+  margin: 0;
+  font-size: 3em;
+  color: #0BA7FB;
+  text-shadow: 1px 1px 1px #82D3FF;
+}
+
+.inbox-header {
+  display: inline-block;
+  float: left;
+  width: 25%;
+  margin: 0;
+}
+
+.inbox-nav-links {
+  display: inline-block;
+  text-align: right;
+  float: left;
+  width: 74%;
+  margin: 15px 0 0 0;
+}
+
+.inbox-nav-links a {
+  display: inline;
+  margin: 0 2%;
+  font-size: 2em;
+  color: #FFCF50;
+  transition: all 0.2s ease-out;
+}
+
+.inbox-nav-links a:hover {
+  color: #FFE49E;
+  transition: all 0.2s ease-out;
+}
+
+.received-messages {
+  border: 1px solid red;
+  margin: 0;
+  display: block;
+}
+
+.sent-messages {
+  border: 1px solid blue;
+  margin: 0;
+  display: block;
+}
+
+.send-messages {
+  border: 1px solid green;
+  display: block;
 }

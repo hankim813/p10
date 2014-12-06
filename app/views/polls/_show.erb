@@ -17,10 +17,10 @@
   </ul>
 
   <p class="poll-context"><%= poll.description %></p>
-  <p class="post-author">shared by: <%= poll.user.nickname %></p>
+  <div><p class="post-author">shared by: <%= poll.user.nickname %></p><img src="<%= poll.user.profile_pic_link %>" class="profile-pic"></div>
 
     <ul class="poll-show">
-      <% poll.options.each do |option| %>
+      <% poll.options.reverse.each do |option| %>
         <li>
         <div>
           <p><%= option.description %></p>
@@ -85,16 +85,16 @@
 
           <% if authenticate_current_user_access_to(reply) %>
             <div class="comment-control">
-              <a href="/families/<%= @family.id %>/users/<%= reply.user.id %>/polls/<%= poll.id %>/comments/<%= reply.id %>/edit" title="edit reply"><i class="fa fa-pencil-square-o"></i>
+              <a href="/families/<%= @family.id %>/users/<%= reply.user.id %>/polls/<%= poll.id %>/comments/<%= reply.id %>/edit" title="edit reply"><i class="fa fa-pencil-square-o"></i></a>
               <form action="/families/<%= @family.id %>/users/<%= reply.user.id %>/polls/<%= poll.id %>/comments/<%= reply.id %>/delete" method="post">
                 <input type="hidden" name="_method" value="delete">
                 <button type="submit" class="delete-button" title="delete reply"><i class="fa fa-trash"></i></button>
               </form>
+            </div>
           <% end %>
         </div>
       <% end %>
     <% end %>
-  </div>
     <div class="post-comment">
       <form action="/families/<%= @family.id %>/polls/<%= poll.id %>/comments/new" method="post">
         <input type="text" name="description">

@@ -123,7 +123,6 @@ post '/families/:family_id/polls/:poll_id/comments/:comment_id/reply' do
   if comment = current_family.comments.find_by(id: params[:comment_id])
     if comment.parent_comment.nil? && reply = comment.replies.create(description: params[:description])
       redirect "/families/#{current_family.id}/show?notice=reply%20successfully%20created#news-feed-anchor" if reply.update_attribute(:user_id, current_user.id) 
-      return
     else
       redirect "/families/#{current_family.id}/show?notice=reply%20no%20save#news-feed-anchor"
     end

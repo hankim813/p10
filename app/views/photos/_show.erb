@@ -18,7 +18,7 @@
     </ul>
 
     <p class="post-author">taken: <%= photo.location %></p>
-    <p class="post-author">shared by: <%= photo.user.nickname %></p>
+    <div><p class="post-author">shared by: <%= photo.user.nickname %></p><img src="<%= photo.user.profile_pic_link %>" class="profile-pic"></div>
 
   <% photo.comments.each do |comment| %>
 
@@ -44,8 +44,7 @@
           <input type="text" name="description">
           <button type="submit" class="reply-button">reply</button>
         </form>
-
-        </div>
+      </div>
 
     <% end %>
 
@@ -55,18 +54,17 @@
           <p class="comment-author">by <%= reply.user.nickname %></p>
 
           <% if authenticate_current_user_access_to(reply) %>
-          <div class="comment-control">
-            <a href="/families/<%= @family.id %>/users/<%= reply.user.id %>/photos/<%= photo.id %>/comments/<%= reply.id %>/edit" title="edit reply"><i class="fa fa-pencil-square-o"></i></a>
-            <form action="/families/<%= @family.id %>/users/<%= reply.user.id %>/photos/<%= photo.id %>/comments/<%= reply.id %>/delete" method="post">
-              <input type="hidden" name="_method" value="delete">
-              <button type="submit" class="delete-button" title="delete reply"><i class="fa fa-trash"></i></button>
-            </form>
-          </div>
+            <div class="comment-control">
+              <a href="/families/<%= @family.id %>/users/<%= reply.user.id %>/photos/<%= photo.id %>/comments/<%= reply.id %>/edit" title="edit reply"><i class="fa fa-pencil-square-o"></i></a>
+              <form action="/families/<%= @family.id %>/users/<%= reply.user.id %>/photos/<%= photo.id %>/comments/<%= reply.id %>/delete" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit" class="delete-button" title="delete reply"><i class="fa fa-trash"></i></button>
+              </form>
+            </div>
         <% end %>
       </div>
     <% end %>
   <% end %>
-
   <div class="post-comment">
     <form action="/families/<%= @family.id %>/photos/<%= photo.id %>/comments/new" method="post">
       <input type="text" name="description">

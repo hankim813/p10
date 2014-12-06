@@ -15,7 +15,7 @@
     <li class="post-author">#<%= tag.word %></li>
   <% end %>
   </ul>
-  <p class="post-author">shared by <%= post.user.nickname %></p>
+  <div><p class="post-author">shared by <%= post.user.nickname %></p><img src="<%= post.user.profile_pic_link %>" class="profile-pic"></div>
 
   <% post.comments.each do |comment| %>
 

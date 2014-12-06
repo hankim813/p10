@@ -14,9 +14,11 @@ get '/tags/search' do
 			@news_feed.flatten!.sort_by!(&:updated_at).reverse!
 		end
 		if @news_feed.count == 1 
-			redirect "/families/#{current_family.id}/tags/search/show?notice=found%201%20result#news-feed-anchor"
+			@notice = "found 1 result"
+			erb :"/tags/show", anchor: "news-feed-anchor"
 		else
-			redirect "/families/#{current_family.id}/tags/search/show?notice=found%20#{@news_feed.count}%20results#news-feed-anchor" 
+			@notice = "found #{@news_feed.count} results."
+			erb :"/tags/show", anchor: "news-feed-anchor"
 		end
 	else
 		redirect "/families/#{current_family.id}/show?notice=no%20results%20found#news-feed-anchor"

@@ -1,46 +1,62 @@
-<h1>account settings</h1>
+<div class="session-page-login-container">
+  <h1>edit your profile</h1>
 
-<form action="/users/<%= current_user.id %>/edit" method="post">
-  <div class="form-field">
-    <label class="label" for="user[first_name]">First Name</label>
-    <input type="text" name="user[first_name]" value="<%= current_user.first_name %>">
-  </div>
-  <div class="form-field">
-    <label class="label" for="user[last_name]">Last Name</label>
-    <input type="text" name="user[last_name]" value="<%= current_user.last_name %>">
-  </div>
-  <div class="form-field">
-    <label class="label" for="user[nickname]">Nickname</label>
-    <input type="text" name="user[nickname]" value="<%= current_user.nickname %>">
-  </div>
-  <div class="form-field">
-    <label class="label" for="user[email]">Email</label>
-    <input type="email" name="user[email]" value="<%= current_user.email %>">
-  </div>
-  <div class="form-field">
-    <label class="label" for="user[phone]">Phone</label>
-    <input type="text" name="user[phone]" value="<%= current_user.phone %>">
-  </div>
-  <div class="form-field">
-    <label class="label" for="user[address]">Current Address</label>
-    <input type="text" name="user[address]" value="<%= current_user.address %>">
-  </div>
-  <div class="form-field">
-    <label class="label" for="user[state]">Current State</label>
-    <input type="text" name="user[state]" value="<%= current_user.state %>">
-  </div>
-  <div class="form-field">
-    <label class="label" for="user[country]">Current Country</label>
-    <input type="text" name="user[country]" value="<%= current_user.country %>">
-  </div>
-  <div class="form-field">
-    <label class="label" for="user[birthday]">Birthday</label>
-    <input type="date" name="user[birthday]" value="<%= current_user.birthday %>">
-  </div>
-  <div class="form-field">
-    <label class="label" for="user[password]">Password</label>
-    <input type="password" name="user[password]">
-  </div>
-  <input type="hidden" name="_method" value="put">
-  <input type="submit" value="Save Changes">
-</form>
+  <form action="/users/<%= current_user.id %>/edit" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="user[first_name]">First Name</label></div>
+      <input type="text" name="user[first_name]" value="<%= current_user.first_name %>">
+    </div>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="user[last_name]">Last Name</label></div>
+      <input type="text" name="user[last_name]" value="<%= current_user.last_name %>">
+    </div>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="user[nickname]">Nickname</label></div>
+      <input type="text" name="user[nickname]" value="<%= current_user.nickname %>">
+    </div>
+    <div class="form-field">
+      <div align="center">upload your profile picture</div>
+      <div align="center" style="position: relative;" id="upload-photo-user"><i class="fa fa-file-image-o"></i><input type="file" name="content[file]" id="content_file" /></div>
+    </div>
+    <% if current_user.profile_pic_link %>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="family[cover_photo_link]">Current Profile Picture</label></div>
+      <div align="center"><img src="<%= current_user.profile_pic_link %>" width="250px" style="border-radius: 5px;"></div>
+    </div>
+    <% end %>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="user[email]">Email</label></div>
+      <input type="email" name="user[email]" value="<%= current_user.email %>">
+    </div>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="user[phone]">Phone</label></div>
+      <input type="text" name="user[phone]" value="<%= current_user.phone %>">
+    </div>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="user[address]">Current Address</label></div>
+      <input type="text" name="user[address]" value="<%= current_user.address %>">
+    </div>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="user[state]">Current State</label></div>
+      <input type="text" name="user[state]" value="<%= current_user.state %>">
+    </div>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="user[country]">Current Country</label></div>
+      <input type="text" name="user[country]" value="<%= current_user.country %>">
+    </div>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="user[birthday]">Birthday</label></div>
+      <input type="text" name="user[birthday]" value="<%= current_user.birthday %>">
+    </div>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="user[password]">Password</label></div>
+      <input type="password" name="user[password]">
+    </div>
+    <input type="hidden" name="_method" value="put">
+    <div align="center"><button type="submit">save</button></div>
+  </form>
+</div>
+
+  <% if current_user.admin %>
+    <%= erb :"/families/edit", layout: false %>
+  <% end %>
