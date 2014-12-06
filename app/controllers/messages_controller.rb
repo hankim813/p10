@@ -13,8 +13,8 @@ post '/families/:family_id/users/:user_id/recipient/:recipient_id/messages/new' 
 	@family = current_family
 	message = Message.new(description: params[:description], user_id: current_user.id, recipient_id: params[:recipient_id])
 	if message.save
-		redirect "/families/#{current_family.id}/users/#{current_user.id}/inbox?notice=message%20sent"
+		redirect "/families/#{current_family.id}/users/#{current_user.id}/inbox?notice=message%20sent#news-feed-anchor"
 	else
-		redirect "/families/#{current_family.id}/users/#{current_user.id}/inbox?notice=message%20could%20not%20be%20sent"
+		redirect "/families/#{current_family.id}/users/#{current_user.id}/inbox?notice=message%20could%20not%20be%20sent#news-feed-anchor"
 	end
 end

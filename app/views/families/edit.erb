@@ -1,41 +1,48 @@
-<h1>family settings</h1>
+<div class="session-page-login-container">
+  <h1>edit your family profile</h1>
 
-<form action="/families/<%= @family.id %>/edit" method="post">
-  <div class="form-field">
-    <label class="label" for="family[name]">Name</label>
-    <input type="text" name="family[name]" value="<%= @family.name %>">
-  </div>
-  <div class="form-field">
-    <label class="label" for="family[slogan]">Slogan</label>
-    <input type="text" name="family[slogan]" value="<%= @family.slogan %>">
-  </div>
-  <div class="form-field">
-    <label class="label" for="family[hometown]">Hometown</label>
-    <input type="text" name="family[hometown]" value="<%= @family.hometown %>">
-  </div>
-  <div class="form-field">
-    <label class="label" for="family[homestate]">Home State</label>
-    <input type="text" name="family[homestate]" value="<%= @family.homestate %>">
-  </div>
-  <div class="form-field">
-    <label class="label" for="family[homecountry]">Home Country</label>
-    <input type="text" name="family[homecountry]" value="<%= @family.homecountry %>">
-  </div>
-  <div class="form-field">
-    <label class="label" for="family[cover_photo_link]">Cover Photo</label>
-    <input type="text" name="family[cover_photo_link]" value="<%= @family.cover_photo_link %>">
-  </div>
-  <div class="form-field">
-    Family Invite Link: 
-    <a href="/users/new?key=<%= @family.token %>">Family Secret Token</a>
-  </div>
-  <div class="form-field">
-    <label class="label" for="user[password]">Password</label>
-    <input type="password" name="user[password]">
-  </div>
-  <input type="hidden" name="_method" value="put">
-  <input type="submit" value="Save Changes">
-</form>
-
+  <form action="/families/<%= @family.id %>/edit" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="family[name]">Name</label></div>
+      <input type="text" name="family[name]" value="<%= @family.name %>">
+    </div>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="family[slogan]">Slogan</label></div>
+      <input type="text" name="family[slogan]" value="<%= @family.slogan %>">
+    </div>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="family[hometown]">Hometown</label></div>
+      <input type="text" name="family[hometown]" value="<%= @family.hometown %>">
+    </div>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="family[homestate]">Home State</label></div>
+      <input type="text" name="family[homestate]" value="<%= @family.homestate %>">
+    </div>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="family[homecountry]">Home Country</label></div>
+      <input type="text" name="family[homecountry]" value="<%= @family.homecountry %>">
+    </div>
+    <div class="form-field">
+      <div align="center">upload your family picture</div>
+      <div align="center" style="position: relative;" id="upload-photo-user"><i class="fa fa-file-image-o"></i><input type="file" name="content[file]" id="content_file" /></div>
+    </div>
+    <% if @family.cover_photo_link %>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="family[cover_photo_link]">Current Profile Picture</label></div>
+      <div align="center"><img src="<%= @family.cover_photo_link %>" width="250px" style="border-radius: 5px;"></div>
+    </div>
+    <% end %>
+    <div class="form-field">
+      <div align="center" style="color: #848484; margin-bottom: 1%;">Family Invite Link(copy link address)</div>
+      <div align="center"><a style="font-size: 1.5em;" href="/users/new?key=<%= @family.token %>">Family Secret Token</a></div>
+    </div>
+    <div class="form-field">
+      <div align="center"><label style="color: #848484; margin-bottom: 1%;" for="user[password]">Password</label></div>
+      <input type="password" name="user[password]">
+    </div>
+    <input type="hidden" name="_method" value="put">
+    <div align="center"><button type="submit">save</button></div>
+  </form>
+</div>
 
 
