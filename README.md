@@ -1,5 +1,7 @@
 > Work in progress
+
 > A 1 week project during Dev Bootcamp
+
 > Album creation and inbox feature is incomplete
 
 Circle
