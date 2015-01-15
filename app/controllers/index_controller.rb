@@ -1,3 +1,5 @@
+after { ActiveRecord::Base.connection.close }
+
 get '/' do
 	redirect "/families/#{current_family.id}/show" if current_user
   @notice = params[:notice]
