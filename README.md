@@ -4,6 +4,8 @@
 
 > Album creation and inbox feature is incomplete
 
+> FB oAuth does not work for all as I didn't get the app approved. But it works! :)
+
 Circle
 ============
 
